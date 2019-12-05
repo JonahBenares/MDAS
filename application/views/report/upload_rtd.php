@@ -21,14 +21,39 @@
                     <div class="card-body">                                
                         <div class="module-head">
                             <h2>
-                                UPLOAD FILE                                                                  
+                                UPLOAD RTD                                                                  
                             </h2>                                    
                         </div>
                         <div class="module-body" >
-                            <form method="POST" action = "import.php" enctype="multipart/form-data">
+                            <form method="POST" action = "<?php echo base_url(); ?>report/import_rtd" enctype="multipart/form-data">
                                 <span>Drag file to the box for upload or click to select files</span>  
-                                <input type="file" name="csv" class="dropzone">
-                                <button type="submit" name = "" id = "submitButton" class="btn btn-success-alt btn-block" >Upload</button>
+                                 <?php
+                                        $msg_updates= $this->session->flashdata('msg_updates');  
+                                        if($msg_updates){
+                                         ?>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
+                                                    <center><?php echo $msg_updates; ?></center>                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php } 
+
+                                         $msg_error= $this->session->flashdata('msg_error');  
+                                        if($msg_error){
+                                         ?>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="success bor-radius10 shadow alert-danger alert-shake animated headShake" style='padding:10px'>
+                                                    <center><?php echo $msg_error; ?></center>                    
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <?php } ?>
+
+                                <input type="file" name="rtd" class="dropzone">
+                                <button type="submit" id = "submitButton" class="btn btn-success-alt btn-block" >Upload</button>
                             </form>
                         </div>
                     </div>
