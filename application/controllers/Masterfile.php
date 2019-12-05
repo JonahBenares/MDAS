@@ -97,63 +97,8 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/navbar');
         $this->load->view('masterfile/dashboard');
         $this->load->view('template/footer');
-    }
+    }  
 
-   
-
-    public function add_user(){
-        $pw=md5('12345');
-        $data=array(
-            'employee_id'=>$this->input->post('employee_name'),
-            'username'=>$this->input->post('username'),
-            'password'=>$pw,
-            'company_id'=>$this->input->post('company'),
-            'department_id'=>$this->input->post('department'),
-            'location_id'=>$this->input->post('location'),
-            'status'=>$this->input->post('status'),
-            'usertype'=>$this->input->post('usertype'),
-        );
-        if($this->super_model->insert_into("users", $data)){
-             redirect(base_url().'masterfile/user_list');
-        }
-
-    }
-
-    public function update_user(){
-        $id = $this->input->post('user_id');
-        $location=$this->input->post('location');
-        $usertype=$this->input->post('usertype');
-        if($usertype==2){
-            if(empty($location)){
-                $data=array(
-                    'company_id'=>$this->input->post('company'),
-                    'department_id'=>$this->input->post('department'),
-                    'status'=>$this->input->post('status'),
-                    'usertype'=>$this->input->post('usertype'),
-                );
-            } else {
-                $data=array(
-                    'company_id'=>$this->input->post('company'),
-                    'department_id'=>$this->input->post('department'),
-                    'status'=>$this->input->post('status'),
-                    'usertype'=>$this->input->post('usertype'),
-                    'location_id'=>$location,
-                );
-            }
-        } else {
-             $data=array(
-                    'company_id'=>$this->input->post('company'),
-                    'department_id'=>$this->input->post('department'),
-                    'status'=>$this->input->post('status'),
-                    'usertype'=>$this->input->post('usertype'),
-                    'location_id'=>0
-                );
-        }
-        if($this->super_model->update_where("users", $data, "user_id", $id)){
-             redirect(base_url().'masterfile/user_list');
-        }
-
-    }
     public function change_password(){
         $data['company'] =  $this->super_model->select_all_order_by('company', 'company_name', 'ASC');
         $data['department'] =  $this->super_model->select_all_order_by('department', 'department_name', 'ASC');
@@ -166,24 +111,41 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function update_password(){
-        $oldpw = md5($this->input->post('old_password'));
-        $newpw = $this->input->post('new_password');
-        $userid = $this->input->post('user_id');
-        $old = $this->super_model->select_column_where("users","password","user_id",$userid);
-        //$opw = md5($old);
-        if($old!=$oldpw){
-            echo "error";
-        }else {
-            $hashed = md5($newpw);
-            $data=array(
-                'password'=>$hashed
-            );
-            if($this->super_model->update_where("users", $data, "user_id", $userid)){
-                echo "ok";
-            }
-        }
+    public function powerplant_list()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/powerplant_list');
+        $this->load->view('template/footer');
     }
 
+    public function plant_type_list()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/plant_type_list');
+        $this->load->view('template/footer');
+    }
+    public function add_powerplant()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/add_powerplant');
+        $this->load->view('template/footer');
+    }
+    public function add_powerplant_second()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/add_powerplant_second');
+        $this->load->view('template/footer');
+    }
+    public function location_list()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/location_list');
+        $this->load->view('template/footer');
+    }
     
 }

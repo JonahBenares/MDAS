@@ -28,16 +28,16 @@
                             <a class="nav-link text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/dashboard/" title="Dashboard"><i class="fa fa-tachometer "></i></a>
                         </li>
                         
-                        <!-- <li class="nav-item dropdown">
+                        <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Masterfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-key "></i></a>
                             <div class="dropleft dropdown-menu drop-left">
-                              <span class="dropdown-item bg-main text-white" disable><center><small>MASTERFILE</small></center></span>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/company_list/">Company</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/department_list/">Department</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/employee_list/">Employee</a>
+                                <span class="dropdown-item bg-main text-white" disable><center><small>MASTERFILE</small></center></span>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/location_list/">Location</a>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/powerplant_list/">Power Plant</a>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/plant_type_list/">Power Plant Type</a>
                             </div>
                         </li>
-                        <li class="nav-item dropdown">
+                        <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>task/add_task/" title="Add New Task"><i class="fa fa-pencil-square-o "></i></a>
                         </li> -->
                         <li class="nav-item dropdown">
