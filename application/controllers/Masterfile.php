@@ -55,23 +55,13 @@ class Masterfile extends CI_Controller {
             $fetch=$this->super_model->select_custom_where("users", "username = '$username' AND (password = '$password' OR password = '$password1')");
             foreach($fetch AS $d){
                 $userid = $d->user_id;
-                $empid = $d->employee_id;
                 $username = $d->username;
                 $fullname = $d->fullname;
-                $department=$d->department_id;
-                $company=$d->company_id;
-                $location=$d->location_id;
-                $usertype=$d->usertype;
             }
             $newdata = array(
                'user_id'=> $userid,
-               'employee'=> $empid,
                'username'=> $username,
                'fullname'=> $fullname,
-               'department'=> $department,
-               'company'=> $company,
-               'location'=>$location,
-               'usertype'=> $usertype,
                'logged_in'=> TRUE
             );
             $this->session->set_userdata($newdata);
