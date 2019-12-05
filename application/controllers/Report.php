@@ -49,6 +49,14 @@ class Report extends CI_Controller {
         $this->load->view('report/rtd_report');
         $this->load->view('template/footer');    
     }
+    public function upload_rtd()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('report/upload_rtd');
+        $this->load->view('template/footer');    
+    }
+
 
     
 }

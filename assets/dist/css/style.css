@@ -22329,4 +22329,9 @@ a table tr:hover{
   background-image: url("../../../assets/images/dg4.jpg")
 }
 
+.dropzone{
+  min-height: 330px;
+  border:1px solid #e5e5e5;
+  width: 100%!important;
+}
 
