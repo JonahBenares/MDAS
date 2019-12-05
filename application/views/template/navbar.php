@@ -27,6 +27,7 @@
                         <li class="nav-item">
                             <a class="nav-link text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/dashboard/" title="Dashboard"><i class="fa fa-tachometer "></i></a>
                         </li>
+                        
                         <!-- <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Masterfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-key "></i></a>
                             <div class="dropleft dropdown-menu drop-left">
@@ -38,22 +39,16 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>task/add_task/" title="Add New Task"><i class="fa fa-pencil-square-o "></i></a>
-                        </li>
+                        </li> -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Task Report" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-tasks "></i></a>
                             <div class="dropleft dropdown-menu drop-left">
-                              <span class="dropdown-item bg-main text-white" disable><center><small>TASK REPORT</small></center></span>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>report/alltask_list/">
-                                <span class="text-primary fa fa-circle"></span> All Tasks</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>report/pending_list/">
-                                <span class="text-warning fa fa-circle"></span> Pending</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>report/completed_list/">
-                                <span class="text-success fa fa-circle"></span> Completed</a>
-                              <a class="dropdown-item" href="<?php echo base_url(); ?>report/cancelled_list/">
-                                <span class="text-danger fa fa-circle"></span> Cancelled</a>
+                              <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
+                              <a class="dropdown-item" href="<?php echo base_url(); ?>report/rtd_report/">
+                                </span> RTD</a>
                             </div>
                         </li>
-                        <li class="nav-item ">
+                        <!-- <li class="nav-item ">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>reminder/reminder_list" title="Reminder"><i class="fa fa-bell animated infinite headShake "></i></a>
                         </li> -->
                     </ul>
