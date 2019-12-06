@@ -100,7 +100,9 @@ class Report extends CI_Controller {
         $userfullname = $this->session->userdata['fullname'];
 
         for($x=6; $x<$highestRow; $x++){
-            $delivery_date = date('Y-m-d', PHPExcel_Shared_Date::ExcelToPHP($objPHPExcel->getActiveSheet()->getCell('A'.$x)->getValue()));
+            //$delivery_date = date('Y-m-d', PHPExcel_Shared_Date::ExcelToPHP($objPHPExcel->getActiveSheet()->getCell('A'.$x)->getValue()));
+            $del_date = trim($objPHPExcel->getActiveSheet()->getCell('A'.$x)->getValue());
+            $delivery_date = date('Y-m-d', strtotime($del_date));
             $delivery_hour = trim($objPHPExcel->getActiveSheet()->getCell('B'.$x)->getValue());
             $region_id = trim($objPHPExcel->getActiveSheet()->getCell('C'.$x)->getValue());
             $type = trim($objPHPExcel->getActiveSheet()->getCell('D'.$x)->getValue());
