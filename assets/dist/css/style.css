@@ -22361,3 +22361,12 @@ a table tr:hover{
   padding: 5px;
  
 }
+.badge-jao{
+  font-size: 12px;
+  padding: 5px;
+  height: 10px;
+  width: 10px
+}
+.nosha{
+  box-shadow: none;
+}
