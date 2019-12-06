@@ -115,6 +115,33 @@
             }
           });
         }
+
+        $(document).on("click", "#updateLoc_button", function () {
+             var location_id = $(this).attr("data-id");
+             var lvm = $(this).attr("data-name");
+             var location_code = $(this).attr("data-aa");
+             var location_name = $(this).attr("data-ab");
+             $("#location_id").val(location_id);
+             $("#lvm").val(lvm);
+             $("#location_code").val(location_code);
+             $("#location_name").val(location_name);
+        });
+
+        $(document).on("click", "#updateType_button", function () {
+             var type_id = $(this).attr("data-id");
+             var type = $(this).attr("data-name");
+             var color = $(this).attr("data-aa");
+             $("#type_id").val(type_id);
+             $("#type").val(type);
+             $("#color").val(color);
+        });
+
+        $(document).on("click", "#updateSubtype_button", function () {
+             var subtype_id = $(this).attr("data-id");
+             var subtype = $(this).attr("data-name");
+             $("#subtype_id").val(subtype_id);
+             $("#subtype").val(subtype);
+        });
     </script>
 </body>
 

@@ -8,19 +8,19 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action = "<?php echo base_url(); ?>masterfile/">
+            <form method="POST" action = "<?php echo base_url(); ?>masterfile/insert_location">
                 <div class="modal-body">
                     <div class="form-group">
                         LVM
-                        <input type="text" name="location" class="form-control">
+                        <input type="text" name="lvm" class="form-control">
                     </div>
                     <div class="form-group">
                         Code
-                        <input type="text" name="location" class="form-control">
+                        <input type="text" name="location_code" class="form-control">
                     </div>
                     <div class="form-group">
                         Location Name
-                        <input type="text" name="location" class="form-control">
+                        <input type="text" name="location_name" class="form-control">
                     </div>                   
                 </div>
                 <div class="modal-footer">                                        
@@ -41,21 +41,22 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form method="POST" action = "<?php echo base_url(); ?>masterfile/">
+            <form method="POST" action = "<?php echo base_url(); ?>masterfile/update_location">
                 <div class="modal-body">
                     <div class="form-group">
                         LVM
-                        <input type="text" name="location" class="form-control">
+                        <input type="text" name="lvm" id = "lvm" class="form-control">
                     </div>
                     <div class="form-group">
                         Code
-                        <input type="text" name="location" class="form-control">
+                        <input type="text" name="location_code" id = "location_code" class="form-control">
                     </div>
                     <div class="form-group">
                         Location Name
-                        <input type="text" name="location" class="form-control">
+                        <input type="text" name="location_name" id = "location_name" class="form-control">
                     </div> 
                 </div>
+                <input type="hidden" name="location_id" id = "location_id" class="form-control">
                 <div class="modal-footer">                                        
                     <button type="submit" class="btn btn-info btn-block">Update</button>
                 </div>
@@ -93,7 +94,19 @@
                                     <span class="fa fa-plus" ></span>
                                 </a>
                             </span>
-                        </h4>   
+                        </h4>  
+                        <?php
+                            $msg= $this->session->flashdata('msg');  
+                            if($msg){
+                        ?>
+                        <div class="row">
+                             <div class="col-lg-12">
+                                <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
+                                    <center><?php echo $msg; ?></center>                    
+                                </div>
+                            </div>
+                        </div>
+                        <?php }  ?> 
                         <div class="table-responsive">                            
                             <table id="myTable" class="table table-hover table-bordered" >
                                 <thead>
@@ -105,24 +118,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    <?php foreach($location AS $l){ ?>
                                     <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td></td>
+                                        <td><?php echo $l->lvm; ?></td>
+                                        <td><?php echo $l->location_code; ?></td>
+                                        <td><?php echo $l->location_name; ?></td>
                                         <td>                                            
                                             <div class="table-data-feature">
                                                 <span data-toggle="modal" data-target="#updateCompany">
-                                                    <a  class="btn btn-warning-alt item btn-xs" data-toggle="tooltip" data-id = "" data-name = "" id = "updateLoc_button" data-placement="top" title="Update" >
+                                                    <a  class="btn btn-warning-alt item btn-xs" data-toggle="tooltip" data-id = "<?php echo $l->location_id; ?>" data-name = "<?php echo $l->lvm; ?>" data-aa = "<?php echo $l->location_code; ?>" data-ab = "<?php echo $l->location_name; ?>" id = "updateLoc_button" data-placement="top" title="Update" >
                                                         <i class="fa fa-pencil-square-o"></i>
                                                     </a>
                                                 </span>
                                                 
-                                                <a href="" onclick="confirmationDelete(this);return false;" class="btn btn-danger-alt item btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
+                                                <a href="<?php echo base_url(); ?>masterfile/delete_location/<?php echo $l->location_id; ?>" onclick="confirmationDelete(this);return false;" class="btn btn-danger-alt item btn-xs" data-toggle="tooltip" data-placement="top" title="Delete" title="Delete" alt='Delete'>
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
                                         </td>                                        
                                     </tr>
+                                    <?php } ?>
                                 </tbody>
                             </table>
                         </div>
