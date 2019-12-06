@@ -52,7 +52,13 @@
             <table class="table table-bordered" width="100%">
                 <tr>
                     <td colspan="2">MARKET PRICES AND SCHEDULE</td>
-                    <td colspan="12"></td>
+                    <td colspan="1"></td>
+                    <td colspan="10" rowspan="3" width="50%">
+                        <div class="btn-group" style="padding: 0 5px 5px 5px">
+                            <button style="background: #9f6eff" class="btn btn-sm nosha"></button>
+                            <button style="background: #ececec" class="btn btn-sm nosha">Hydro Electric</button>
+                        </div>
+                    </td>
                     <td rowspan="3" width="20%" align="center">
                         <a href="javascript:void(0);" class="btn btn-info-alt btn-sm" data-toggle="modal" data-target="#filter"><span class="fa fa-filter"></span></a>
                         <a href="javascript:void(0);" class="btn btn-success-alt btn-sm" data-toggle="modal" data-target="#export"><span class="fa fa-external-link"></span></a>
@@ -63,7 +69,9 @@
                     <td width="9%">START DATE:</td>
                     <td width="5%">2019-11-01</td>
                     <td width="5%"></td>
-                    <td width="5%">Guide:</td>
+                    
+                    <!-- <td width="5%">Guide:</td>
+
                     <td width="3%" style="background: #000"><br></td>
                     <td width="6%">Coal</td>
                     <td width="3%" style="background: #388e3c"><br></td>
@@ -73,14 +81,13 @@
                     <td width="3%" style="background: #f75757"><br></td>
                     <td width="6%">Solar</td>
                     <td width="3%" style="background: #2bc4ff"><br></td>
-                    <td width="6%">Hydro Electric</td>
+                    <td width="6%">Hydro Electric</td> -->
                 </tr>
                 <tr>
                     <td width="9%">END DATE:</td>
                     <td>2019-11-31</td>
                     <td width="5%"></td>
-                    <td width="2%"></td>
-                    <td width=""  style="background: #ffca09"><br></td>
+                <!--     <td width=""  style="background: #ffca09"><br></td>
                     <td width="">Deisel</td>
                     <td width=""  style="background: #475a8e"><br></td>
                     <td width="">Natural Gas</td>
@@ -89,7 +96,7 @@
                     <td width=""  style="background: #f1902e"><br></td>
                     <td width="">Geothermal</td>
                     <td width=""  style="background: #fff038"><br></td>
-                    <td width="">Wind</td>
+                    <td width="">Wind</td> -->
                 </tr>
                 <tr>
                     <td colspan="15"><br></td>
