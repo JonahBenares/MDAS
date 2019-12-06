@@ -46,6 +46,7 @@ class Report extends CI_Controller {
 
     public function rtd_report()
     {
+
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('report/rtd_report');
@@ -95,6 +96,7 @@ class Report extends CI_Controller {
         $sheet = $objPHPExcel->getActiveSheet();
         $highestRow = $sheet->getHighestRow();
         $error=0;
+        $duplicates=0;
         $timestamp = date('Y-m-d H:i:s');
          $userid = $this->session->userdata['user_id'];
         $userfullname = $this->session->userdata['fullname'];
@@ -112,34 +114,51 @@ class Report extends CI_Controller {
             $price = trim($objPHPExcel->getActiveSheet()->getCell('H'.$x)->getValue());
             $initial = trim($objPHPExcel->getActiveSheet()->getCell('I'.$x)->getValue());
 
-            $data = array(
-                'delivery_date'=>$delivery_date,
-                'delivery_hour'=>$delivery_hour,
-                'region_id'=>$region_id,
-                'type'=>$type,
-                'participant_id'=>$participant_id,
-                'resource_id'=>$resource_id,
-                'mw'=>$mw,
-                'price'=>$price,
-                'initial'=>$initial,
-                'upload_timestamp'=>$timestamp,
-                'upload_by'=>$userid
-            );
 
-             if($this->super_model->insert_into("rtd", $data)){
-                $error=0;
-             } else {
-                $error++;
-             }
+            $count = $this->super_model->count_custom_where("rtd","delivery_date='$delivery_date' AND resource_id ='$resource_id' AND delivery_hour = '$delivery_hour'");
+
+           // echo "delivery_date='$delivery_date' AND resource_id ='$resource_id' AND delivery_hour = '$delivery_hour' = ". $count . "<br>";
+          
+                $data = array(
+                    'delivery_date'=>$delivery_date,
+                    'delivery_hour'=>$delivery_hour,
+                    'region_id'=>$region_id,
+                    'type'=>$type,
+                    'participant_id'=>$participant_id,
+                    'resource_id'=>$resource_id,
+                    'mw'=>$mw,
+                    'price'=>$price,
+                    'initial'=>$initial,
+                    'upload_timestamp'=>$timestamp,
+                    'upload_by'=>$userid
+                );
+            if($count==0) {
+                 if($this->super_model->insert_into("rtd", $data)){
+                    $error=0;
+                 } else {
+                    $error++;
+                 }
+            } else {
+                $duplicates++;
+            }
+
        
+            }
+         if($duplicates>0){
+            $this->session->set_flashdata('msg_error', 'There were '.$duplicates.' duplicates found. The system prevented upload of duplicate data.');
+            redirect(base_url().'report/upload_rtd/');
+         } else {
+            
+            if($error==0){
+                     $this->session->set_flashdata('msg_updates', 'RTD successfully uploaded!');
+                     redirect(base_url().'report/upload_rtd/');
+             } else {
+                    $this->session->set_flashdata('msg_error', 'There was an error uploading the RTD.');
+                     redirect(base_url().'report/upload_rtd/');
+            }
         }
-        if($error==0){
-             $this->session->set_flashdata('msg_updates', 'RTD successfully uploaded!');
-             redirect(base_url().'report/upload_rtd/');
-        } else {
-            $this->session->set_flashdata('msg_error', 'There was an error uploading the RTD.');
-             redirect(base_url().'report/upload_rtd/');
-        }
+
+      
     }
 
     
