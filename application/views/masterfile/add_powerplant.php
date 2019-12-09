@@ -22,70 +22,76 @@
                         <div class="row">
                             <div class="col-lg-4 offset-lg-4">
                                 <h4 class="card-title">Add Power Plant </h4>
-                                <form>
+                                <form method = "POST" action="<?php echo base_url(); ?>masterfile/insert_powerplant">
                                     <div class="form-group">
-                                        <input type="text" placeholder="Facility Name" class="form-control" name="priority_no">
+                                        <input type="text" placeholder="Facility Name" class="form-control" name="facility">
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" name='monitor'>
-                                            <option value="">-Type-</option>
+                                        <select class="form-control" name='type' id="type" onChange="chooseType();">
+                                            <option value="">--Select Type--</option>
+                                            <?php foreach($type AS $t){ ?>
+                                            <option value="<?php echo $t->type_id; ?>"><?php echo $t->type_name; ?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" name='monitor'>
-                                            <option value="">-Sub Type-</option>
+                                        <select class="form-control" name='subtype' id="subtype"></select>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Operator" class="form-control" name="operator">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Participant ID" class="form-control" name="participant">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Region" class="form-control" name="region">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Region ID" class="form-control" name="region_id">
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" placeholder="Municipality/Province" class="form-control" name="mprovince">
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control" name='location'>
+                                            <option value="">--Select Location--</option>
+                                            <?php foreach($location AS $l){ ?>
+                                            <option value="<?php echo $l->location_code;?>"><?php echo $l->location_name;?></option>
+                                            <?php } ?>
                                         </select>
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Operator" class="form-control" name="priority_no">
+                                        <input type="text" placeholder="Capacity Installed (MW)" class="form-control" name="cap_installed" onkeypress="return isNumberKey(this, event)">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Participant ID" class="form-control" name="priority_no">
+                                        <input type="text" placeholder="Capacity Dependable (MW)" class="form-control" name="cap_dependable" onkeypress="return isNumberKey(this, event)">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Region" class="form-control" name="priority_no">
+                                        <input type="number" placeholder="Number of Units" class="form-control" name="num_units">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Region ID" class="form-control" name="priority_no">
+                                        <input type="text" placeholder="IPPA" class="form-control" name="ippa">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Municipality/Province" class="form-control" name="priority_no">
+                                        <input type="text" placeholder="Fit Approved" class="form-control" name="fit_approved">
                                     </div>
                                     <div class="form-group">
-                                        <select class="form-control" name='monitor'>
-                                            <option value="">-Location-</option>
-                                        </select>
+                                        <input type="text" placeholder="Owner Type" class="form-control" name="owner_type">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Capacity Installed (MW)" class="form-control" name="priority_no">
+                                        <input type="text" placeholder="Type of Contract" class="form-control" name="toc">
                                     </div>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Capacity Dependable (MW)" class="form-control" name="priority_no">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" placeholder="Number of Units" class="form-control" name="priority_no">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" placeholder="IPPA" class="form-control" name="priority_no">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" placeholder="Fit Approved" class="form-control" name="priority_no">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" placeholder="Owner Type" class="form-control" name="priority_no">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="number" placeholder="Type of Contract" class="form-control" name="priority_no">
-                                    </div>
-                                    <div class="form-group">
-                                        <select class="form-control" name='monitor'>
+                                        <select class="form-control" name='status'>
                                             <option value="">-Status-</option>
-                                            <option value="">Active</option>
-                                            <option value="">Inactive</option>
+                                            <option value="0">Active</option>
+                                            <option value="1">Inactive</option>
                                         </select>
                                     </div>
+                                    <input type="hidden" class="form-control" name="baseurl" id = "baseurl" value = "<?php echo base_url(); ?>">
                                     <div class="form-group">
-                                        <a href="<?php echo base_url(); ?>masterfile/add_powerplant_second" class="btn btn-info-alt btn-block">Next</a>
+                                        <!-- <a href="<?php echo base_url(); ?>masterfile/add_powerplant_second" class="btn btn-info-alt btn-block">Next</a> -->
+                                        <input type="submit" name="submit" class="btn btn-info-alt btn-block" value = "Next">
                                     </div>
                                 </form>
                             </div>

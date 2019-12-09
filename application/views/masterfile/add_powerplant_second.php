@@ -22,17 +22,22 @@
                         <div class="row">
                             <div class="col-lg-4 offset-lg-4">
                                 <h4 class="card-title">Add Unit</h4>
-                                <form>
+                                <form method = "POST" action="<?php echo base_url(); ?>masterfile/insert_powersec">
                                     <!-- loop -->
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <div class="form-group">
-                                            <input type="text" placeholder="Resource ID" class="form-control" name="priority_no">
+                                    <?php for($x=1;$x<=$unit_number;$x++){ ?>
+                                        <div class="card shadow bor-radius20 p-20">
+                                            <div class="form-group">
+                                                <input type="text" placeholder="Resource ID" class="form-control" name="resource_id<?php echo $x; ?>">
+                                            </div>
+                                            <input type="date" placeholder="Date Commisioned/Commercial" class="form-control" name="com_date<?php echo $x; ?>">
                                         </div>
-                                        <input type="text" placeholder="Date Commisioned/Commercial" class="form-control" name="priority_no">
-                                    </div>
+                                    <?php } $count = $x-1; ?>
                                     <!-- loop -->
+                                    <input type="hidden" class="form-control" name="count" value = "<?php echo $count; ?>">
+                                    <input type="hidden" class="form-control" name="powerplant_id" value = "<?php echo $powerplant_id; ?>">
                                     <div class="form-group">
-                                        <a href="<?php echo base_url(); ?>masterfile/add_powerplant_second" class="btn btn-info-alt btn-block">Submit</a>
+                                        <!-- <a href="<?php echo base_url(); ?>masterfile/add_powerplant_second" class="btn btn-info-alt btn-block">Submit</a> -->
+                                        <input type="submit" name="submit" class="btn btn-info-alt btn-block" value = "Submit">
                                     </div>
                                 </form>
                             </div>

@@ -22,7 +22,19 @@
                             <a href="<?php echo base_url(); ?>masterfile/add_powerplant" class="btn btn-info-alt btn-sm bor-radius pull-right" data-toggle="tooltip" data-placement="top" title="Add Company" >
                                 <span class="fa fa-plus" ></span>
                             </a>
-                        </h4>                                                
+                        </h4>      
+                        <?php
+                            $msg= $this->session->flashdata('msg');  
+                            if($msg){
+                        ?>
+                        <div class="row">
+                             <div class="col-lg-12">
+                                <div class="success bor-radius10 shadow alert-success alert-shake animated headShake" style='padding:10px'>
+                                    <center><?php echo $msg; ?></center>                    
+                                </div>
+                            </div>
+                        </div>
+                        <?php }  ?>                                          
                         <table id="myTable" class="table table-hover table-bordered" >
                             <thead>
                                 <tr>
