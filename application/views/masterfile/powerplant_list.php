@@ -38,22 +38,38 @@
                         <table id="myTable" class="table table-hover table-bordered" >
                             <thead>
                                 <tr>
-                                    <th> Name</th>
-                                    <th width="7%" class="text-center"><span class="fa fa-bars"></span></th>
+                                    <th>Facility Name</th>
+                                    <th>Type</th>
+                                    <th>Subtype</th>
+                                    <th>Operator</th>
+                                    <th>Region</th>
+                                    <th>Municipality</th>
+                                    <th>No. of Units</th>
+                                    <th width="10%" class="text-center"><span class="fa fa-bars"></span></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td></td>
-                                    <td width="7%" align="center">                                             
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td align="center">                                             
                                         <span data-toggle="modal" data-target="#updatetype">
                                             <a href="#" class="btn btn-warning-alt btn-xs bor-radius" title="Update Type" >
                                                 <span class="fa fa-pencil"></span>
                                             </a>
                                         </span>
+                                        <a href="<?php echo base_url(); ?>masterfile/view_powerplant/" class="btn btn-primary-alt btn-xs bor-radius" title="Delete Type" >
+                                            <span class="fa fa-eye"></span>
+                                        </a>
                                         <a href="#" class="btn btn-danger-alt btn-xs bor-radius" title="Delete Type" >
                                             <span class="fa fa-trash"></span>
                                         </a>
+                                        
                                     </td>                                       
                                 </tr>
                             </tbody>

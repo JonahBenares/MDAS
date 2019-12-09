@@ -109,6 +109,14 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/footer');
     }
 
+     public function view_powerplant()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/view_powerplant');
+        $this->load->view('template/footer');
+    }
+
     public function plant_type_list(){
         $data['type_id'] = $this->uri->segment(3);
         $type_id = $this->uri->segment(3);
