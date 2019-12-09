@@ -24,7 +24,7 @@
                                 <h4 class="card-title">Add Power Plant </h4>
                                 <form>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Faculty Name" class="form-control" name="priority_no">
+                                        <input type="text" placeholder="Facility Name" class="form-control" name="priority_no">
                                     </div>
                                     <div class="form-group">
                                         <select class="form-control" name='monitor'>
