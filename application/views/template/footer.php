@@ -142,6 +142,37 @@
              $("#subtype_id").val(subtype_id);
              $("#subtype").val(subtype);
         });
+
+        function chooseType(){
+            var loc= document.getElementById("baseurl").value;
+            var redirect = loc+'masterfile/getType';
+            var type = document.getElementById("type").value;
+            $.ajax({
+                    type: 'POST',
+                    url: redirect,
+                    data: 'type='+type,
+                    success: function(data){
+                        $("#subtype").html(data);
+                   }
+            }); 
+        }
+
+        function isNumberKey(txt, evt){
+           var charCode = (evt.which) ? evt.which : evt.keyCode;
+            if (charCode == 46) {
+                //Check if the text already contains the . character
+                if (txt.value.indexOf('.') === -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                if (charCode > 31
+                     && (charCode < 48 || charCode > 57))
+                    return false;
+            }
+            return true;
+        }
     </script>
 </body>
 
