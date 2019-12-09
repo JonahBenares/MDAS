@@ -49,29 +49,29 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php foreach($powerplant AS $p){ ?>
                                 <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
+                                    <td><?php echo $p['facility_name']; ?></td>
+                                    <td><?php echo $p['type']; ?></td>
+                                    <td><?php echo $p['subtype']; ?></td>
+                                    <td><?php echo $p['operator']; ?></td>
+                                    <td><?php echo $p['region']; ?></td>
+                                    <td><?php echo $p['municipality_city']; ?></td>
+                                    <td><?php echo $p['no_of_units']; ?></td>
                                     <td align="center">                                             
-                                        <span data-toggle="modal" data-target="#updatetype">
-                                            <a href="#" class="btn btn-warning-alt btn-xs bor-radius" title="Update Type" >
-                                                <span class="fa fa-pencil"></span>
-                                            </a>
-                                        </span>
-                                        <a href="<?php echo base_url(); ?>masterfile/view_powerplant/" class="btn btn-primary-alt btn-xs bor-radius" title="Delete Type" >
+                                        <a href="<?php echo base_url(); ?>masterfile/add_powerplant/<?php echo $p['powerplant_id']?>" class="btn btn-warning-alt btn-xs bor-radius" title="Update Powerplant" >
+                                            <span class="fa fa-pencil"></span>
+                                        </a>
+                                        <a href="<?php echo base_url(); ?>masterfile/view_powerplant/<?php echo $p['powerplant_id']?>" class="btn btn-primary-alt btn-xs bor-radius" title="View Powerplant" >
                                             <span class="fa fa-eye"></span>
                                         </a>
-                                        <a href="#" class="btn btn-danger-alt btn-xs bor-radius" title="Delete Type" >
+                                        <a href="<?php echo base_url(); ?>masterfile/delete_powerplant/<?php echo $p['powerplant_id']?>" class="btn btn-danger-alt btn-xs bor-radius" title="Delete Powerplant" onclick="confirmationDelete(this);return false;">
                                             <span class="fa fa-trash"></span>
                                         </a>
                                         
                                     </td>                                       
                                 </tr>
+                                <?php } ?>
                             </tbody>
                         </table>
                     </div>

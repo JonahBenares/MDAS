@@ -101,19 +101,66 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/footer');
     }
 
-    public function powerplant_list()
-    {
+    public function powerplant_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('masterfile/powerplant_list');
+        foreach($this->super_model->select_all_order_by("powerplants","facility_name","ASC") AS $po){
+            $type = $this->super_model->select_column_where("pp_type","type_name","type_id",$po->type_id);
+            $subtype = $this->super_model->select_column_where("pp_subtype","subtype_name","subtype_id",$po->subtype_id);
+            $location = $this->super_model->select_column_where("location","location_name","location_code",$po->location_id);
+            $data['powerplant'][]=array(
+                "powerplant_id"=>$po->powerplant_id,
+                "facility_name"=>$po->facility_name,
+                "type"=>$type,
+                "subtype"=>$subtype,
+                "operator"=>$po->operator,
+                "participant_id"=>$po->participant_id,
+                "region"=>$po->region,
+                "municipality_city"=>$po->municipality_city,
+                "no_of_units"=>$po->no_of_units,
+            );
+        }
+        $this->load->view('masterfile/powerplant_list',$data);
         $this->load->view('template/footer');
     }
 
-     public function view_powerplant()
-    {
+    public function view_powerplant(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('masterfile/view_powerplant');
+        $powerplant_id = $this->uri->segment(3);
+        foreach($this->super_model->select_row_where("powerplants","powerplant_id",$powerplant_id) AS $po){
+            $type = $this->super_model->select_column_where("pp_type","type_name","type_id",$po->type_id);
+            $subtype = $this->super_model->select_column_where("pp_subtype","subtype_name","subtype_id",$po->subtype_id);
+            $location = $this->super_model->select_column_where("location","location_name","location_code",$po->location_id);
+            $data['powerplant'][]=array(
+                "powerplant_id"=>$po->powerplant_id,
+                "facility_name"=>$po->facility_name,
+                "type"=>$type,
+                "subtype"=>$subtype,
+                "operator"=>$po->operator,
+                "participant_id"=>$po->participant_id,
+                "region"=>$po->region,
+                "region_id"=>$po->region_id,
+                "location"=>$location,
+                "municipality_city"=>$po->municipality_city,
+                "no_of_units"=>$po->no_of_units,
+                "capacity_installed"=>$po->capacity_installed,
+                "capacity_dependable"=>$po->capacity_dependable,
+                "ippa"=>$po->ippa,
+                "fit_approved"=>$po->fit_approved,
+                "owner_type"=>$po->owner_type,
+                "type_of_contract"=>$po->type_of_contract,
+                "status"=>$po->status,
+            );
+        }
+
+        foreach($this->super_model->select_row_where("pp_resources","powerplant_id",$powerplant_id) AS $rp){
+            $data['resource'][]=array(
+                "resource_id"=>$rp->resource_id,
+                "date_commissioned"=>$rp->date_commissioned,
+            );
+        }
+        $this->load->view('masterfile/view_powerplant',$data);
         $this->load->view('template/footer');
     }
 
@@ -204,7 +251,29 @@ class Masterfile extends CI_Controller {
     public function add_powerplant(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
+        $data['powerplant_id'] = $this->uri->segment(3);
+        $powerplant_id= $this->uri->segment(3);
+        foreach($this->super_model->select_row_where("powerplants", "powerplant_id", $powerplant_id) AS $p){
+            $data['facility_name']=$p->facility_name;
+            $data['type_id']=$p->type_id;
+            $data['subtype_id']=$p->subtype_id;
+            $data['operator']=$p->operator;
+            $data['participant_id']=$p->participant_id;
+            $data['region']=$p->region;
+            $data['region_id']=$p->region_id;
+            $data['municipality_city']=$p->municipality_city;
+            $data['location_id']=$p->location_id;
+            $data['capacity_installed']=$p->capacity_installed;
+            $data['capacity_dependable']=$p->capacity_dependable;
+            $data['no_of_units']=$p->no_of_units;
+            $data['ippa']=$p->ippa;
+            $data['fit_approved']=$p->fit_approved;
+            $data['owner_type']=$p->owner_type;
+            $data['type_of_contract']=$p->type_of_contract;
+            $data['status']=$p->status;
+        }
         $data['type']=$this->super_model->select_all_order_by("pp_type","type_name","ASC");
+        $data['subtype']=$this->super_model->select_all_order_by("pp_subtype","subtype_name","ASC");
         $data['location']=$this->super_model->select_all_order_by("location","location_name","ASC");
         $this->load->view('masterfile/add_powerplant',$data);
         $this->load->view('template/footer');
@@ -270,12 +339,72 @@ class Masterfile extends CI_Controller {
         }
     }
 
+    public function update_powerplant(){
+        $powerplant_id = trim($this->input->post('powerplant_id')," ");
+        $facility = trim($this->input->post('facility')," ");
+        $type = trim($this->input->post('type')," ");
+        $subtype = trim($this->input->post('subtype')," ");
+        $operator = trim($this->input->post('operator')," ");
+        $participant = trim($this->input->post('participant')," ");
+        $region = trim($this->input->post('region')," ");
+        $region_id = trim($this->input->post('region_id')," ");
+        $municipality_city = trim($this->input->post('mprovince')," ");
+        $location = trim($this->input->post('location')," ");
+        $cap_installed = trim($this->input->post('cap_installed')," ");
+        $cap_dependable = trim($this->input->post('cap_dependable')," ");
+        $num_units = trim($this->input->post('num_units')," ");
+        $ippa = trim($this->input->post('ippa')," ");
+        $fit_approved = trim($this->input->post('fit_approved')," ");
+        $owner_type = trim($this->input->post('owner_type')," ");
+        $toc = trim($this->input->post('toc')," ");
+        $status = trim($this->input->post('status')," ");
+        $data = array(
+            'facility_name'=>$facility,
+            'type_id'=>$type,
+            'subtype_id'=>$subtype,
+            'operator'=>$operator,
+            'participant_id'=>$participant,
+            'region'=>$region,
+            'region_id'=>$region_id,
+            'municipality_city'=>$municipality_city,
+            'location_id'=>$location,
+            'capacity_installed'=>$cap_installed,
+            'capacity_dependable'=>$cap_dependable,
+            'no_of_units'=>$num_units,
+            'ippa'=>$ippa,
+            'fit_approved'=>$fit_approved,
+            'owner_type'=>$owner_type,
+            'type_of_contract'=>$toc,
+            'status'=>$status,
+        );
+        if($this->super_model->update_where("powerplants", $data, "powerplant_id", $powerplant_id)){
+            redirect(base_url().'masterfile/add_powerplant_second/'.$powerplant_id.'/update');
+        }
+    }
+
+    public function delete_powerplant(){
+        $powerplant_id=$this->uri->segment(3);
+        if($this->super_model->delete_where('powerplants', 'powerplant_id', $powerplant_id)){
+            $this->super_model->delete_where('pp_resources', 'powerplant_id', $powerplant_id);
+            $this->session->set_flashdata('msg', 'Powerplant Successfully Deleted!');
+            redirect(base_url().'masterfile/powerplant_list');
+        }
+    }
+
     public function add_powerplant_second(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $powerplant_id = $this->uri->segment(3);
         $data['powerplant_id']=$powerplant_id;
+        $data['update']=$this->uri->segment(4);
         $data['unit_number'] = $this->super_model->select_column_where("powerplants","no_of_units","powerplant_id",$powerplant_id);
+        foreach($this->super_model->select_row_where("pp_resources", "powerplant_id", $powerplant_id) AS $p){
+            $data['resource'][] = array(
+                'ppr_id'=>$p->ppr_id,
+                'resource_id'=>$p->resource_id,
+                'date_commissioned'=>$p->date_commissioned,
+            );
+        }
         $this->load->view('masterfile/add_powerplant_second',$data);
         $this->load->view('template/footer');
     }
@@ -294,6 +423,24 @@ class Masterfile extends CI_Controller {
             $this->super_model->insert_into("pp_resources", $data);
         }
         $this->session->set_flashdata('msg', 'Unit Successfully Added!');
+        redirect(base_url().'masterfile/powerplant_list');
+    }
+
+    public function update_powersec(){
+        $count = $this->input->post('count');
+        $powerplant_id = trim($this->input->post('powerplant_id')," ");
+        for($x=1;$x<=$count;$x++){
+            $resource_id = trim($this->input->post('resource_id'.$x)," ");
+            $com_date = trim($this->input->post('com_date'.$x)," ");
+            $ppr_id = trim($this->input->post('ppr_id'.$x)," ");
+            $data = array(
+                'resource_id'=>$resource_id,
+                'powerplant_id'=>$powerplant_id,
+                'date_commissioned'=>$com_date,
+            );
+            $this->super_model->update_where("pp_resources", $data, "ppr_id", $ppr_id);
+        }
+        $this->session->set_flashdata('msg', 'Unit Successfully Updated!');
         redirect(base_url().'masterfile/powerplant_list');
     }
 

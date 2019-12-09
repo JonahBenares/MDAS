@@ -21,82 +21,34 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-lg-6">
-                                    <h5><small>Facility Name</small><br>Facility Name</h5>
-                                    <h5><small>Type </small><br>Type</h5>
-                                    <h5><small>Sub Type </small><br>sub Type</h5>
-                                    <h5><small>Operator </small><br>Operator</h5>
-                                    <h5><small>Participant ID </small><br>Participant ID</h5>
-                                    <h5><small>Region </small><br>Region</h5>
-                                    <h5><small>Region ID </small><br>Region ID </h5>
-                                    <h5><small>Municipality/Province </small><br>Municipality/Province </h5>
-                                    <h5><small>Location </small><br>Location </h5>
-                                    <h5><small>Capacity Installed (MW) </small><br>Capacity Installed (MW) </h5>
-                                    <h5><small>Capacity Dependable (MW) </small><br>Capacity Dependable (MW) </h5>
-                                    <h5><small>Number of Units </small><br>Number of Units </h5>
-                                    <h5><small>IPPA </small><br>IPPA </h5>
-                                    <h5><small>Fit Approved </small><br>Fit Approved </h5>
-                                    <h5><small>Owner Type </small><br>Owner Type </h5>
-                                    <h5><small>Type of Contract </small><br>Type of Contract </h5>
-                                    <h5><small>Status </small><br>Status </h5>
+                                <?php foreach($powerplant AS $p){ ?>
+                                    <h5><small>Facility Name</small><br><?php echo $p['facility_name']; ?></h5>
+                                    <h5><small>Type </small><br><?php echo $p['type']; ?></h5>
+                                    <h5><small>Sub Type </small><br><?php echo $p['subtype']; ?></h5>
+                                    <h5><small>Operator </small><br><?php echo $p['operator']; ?></h5>
+                                    <h5><small>Participant ID </small><br><?php echo $p['participant_id']; ?></h5>
+                                    <h5><small>Region </small><br><?php echo $p['region']; ?></h5>
+                                    <h5><small>Region ID </small><br><?php echo $p['region_id']; ?></h5>
+                                    <h5><small>Municipality/Province </small><br><?php echo $p['municipality_city']; ?></h5>
+                                    <h5><small>Location </small><br><?php echo $p['location']; ?></h5>
+                                    <h5><small>Capacity Installed (MW) </small><br><?php echo $p['capacity_installed']; ?></h5>
+                                    <h5><small>Capacity Dependable (MW) </small><br><?php echo $p['capacity_dependable']; ?></h5>
+                                    <h5><small>Number of Units </small><br><?php echo $p['no_of_units']; ?></h5>
+                                    <h5><small>IPPA </small><br><?php echo $p['ippa']; ?></h5>
+                                    <h5><small>Fit Approved </small><br><?php echo $p['fit_approved']; ?></h5>
+                                    <h5><small>Owner Type </small><br><?php echo $p['owner_type']; ?></h5>
+                                    <h5><small>Type of Contract </small><br><?php echo $p['type_of_contract']; ?></h5>
+                                    <h5><small>Status </small><br><?php echo ($p['status']==0) ? 'Active' : 'Inactive'; ?></h5>
+                                <?php } ?>
                             </div>
                             <div class="col-lg-6">
                                 <div style="overflow-y: scroll;height: 750px;padding: 20px;background: #efefef">
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
-                                    <div class="card shadow bor-radius20 p-20">
-                                        <h5><small>Resource ID</small><br>Resource ID</h5>
-                                        <h5><small>Date Commisioned/Commercial</small><br>Resource ID</h5>
-                                    </div>
+                                    <?php foreach($resource AS $r){ ?>
+                                        <div class="card shadow bor-radius20 p-20">
+                                            <h5><small>Resource ID</small><br><?php echo $r['resource_id'];?></h5>
+                                            <h5><small>Date Commisioned/Commercial</small><br><?php echo $r['date_commissioned'];?></h5>
+                                        </div>
+                                    <?php } ?>
                                 </div>
                             </div>
                         </div>
