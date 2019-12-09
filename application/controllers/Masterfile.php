@@ -422,7 +422,7 @@ class Masterfile extends CI_Controller {
             );
             $this->super_model->insert_into("pp_resources", $data);
         }
-        $this->session->set_flashdata('msg', 'Unit Successfully Added!');
+        $this->session->set_flashdata('msg', 'Powerplant Successfully Added!');
         redirect(base_url().'masterfile/powerplant_list');
     }
 
@@ -440,7 +440,7 @@ class Masterfile extends CI_Controller {
             );
             $this->super_model->update_where("pp_resources", $data, "ppr_id", $ppr_id);
         }
-        $this->session->set_flashdata('msg', 'Unit Successfully Updated!');
+        $this->session->set_flashdata('msg', 'Powerplant Successfully Updated!');
         redirect(base_url().'masterfile/powerplant_list');
     }
 
