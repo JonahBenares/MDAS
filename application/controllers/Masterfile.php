@@ -104,7 +104,7 @@ class Masterfile extends CI_Controller {
     public function powerplant_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        foreach($this->super_model->select_all_order_by("powerplants","facility_name","ASC") AS $po){
+        foreach($this->super_model->select_custom_where("powerplants","status='0' ORDER BY facility_name ASC") AS $po){
             $type = $this->super_model->select_column_where("pp_type","type_name","type_id",$po->type_id);
             $subtype = $this->super_model->select_column_where("pp_subtype","subtype_name","subtype_id",$po->subtype_id);
             $location = $this->super_model->select_column_where("location","location_name","location_code",$po->location_id);
