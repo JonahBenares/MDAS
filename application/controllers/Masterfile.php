@@ -104,7 +104,7 @@ class Masterfile extends CI_Controller {
     public function powerplant_list(){
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        foreach($this->super_model->select_custom_where("powerplants","status='0' ORDER BY facility_name ASC") AS $po){
+        foreach($this->super_model->select_custom_where("powerplants","status='Active' ORDER BY facility_name ASC") AS $po){
             $type = $this->super_model->select_column_where("pp_type","type_name","type_id",$po->type_id);
             $subtype = $this->super_model->select_column_where("pp_subtype","subtype_name","subtype_id",$po->subtype_id);
             $location = $this->super_model->select_column_where("location","location_name","location_code",$po->location_id);
@@ -154,11 +154,16 @@ class Masterfile extends CI_Controller {
             );
         }
 
-        foreach($this->super_model->select_row_where("pp_resources","powerplant_id",$powerplant_id) AS $rp){
-            $data['resource'][]=array(
-                "resource_id"=>$rp->resource_id,
-                "date_commissioned"=>$rp->date_commissioned,
-            );
+        $row = $this->super_model->count_rows_where("pp_resources","powerplant_id",$powerplant_id);
+        if($row!=0){
+            foreach($this->super_model->select_row_where("pp_resources","powerplant_id",$powerplant_id) AS $rp){
+                $data['resource'][]=array(
+                    "resource_id"=>$rp->resource_id,
+                    "date_commissioned"=>$rp->date_commissioned,
+                );
+            }
+        }else {
+            $data['resource']=array();
         }
         $this->load->view('masterfile/view_powerplant',$data);
         $this->load->view('template/footer');
@@ -412,7 +417,7 @@ class Masterfile extends CI_Controller {
     public function insert_powersec(){
         $count = $this->input->post('count');
         $powerplant_id = trim($this->input->post('powerplant_id')," ");
-        for($x=1;$x<=$count;$x++){
+        for($x=0;$x<$count;$x++){
             $resource_id = trim($this->input->post('resource_id'.$x)," ");
             $com_date = trim($this->input->post('com_date'.$x)," ");
             $data = array(
@@ -429,7 +434,7 @@ class Masterfile extends CI_Controller {
     public function update_powersec(){
         $count = $this->input->post('count');
         $powerplant_id = trim($this->input->post('powerplant_id')," ");
-        for($x=1;$x<=$count;$x++){
+        for($x=0;$x<$count;$x++){
             $resource_id = trim($this->input->post('resource_id'.$x)," ");
             $com_date = trim($this->input->post('com_date'.$x)," ");
             $ppr_id = trim($this->input->post('ppr_id'.$x)," ");
@@ -438,7 +443,12 @@ class Masterfile extends CI_Controller {
                 'powerplant_id'=>$powerplant_id,
                 'date_commissioned'=>$com_date,
             );
-            $this->super_model->update_where("pp_resources", $data, "ppr_id", $ppr_id);
+
+            if(!empty($ppr_id)){
+                $this->super_model->update_where("pp_resources", $data, "ppr_id", $ppr_id);
+            }else if($ppr_id=='') {
+                $this->super_model->insert_into("pp_resources", $data);
+            }
         }
         $this->session->set_flashdata('msg', 'Powerplant Successfully Updated!');
         redirect(base_url().'masterfile/powerplant_list');

@@ -155,11 +155,11 @@
                                     <table class="table table-hover table-bordered " width="100%" >
                                         <tbody>
                                             <!-- loop -->
-                                            <?php foreach($type AS $t){ ?>
-                                            <tr>
+                                            <?php foreach($type AS $t){ ?> 
+                                            <tr class="plant-hover">
                                                 <td>
-                                                    <a class="btn btn-lg btn-link text-dark" href="<?php echo base_url(); ?>masterfile/plant_type_list/<?php echo $t->type_id; ?>">
-                                                        <?php echo $t->type_name; ?>
+                                                    <a class="btn btn-lg btn-link text-dark btn-block" href="<?php echo base_url(); ?>masterfile/plant_type_list/<?php echo $t->type_id; ?>" style="text-align: left;background: <?php echo $t->legend_color; ?>">
+                                                        <b><?php echo $t->type_name; ?></b>
                                                     </a>
                                                 </td>
                                                 <td width="10%" align="center">                                             

@@ -96,9 +96,11 @@ $ci =& get_instance(); ?>
                                 <th rowspan="2" width="2%" class="va-bottom"><span class="m-l-5 m-r-5">Participant_ID</span></th>
                                 <th rowspan="2" width="2%" class="va-bottom"><span class="m-l-5 m-r-5">Resource_ID</span></th>
                                 <?php for($x=1;$x<=$days;$x++){ ?>
+
                                 <th colspan="3"><center><?php echo $x; ?></center></th>
                                 <?php } ?>
-                                
+                                         
+
                             </tr>
                             <tr>
                                 <?php for($x=1;$x<=$days;$x++){ ?>
@@ -106,18 +108,18 @@ $ci =& get_instance(); ?>
                                 <th><span class="m-l-20 m-r-20">MW</span></th>
                                 <th><span class="m-l-30 m-r-30">Price</span></th>
                                 <th><span class="m-l-20 m-r-20">Initial</span></th>
-                                <?php } ?>
-                                
+                                <?php } ?>                                
                             </tr>
                        </thead>
                        <tbody style="border-bottom: 2px solid #000!important">
                        <?php  foreach($rtd AS $rt){ ?>
-                            <tr  >
+                            <tr class="hover-high" >
                                 <td align="center"><?php echo $rt->delivery_hour; ?></td>
                                 <td align="center"><?php echo $rt->region_id; ?></td>
                                 <td align="center"><?php echo $rt->type; ?></td>
                                 <td align="center"><?php echo $rt->participant_id; ?></td>
                                 <td align="center"><?php echo $rt->resource_id; ?></td>
+
                                      <?php for($x=1;$x<=$days;$x++){
                                         $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); ?>
                                         
@@ -129,6 +131,9 @@ $ci =& get_instance(); ?>
                                     } ?>
                             </tr>
                             <?php } ?>
+
+                            
+
                        </tbody>
 
 

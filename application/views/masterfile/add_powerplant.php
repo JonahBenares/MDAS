@@ -97,8 +97,8 @@
                                     <div class="form-group">
                                         <select class="form-control" name='status'>
                                             <option value="">-Status-</option>
-                                            <option value="0" <?php echo (!empty($powerplant_id) ? (($status==0) ? ' selected' : '') : ''); ?>>Active</option>
-                                            <option value="1" <?php echo (!empty($powerplant_id) ? (($status==1) ? ' selected' : '') : ''); ?>>Inactive</option>
+                                            <option value="Active" <?php echo (!empty($powerplant_id) ? (($status=='Active') ? ' selected' : '') : ''); ?>>Active</option>
+                                            <option value="Inactive" <?php echo (!empty($powerplant_id) ? (($status=='Inactive') ? ' selected' : '') : ''); ?>>Inactive</option>
                                         </select>
                                     </div>
                                     <input type="hidden" class="form-control" name="baseurl" id = "baseurl" value = "<?php echo base_url(); ?>">
