@@ -22370,3 +22370,6 @@ a table tr:hover{
 .nosha{
   box-shadow: none;
 }
+.hover-high:hover{
+  background: #d8d8d8!important;
+}
