@@ -96,13 +96,13 @@ $ci =& get_instance(); ?>
                                 <th rowspan="2" width="2%" class="va-bottom"><span class="m-l-5 m-r-5">Participant_ID</span></th>
                                 <th rowspan="2" width="2%" class="va-bottom"><span class="m-l-5 m-r-5">Resource_ID</span></th>
                                 <?php for($x=1;$x<=$days;$x++){ ?>
-                                <th colspan="4"><center><?php echo $x; ?></center></th>
+                                <th colspan="3"><center><?php echo $x; ?></center></th>
                                 <?php } ?>
                                 
                             </tr>
                             <tr>
                                 <?php for($x=1;$x<=$days;$x++){ ?>
-                                <th><span class="m-l-60"></span> </th>
+                               <!--  <th><span class="m-l-60"></span> </th> -->
                                 <th><span class="m-l-20 m-r-20">MW</span></th>
                                 <th><span class="m-l-30 m-r-30">Price</span></th>
                                 <th><span class="m-l-20 m-r-20">Initial</span></th>
@@ -118,24 +118,17 @@ $ci =& get_instance(); ?>
                                 <td align="center"><?php echo $rt->type; ?></td>
                                 <td align="center"><?php echo $rt->participant_id; ?></td>
                                 <td align="center"><?php echo $rt->resource_id; ?></td>
-                                <?php for($x=1;$x<=$days;$x++){ 
-                                     $date = $year.'-'.$month.'-'.str_pad($x,2,"0",STR_PAD_LEFT); 
-                                 //    echo $rt->delivery_date." == ". $date. " - ".$rt->resource_id ."<br>";
-                                     if($rt->delivery_date == $date){ ?>
-                                    <td align="center"><?php echo $rt->resource_id; ?></td>
-                                    <td align="center"><?php echo $rt->mw; ?></td>
-                                    <td align="center"><?php echo number_format($rt->price,2); ?></td>
-                                    <td align="center"><?php echo $rt->initial; ?></td>
-                                <?php } else { ?>
-                                    <td align="center"></td>
-                                    <td align="center"></td>
-                                    <td align="center"></td>
-                                    <td align="center"></td>
-                                    <?php } 
-                                } ?>
-                                
-                            </tr>                                
-                           <?php } ?>
+                                     <?php for($x=1;$x<=$days;$x++){
+                                        $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); ?>
+                                        
+                                         <!-- <th><span class="m-l-60"></span><?php echo $rt->resource_id; ?></th> -->
+                                         <th><span class="m-l-20 m-r-20"><?php echo $ci->get_rtd_value("mw", $date, $rt->resource_id, $rt->delivery_hour,$rt->region_id); ?></span></th>
+                                         <th><span class="m-l-30 m-r-30"><?php echo $ci->get_rtd_value("price", $date, $rt->resource_id, $rt->delivery_hour,$rt->region_id); ?></span></th>
+                                         <th><span class="m-l-20 m-r-20"><?php echo $ci->get_rtd_value("initial", $date, $rt->resource_id, $rt->delivery_hour,$rt->region_id); ?></span></th>
+                                     <?php   
+                                    } ?>
+                            </tr>
+                            <?php } ?>
                        </tbody>
 
 

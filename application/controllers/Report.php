@@ -67,11 +67,12 @@ class Report extends CI_Controller {
         $data['types'] = $this->super_model->select_all('pp_type');
         
 
-        $data['rtd'] = $this->super_model->custom_query("SELECT * FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$fromdate' AND '$todate' GROUP BY delivery_hour, resource_id ORDER BY resource_id,delivery_hour ASC");
-        $this->load->view('template/header');
-        $this->load->view('template/navbar');
+        $data['rtd'] = $this->super_model->custom_query("SELECT delivery_date,delivery_hour, region_id, type, participant_id,resource_id FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$fromdate' AND '$todate' GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
+        //$data['rtd_all'] = $this->super_model->custom_query("SELECT * FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$fromdate' AND '$todate'");
+        //$this->load->view('template/header');
+        //$this->load->view('template/navbar');
         $this->load->view('report/rtd_report',$data);
-        $this->load->view('template/footer');    
+        //$this->load->view('template/footer');    
     }
 
     public function upload_rtd()
@@ -88,9 +89,9 @@ class Report extends CI_Controller {
         return $type_id;
     }
 
-    public function get_rtd_value($column, $date, $resource_id){
+    public function get_rtd_value($column, $date, $resource_id, $delivery_hour, $region_id){
         //echo "delivery_date = '$date' AND resource_id = '$resource_id'";
-       $value = $this->super_model->select_column_custom_where("rtd", $column, "delivery_date = '$date' AND resource_id = '$resource_id'");
+       $value = $this->super_model->select_column_custom_where("rtd", $column, "delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour' AND region_id = '$region_id'");
         return $value;
     }
 
