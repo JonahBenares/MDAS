@@ -46,10 +46,31 @@ class Report extends CI_Controller {
 
     public function rtd_report()
     {
+        $region = $this->uri->segment(3);
+        $from = $this->uri->segment(4);
+        $to = $this->uri->segment(5);
 
+        if(empty($region) && empty($from) && empty($to)){
+            $data['region'] =  "VISAYAS";
+            $region="VISAYAS";
+            $month = date('m');
+            $year = date('Y');
+            $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+            $data['year']= $year;
+            $data['month']=$month;
+            $data['days']=$days;
+
+            $fromdate = $year."-".$month."-01";
+            $todate = $year."-".$month."-".$days;
+        }
+       
+        $data['types'] = $this->super_model->select_all('pp_type');
+        
+
+        $data['rtd'] = $this->super_model->custom_query("SELECT * FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$fromdate' AND '$todate' GROUP BY delivery_hour, resource_id ORDER BY resource_id,delivery_hour ASC");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('report/rtd_report');
+        $this->load->view('report/rtd_report',$data);
         $this->load->view('template/footer');    
     }
 
@@ -59,6 +80,18 @@ class Report extends CI_Controller {
         $this->load->view('template/navbar');
         $this->load->view('report/upload_rtd');
         $this->load->view('template/footer');    
+    }
+
+    public function get_type($resource_id){
+        $powerplant_id = $this->super_model->select_column_where("pp_resources", "powerplant_id", "resource_id", $resource_id);
+        $type_id = $this->super_model->select_column_where("powerplants", "type_id", "powerplant_id", $powerplant_id);
+        return $type_id;
+    }
+
+    public function get_rtd_value($column, $date, $resource_id){
+        //echo "delivery_date = '$date' AND resource_id = '$resource_id'";
+       $value = $this->super_model->select_column_custom_where("rtd", $column, "delivery_date = '$date' AND resource_id = '$resource_id'");
+        return $value;
     }
 
    public function import_rtd(){
@@ -117,13 +150,14 @@ class Report extends CI_Controller {
 
             $count = $this->super_model->count_custom_where("rtd","delivery_date='$delivery_date' AND resource_id ='$resource_id' AND delivery_hour = '$delivery_hour'");
 
-           // echo "delivery_date='$delivery_date' AND resource_id ='$resource_id' AND delivery_hour = '$delivery_hour' = ". $count . "<br>";
+            $type_id = $this->get_type($resource_id);
           
                 $data = array(
                     'delivery_date'=>$delivery_date,
                     'delivery_hour'=>$delivery_hour,
                     'region_id'=>$region_id,
                     'type'=>$type,
+                    'type_id'=>$type_id,
                     'participant_id'=>$participant_id,
                     'resource_id'=>$resource_id,
                     'mw'=>$mw,
