@@ -25,6 +25,11 @@ function get_row_color($conn, $type_id){
 $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
 ?>
 <link rel="stylesheet" type="text/css" href="assets/dist/css/style.css">
+<script type="text/javascript">
+    function rtd_filter() {
+        window.open("rtd_filter.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
+    }
+</script>
 <table class="table table-bordered" width="100%">
     <tr>
         <td width="1%" rowspan="4">
@@ -43,7 +48,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
             <?php } ?>
         </td>
         <td rowspan="3" width="20%" align="center">
-            <a href="javascript:void(0);" class="btn btn-info-alt btn-sm" data-toggle="modal" data-target="#filter"><span class="fa fa-filter"></span>Filter</a>
+            <button class="btn btn-info-alt btn-sm" onclick="rtd_filter()"><span class="fa fa-filter"></span>Filter</button>
             <a href="javascript:void(0);" class="btn btn-success-alt btn-sm" data-toggle="modal" data-target="#export"><span class="fa fa-external-link"></span>Export</a>
             <a href="report/upload_rtd/" class="btn btn-warning-alt btn-sm"><span class="fa fa-upload"></span>Upload</a>
         </td>
@@ -63,43 +68,45 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
     </tr>
 </table>
 <div style="overflow: scroll;height: 605px;background: white;" >
-<table width="100%" border="1" cellpadding='5' style='border-collapse: collapse; font-size:11px; font-family: Arial, Helvetica, sans-serif;'>
-    <thead>                    
-        <tr>
-            <th rowspan="2" width="2%">Delivery_Hour</th>
-            <th rowspan="2" width="2%">Region_ID</th>
-            <th rowspan="2" width="2%">Type_ID</th>
-            <th rowspan="2" width="2%">Participant_ID</th>
-            <th rowspan="2" width="2%">Resource_ID</th>
-            <?php for($x=1;$x<=$days;$x++){ ?>
-            <th colspan="3"><center><?php echo $x; ?></center></th>
-            <?php } ?>  
-        </tr>
-        <tr>
-            <?php for($x=1;$x<=$days;$x++){ ?>        
-            <th>MW</th>
-            <th>Price</th>
-            <th>Initial</th>
-            <?php } ?>                                
-        </tr>
-    </thead>
-    <tbody style="border-bottom: 2px solid #000!important">
-        <?php while($fetch = mysqli_fetch_array($rtd_q)){ ?>
+    <table width="100%" border="1" cellpadding='5' style='border-collapse: collapse; font-size:11px; font-family: Arial, Helvetica, sans-serif;'>
+        <thead>                    
             <tr>
-                <td align="center"><?php echo $fetch['delivery_hour']; ?></td>
-                <td align="center"><?php echo $fetch['region_id']; ?></td>
-                <td align="center"><?php echo $fetch['type']; ?></td>
-                <td align="center"><?php echo $fetch['participant_id']; ?></td>
-                <td  style='color: <?php echo get_row_color($conn, $fetch['type_id']); ?>' align="center"><?php echo $fetch['resource_id']; ?></td>
-                <?php for($x=1;$x<=$days;$x++){
-                    $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
-                    $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?>
-                    <td <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
-                    <td><?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
-                    <td><?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td> 
+                <th rowspan="2" width="2%">Delivery_Hour</th>
+                <th rowspan="2" width="2%">Region_ID</th>
+                <th rowspan="2" width="2%">Type_ID</th>
+                <th rowspan="2" width="2%">Participant_ID</th>
+                <th rowspan="2" width="2%">Resource_ID</th>
+                <?php for($x=1;$x<=$days;$x++){ ?>
+                <th colspan="3"><center><?php echo $x; ?></center></th>
                 <?php } ?>  
             </tr>
-        <?php } ?>
-    </tbody>
-</table>
+            <tr>
+                <?php for($x=1;$x<=$days;$x++){ ?>        
+                <th>MW</th>
+                <th>Price</th>
+                <th>Initial</th>
+                <?php } ?>                                
+            </tr>
+        </thead>
+        <tbody style="border-bottom: 2px solid #000!important">
+            <?php while($fetch = mysqli_fetch_array($rtd_q)){ ?>
+                <tr class="hover-high">
+                    <td align="center"><?php echo $fetch['delivery_hour']; ?></td>
+                    <td align="center"><?php echo $fetch['region_id']; ?></td>
+                    <td align="center"><?php echo $fetch['type']; ?></td>
+                    <td align="center"><?php echo $fetch['participant_id']; ?></td>
+                    <td style='color: <?php echo get_row_color($conn, $fetch['type_id']); ?>' align="center"><b><?php echo $fetch['resource_id']; ?></b></td>
+                    <?php for($x=1;$x<=$days;$x++){
+                        $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
+                        $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?>
+                        <td <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
+                        <td><?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
+                        <td><?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td> 
+                    <?php } ?>  
+                </tr>
+            <?php } ?>
+        </tbody>
+    </table>
 </div>
+
+

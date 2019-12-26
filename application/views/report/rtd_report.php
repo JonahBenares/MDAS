@@ -22430,6 +22430,7 @@ a table tr:hover{
 <div class="page-wrapper">
     <div class="container-fluid" style="padding-bottom: 0px">
         <div class="card oh">
+            <button class="btn btn-info-alt btn-sm" onclick="rtd_filter()"><span class="fa fa-filter"></span>Filter</button>
             <table class="table table-bordered" width="100%">
                 <tr>
                     <td colspan="2">MARKET PRICES AND SCHEDULE</td>
@@ -22517,3 +22518,9 @@ a table tr:hover{
         </div>  
     </div>
 </div>
+
+<script type="text/javascript">
+    function rtd_filter() {
+        window.open("rtd_filter.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
+    }
+</script>
