@@ -2,8 +2,7 @@
 <?php
 ini_set('memory_limit', '-1'); 
 $ci =& get_instance(); ?>
-<<<<<<< HEAD
-=======
+
 <style type="text/css">
    /*
 Template Name: Admin Template
@@ -22426,7 +22425,6 @@ a table tr:hover{
         </div>
     </div>
 </div> -->
->>>>>>> a5ee2806c2a37b37f4869dd47574f84332bc56de
 
 
 <div class="page-wrapper">
