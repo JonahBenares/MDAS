@@ -47,7 +47,7 @@
                 </div>
                 <input type="hidden" name="type_id" id = "type_id" class="form-control">
                 <div class="modal-footer">                                        
-                    <button type="submit" class="btn btn-warning-alt btn-block">Add</button>
+                    <button type="submit" class="btn btn-warning-alt btn-block">Update</button>
                 </div>
             </form>
         </div>
@@ -98,7 +98,7 @@
                 <input type="hidden" name="subtype_id" id="subtype_id"  class="form-control">
                 <input type="hidden" name="type_id" value="<?php echo $type_id; ?>" class="form-control">
                 <div class="modal-footer">                                        
-                    <button type="submit" class="btn btn-warning-alt btn-block">Add</button>
+                    <button type="submit" class="btn btn-warning-alt btn-block">Update</button>
                 </div>
             </form>
         </div>

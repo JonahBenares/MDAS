@@ -46,8 +46,8 @@
                               <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>rtd.php">
                                 </span> RTD</a>
-                                <a class="dropdown-item" href="../../rtd.php">
-                                </span> RTD php</a>
+                                <!-- <a class="dropdown-item" href="../../rtd.php">
+                                </span> RTD php</a> -->
                             </div>
                         </li>
                         <!-- <li class="nav-item ">
