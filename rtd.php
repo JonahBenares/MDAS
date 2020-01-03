@@ -149,7 +149,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
         </td>
         <td rowspan="3" width="20%" align="center">
             <a class="btn btn-info-alt btn-sm" onclick="rtd_filter()"><span class="fa fa-filter"></span>Filter</a>
-            <a href="javascript:void(0);" class="btn btn-success-alt btn-sm" data-toggle="modal" data-target="#export"><span class="fa fa-external-link"></span>Export</a>
+            <!-- <a href="javascript:void(0);" class="btn btn-success-alt btn-sm" data-toggle="modal" data-target="#export"><span class="fa fa-external-link"></span>Export</a> -->
             <a href="report/upload_rtd/" class="btn btn-warning-alt btn-sm"><span class="fa fa-upload"></span>Upload</a>
         </td>
     </tr>
@@ -216,7 +216,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
                     <?php for($x=1;$x<=$days;$x++){
                         $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
                         $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?>
-                        <td <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
+                        <td <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
                         <td><?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
                         <td><?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td> 
                     <?php } ?>  
