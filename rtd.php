@@ -106,6 +106,25 @@ function get_row_color($conn, $type_id){
 $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
 ?>
 <link rel="stylesheet" type="text/css" href="assets/dist/css/style.css">
+<style type="text/css">
+    .overflow_rtd{
+            overflow: scroll;
+            height: 565px;
+            background: white;
+        }
+    @media (min-width: 654px) {
+        .overflow_rtd{
+            height: 565px;
+            background: white;
+        }
+    }
+    @media (min-width: 975px) {
+        .overflow_rtd{
+            height: 884px;
+            background: white;
+        }
+    }
+</style>
 <script type="text/javascript">
     function rtd_filter() {
         window.open("rtd_filter.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
@@ -165,7 +184,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
     </tr>
    
 </table>
-<div style="overflow: scroll;height: 605px;background: white;" >
+<div class="overflow_rtd" >
     <table width="100%" border="1" cellpadding='5' style='border-collapse: collapse; font-size:11px; font-family: Arial, Helvetica, sans-serif;'>
         <thead>                    
             <tr>
