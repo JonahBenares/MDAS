@@ -111,14 +111,27 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
             overflow: scroll;
             height: 565px;
             background: white;
-        }
-    @media (min-width: 654px) {
+        }   
+    @media (min-height:654px) {
         .overflow_rtd{
             height: 565px;
             background: white;
         }
     }
-    @media (min-width: 975px) {
+    @media (min-height:695px) {
+        .overflow_rtd{
+            overflow: scroll;
+            height: 605px;
+            background: white;
+        }
+    }
+   /* @media (min-height:975px) {
+        .overflow_rtd{
+            height: 884px;
+            background: white;
+        }
+    }*/
+    @media (min-height:969px) {
         .overflow_rtd{
             height: 884px;
             background: white;
