@@ -38,11 +38,12 @@
                         <table id="myTable" class="table table-hover table-bordered" >
                             <thead>
                                 <tr>
+                                    <th>Resource ID</th>
                                     <th>Facility Name</th>
+                                    <th>Short Name</th>
                                     <th>Type</th>
                                     <th>Subtype</th>
                                     <th>Operator</th>
-                                    <th>Region</th>
                                     <th>Municipality</th>
                                     <th>No. of Units</th>
                                     <th width="10%" class="text-center"><span class="fa fa-bars"></span></th>
@@ -51,11 +52,12 @@
                             <tbody>
                                 <?php foreach($powerplant AS $p){ ?>
                                 <tr>
+                                    <td><?php echo $p['resource_id']; ?></td>
                                     <td><?php echo $p['facility_name']; ?></td>
+                                    <td><?php echo $p['short_name']; ?></td>
                                     <td><?php echo $p['type']; ?></td>
                                     <td><?php echo $p['subtype']; ?></td>
                                     <td><?php echo $p['operator']; ?></td>
-                                    <td><?php echo $p['region']; ?></td>
                                     <td><?php echo $p['municipality_city']; ?></td>
                                     <td><?php echo $p['no_of_units']; ?></td>
                                     <td align="center">                                             

@@ -108,9 +108,12 @@ class Masterfile extends CI_Controller {
             $type = $this->super_model->select_column_where("pp_type","type_name","type_id",$po->type_id);
             $subtype = $this->super_model->select_column_where("pp_subtype","subtype_name","subtype_id",$po->subtype_id);
             $location = $this->super_model->select_column_where("location","location_name","location_code",$po->location_id);
+            $resource_id = $this->super_model->select_column_where("pp_resources","resource_id","powerplant_id",$po->powerplant_id);
             $data['powerplant'][]=array(
                 "powerplant_id"=>$po->powerplant_id,
+                "resource_id"=>$resource_id,
                 "facility_name"=>$po->facility_name,
+                "short_name"=>$po->short_name,
                 "type"=>$type,
                 "subtype"=>$subtype,
                 "operator"=>$po->operator,
@@ -135,6 +138,7 @@ class Masterfile extends CI_Controller {
             $data['powerplant'][]=array(
                 "powerplant_id"=>$po->powerplant_id,
                 "facility_name"=>$po->facility_name,
+                "short_name"=>$po->short_name,
                 "type"=>$type,
                 "subtype"=>$subtype,
                 "operator"=>$po->operator,
@@ -260,6 +264,7 @@ class Masterfile extends CI_Controller {
         $powerplant_id= $this->uri->segment(3);
         foreach($this->super_model->select_row_where("powerplants", "powerplant_id", $powerplant_id) AS $p){
             $data['facility_name']=$p->facility_name;
+            $data['short_name']=$p->short_name;
             $data['type_id']=$p->type_id;
             $data['subtype_id']=$p->subtype_id;
             $data['operator']=$p->operator;
@@ -294,6 +299,7 @@ class Masterfile extends CI_Controller {
 
     public function insert_powerplant(){
         $facility = trim($this->input->post('facility')," ");
+        $shortname = trim($this->input->post('shortname')," ");
         $type = trim($this->input->post('type')," ");
         $subtype = trim($this->input->post('subtype')," ");
         $operator = trim($this->input->post('operator')," ");
@@ -322,6 +328,7 @@ class Masterfile extends CI_Controller {
         $data = array(
             'powerplant_id'=>$powerplant_id,
             'facility_name'=>$facility,
+            'short_name'=>$shortname,
             'type_id'=>$type,
             'subtype_id'=>$subtype,
             'operator'=>$operator,
@@ -347,6 +354,7 @@ class Masterfile extends CI_Controller {
     public function update_powerplant(){
         $powerplant_id = trim($this->input->post('powerplant_id')," ");
         $facility = trim($this->input->post('facility')," ");
+        $shortname = trim($this->input->post('shortname')," ");
         $type = trim($this->input->post('type')," ");
         $subtype = trim($this->input->post('subtype')," ");
         $operator = trim($this->input->post('operator')," ");
@@ -365,6 +373,7 @@ class Masterfile extends CI_Controller {
         $status = trim($this->input->post('status')," ");
         $data = array(
             'facility_name'=>$facility,
+            'short_name'=>$shortname,
             'type_id'=>$type,
             'subtype_id'=>$subtype,
             'operator'=>$operator,

@@ -33,6 +33,9 @@
                                         <input type="text" placeholder="Facility Name" class="form-control" name="facility" value = "<?php echo (!empty($powerplant_id)) ? $facility_name : ''; ?>">
                                     </div>
                                     <div class="form-group">
+                                        <input type="text" placeholder="Short Name" class="form-control" name="shortname" value = "<?php echo (!empty($powerplant_id)) ? $short_name : ''; ?>">
+                                    </div>
+                                    <div class="form-group">
                                         <select class="form-control" name='type' id="type" onChange="chooseType();">
                                             <option value="">--Select Type--</option>
                                             <?php foreach($type AS $t){ ?>

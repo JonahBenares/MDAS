@@ -23,6 +23,7 @@
                             <div class="col-lg-6">
                                 <?php foreach($powerplant AS $p){ ?>
                                     <h5><small>Facility Name</small><br><?php echo $p['facility_name']; ?></h5>
+                                    <h5><small>Short Name</small><br><?php echo $p['short_name']; ?></h5>
                                     <h5><small>Type </small><br><?php echo $p['type']; ?></h5>
                                     <h5><small>Sub Type </small><br><?php echo $p['subtype']; ?></h5>
                                     <h5><small>Operator </small><br><?php echo $p['operator']; ?></h5>
