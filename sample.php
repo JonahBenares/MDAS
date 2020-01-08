@@ -85,9 +85,9 @@ if(empty($_GET)){
 //echo "SELECT delivery_date,delivery_hour, region_id, type, type_id, participant_id,resource_id FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC<br>";
 
 function  get_rtd_value($conn, $column, $date, $resource_id, $delivery_hour, $region_id){
-	$rtd_val = mysqli_query($conn, "SELECT $column FROM rtd WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour' AND region_id = '$region_id'");
-	$fetch_val = mysqli_fetch_array($rtd_val);
-	return $fetch_val[$column];
+    $rtd_val = mysqli_query($conn, "SELECT $column FROM rtd WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour' AND region_id = '$region_id'");
+    $fetch_val = mysqli_fetch_array($rtd_val);
+    return $fetch_val[$column];
 }
 
 function get_column($conn, $column, $table, $where_col, $where_val){
@@ -98,9 +98,9 @@ function get_column($conn, $column, $table, $where_col, $where_val){
 }
 
 function get_row_color($conn, $type_id){
-	$get_color = mysqli_query($conn, "SELECT legend_color FROM pp_type WHERE type_id = '$type_id'");
-	$fetch_color = mysqli_fetch_array($get_color);
-	return $fetch_color['legend_color'];
+    $get_color = mysqli_query($conn, "SELECT legend_color FROM pp_type WHERE type_id = '$type_id'");
+    $fetch_color = mysqli_fetch_array($get_color);
+    return $fetch_color['legend_color'];
 }
 
 $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
@@ -108,12 +108,10 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
 <link rel="stylesheet" type="text/css" href="assets/dist/css/style.css">
 
 <style type="text/css">
-    .overflow_rtd{
-            overflow: scroll;
-            height: 565px;
-            background: white;
-        }   
-    @media (min-height:654px) {
+    /*.overflow_rtd{
+            overflow-y: scroll;
+        }   */
+   /* @media (min-height:654px) {
         .overflow_rtd{
             height: 565px;
             background: white;
@@ -121,26 +119,25 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
     }
     @media (min-height:695px) {
         .overflow_rtd{
-            overflow: scroll;
             height: 605px;
             background: white;
         }
-    }
+    }*/
    /* @media (min-height:975px) {
         .overflow_rtd{
             height: 884px;
             background: white;
         }
     }*/
-    @media (min-height:969px) {
+    /*@media (min-height:969px) {
         .overflow_rtd{
             height: 884px;
             background: white;
         }
-    }
+    }*/
 </style>
 <script type="text/javascript">
-    function rtd_filter() {
+    function mps_filter() {
         window.open("rtd_filter.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
     }
 </script>
@@ -186,7 +183,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
                 <span class="m-r-20"><b>Type:</b>  <?php echo $filter_type; ?> </span>
                 <span class="m-r-20"><b>Participant:</b><?php echo $filter_part; ?></span>
                 <span class="m-r-20"><b>Resource:</b>  <?php echo $filter_res; ?>  </span>
-                <a href='http://localhost/MDAS/rtd.php' class='remove_filter alert-link pull-right btn btn-xs'>
+                <a href='http://localhost/MDAS/mps.php' class='remove_filter alert-link pull-right btn btn-xs'>
                     <span class="fa fa-times"></span>
                 </a>
             </div>  
@@ -198,15 +195,15 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
     </tr>
    
 </table>
-<div class="overflow_rtd" >
+<div class="" style="overflow-x: scroll;">
     <table width="100%" border="1" cellpadding='5' style='border-collapse: collapse; font-size:11px; font-family: Arial, Helvetica, sans-serif;'>
         <thead>                    
             <tr>
-                <th rowspan="2" width="2%">Delivery_Hour</th>
-                <th rowspan="2" width="2%">Region_ID</th>
-                <th rowspan="2" width="2%">Type_ID</th>
-                <th rowspan="2" width="2%">Participant_ID</th>
-                <th rowspan="2" width="2%">Resource_ID</th>
+                <th rowspan="2">Delivery_Hour</th>
+                <th rowspan="2">Region_ID</th>
+                <th rowspan="2">Type_ID</th>
+                <th rowspan="2">Participant_ID</th>
+                <th rowspan="2">Resource_ID</th>
                 <?php for($x=1;$x<=$days;$x++){ ?>
                 <th colspan="3"><center><?php echo $x; ?></center></th>
                 <?php } ?>  
@@ -219,30 +216,34 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
                 <?php } ?>                                
             </tr>
         </thead>
-        <tbody style="border-bottom: 2px solid #000!important">
-            <?php while($fetch = mysqli_fetch_array($rtd_q)){ ?>
-                <tr class="hover-high">
-                    <td align="center"><?php echo $fetch['delivery_hour']; ?></td>
-                    <td align="center"><?php echo $fetch['region_id']; ?></td>
-                    <td align="center"><?php echo $fetch['type']; ?></td>
-                    <td align="center"><?php echo $fetch['participant_id']; ?></td>
-                    <td style='color: <?php echo get_row_color($conn, $fetch['type_id']); ?>' align="center"><b><?php echo $fetch['resource_id']; ?></b></td>
-                    <?php for($x=1;$x<=$days;$x++){
-                        $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
-                        $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?>
-                        <td <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
-                        <td><?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
-                        <td><?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td> 
-                    <?php } ?>  
-                </tr>
-            <?php } ?>
-        </tbody>
     </table>
+    <div style="height: 300px;overflow-y: scroll; overflow-x: hidden;">
+        <table width="100%" border="1" cellpadding='5' style='border-collapse: collapse; font-size:11px; font-family: Arial, Helvetica, sans-serif;'>
+            <tbody style="border-bottom: 2px solid #000!important">
+                <?php while($fetch = mysqli_fetch_array($rtd_q)){ ?>
+                    <tr class="hover-high">
+                        <td align="center" width="2%" ><?php echo $fetch['delivery_hour']; ?></td>
+                        <td align="center" width="2%" ><?php echo $fetch['region_id']; ?></td>
+                        <td align="center" width="2%" ><?php echo $fetch['type']; ?></td>
+                        <td align="center" width="2%" ><?php echo $fetch['participant_id']; ?></td>
+                        <td  width="2%" style='color: <?php echo get_row_color($conn, $fetch['type_id']); ?>' align="center"><b><?php echo $fetch['resource_id']; ?></b></td>
+                        <?php for($x=1;$x<=$days;$x++){
+                            $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
+                            $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?>
+                            <td <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
+                            <td><?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
+                            <td><?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td> 
+                        <?php } ?>  
+                    </tr>
+                <?php } ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 <script>
      function setData(data) {
        
-        var requestBinUrl = 'http://localhost/MDAS/rtd.php?';
+        var requestBinUrl = 'http://localhost/MDAS/mps.php?';
         window.location.href = requestBinUrl+data;
     }
 </script>
