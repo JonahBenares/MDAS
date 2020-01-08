@@ -261,7 +261,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
         }*/
 </style>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="assets/dist/js/ajax.min.js"></script>
 <script type="text/javascript">
     function mps_filter() {
         window.open("mps_filter.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
