@@ -219,13 +219,13 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
                 <th class="text-blk" scope="col">Initial</th>
             <?php } ?>  
         </tr>
-        <?php while($fetch = mysqli_fetch_array($rtd_q)): ?>
+        <?php while($fetch = mysqli_fetch_array($rtd_q)):;?>
         <tr class="GridViewScrollItem">
             <td align="center"><?php echo $fetch['delivery_hour']; ?></td>
             <td align="center"><?php echo $fetch['region_id']; ?></td>
             <td align="center"><?php echo $fetch['type']; ?></td>
             <td align="center"><?php echo $fetch['participant_id']; ?></td>
-            <td style='color: <?php echo get_row_color($conn, $fetch['type_id']); ?>; background-color: #ffe1cb' ><?php echo $fetch['resource_id']; ?></td>
+            <td style="color: <?php echo get_row_color($conn, $fetch['type_id']); ?>; <?php echo ($fetch['type_id'] == '') ? 'background-color: #ffe1cb' : ''; ?>" ><?php echo $fetch['resource_id']; ?></td>
             <?php for($x=1;$x<=$days;$x++){ 
                 $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
                 $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?> 
