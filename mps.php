@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>GridViewScroll</title>
+    <title>Market Prices & Schedule</title>
     <link href="assets/dist/css/web.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="assets/dist/css/style.css">
     <script type="text/javascript" src="assets/dist/js/gridviewscroll.js"></script>
