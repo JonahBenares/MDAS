@@ -236,7 +236,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
                 <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
                 <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
              <?php } ?>  
-            <td style="background: #444444"><h6 style="margin: 0s">Nothing follows Nothing follows</h6></td>
+            <td style="background: #444444"><h6 style="margin: 0px">Nothing follows Nothing follows</h6></td>
 
         </tr>        
         <?php endwhile; ?>        
