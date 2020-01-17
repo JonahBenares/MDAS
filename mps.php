@@ -16,8 +16,8 @@
         window.onload = function () {
             gridViewScroll = new GridViewScroll({
                 elementID: "gvMain",
-                // width: 1366,
-                // height: 600,
+                width: 1380,
+                height: 600,
                 freezeColumn: true,
                 // freezeFooter: true,
                 freezeColumnCssClass: "GridViewScrollItemFreeze",
@@ -206,6 +206,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
             <?php for($x=1;$x<=$days;$x++){ ?>
                 <th class="text-blk" colspan="3" scope="col"><center><?php echo $x; ?></center></th>
             <?php } ?> 
+            <td>Nothing follows</td>
         </tr>
         <tr class="GridViewScrollHeader">
             <th class="text-blk" scope="col">Delivery_Hour</th>
@@ -217,7 +218,9 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
                 <th class="text-blk" scope="col">MW</th>
                 <th class="text-blk" scope="col">Price</th>
                 <th class="text-blk" scope="col">Initial</th>
-            <?php } ?>  
+            <?php } ?> 
+            <td>Nothing follows</td> 
+
         </tr>
         <?php while($fetch = mysqli_fetch_array($rtd_q)):;?>
         <tr class="GridViewScrollItem">
@@ -232,7 +235,9 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
                 <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
                 <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
                 <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
-             <?php } ?>    
+             <?php } ?>  
+            <td style="background: #444444"><h6 style="margin: 0s">Nothing follows Nothing follows</h6></td>
+
         </tr>        
         <?php endwhile; ?>        
     </table>
