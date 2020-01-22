@@ -146,6 +146,7 @@ function get_row_color($conn, $type_id){
 
 $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 ?>
+
 <link rel="stylesheet" type="text/css" href="assets/dist/css/style.css">
 <style type="text/css">
     body {
