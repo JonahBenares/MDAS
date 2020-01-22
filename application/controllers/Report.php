@@ -149,7 +149,7 @@ class Report extends CI_Controller {
             $initial = trim($objPHPExcel->getActiveSheet()->getCell('I'.$x)->getValue());
 
 
-            $count = $this->super_model->count_custom_where("rtd","delivery_date='$delivery_date' AND resource_id ='$resource_id' AND delivery_hour = '$delivery_hour'");
+            $count = $this->super_model->count_custom_where("rtd","delivery_date='$delivery_date' AND resource_id ='$resource_id' AND delivery_hour = '$delivery_hour' AND region_id = '$region_id'");
 
             $type_id = $this->get_type($resource_id);
           
