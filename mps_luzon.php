@@ -96,12 +96,12 @@ if(empty($_GET)){
     /*if(!empty($_GET['region'])){
         $region = $_GET['region'];
         $filter_reg = $_GET['region'];
-    } 
+    } */
 
     if(empty($_GET['region'])){
         $region = 'LUZON';
         $filter_reg = 'LUZON';
-    }*/
+    }
 
     if(!empty($_GET['type_id'])){
         $type_id = $_GET['type_id'];
@@ -184,7 +184,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
             <td colspan="16">
                 <div class="alert alert-info m-b-0 p-2" role="alert">
                     <span class='btn btn-xs btn-info disabled'>Filter Applied</span>
-                    <span class="m-r-20"><b>Region:</b> <?php echo $filter_reg; ?></span>   
+                    <!-- <span class="m-r-20"><b>Region:</b> <?php //echo $filter_reg; ?></span> -->   
                     <span class="m-r-20"><b>Type:</b>  <?php echo $filter_type; ?> </span>
                     <span class="m-r-20"><b>Participant:</b><?php echo $filter_part; ?></span>
                     <span class="m-r-20"><b>Resource:</b>  <?php echo $filter_res; ?>  </span>
