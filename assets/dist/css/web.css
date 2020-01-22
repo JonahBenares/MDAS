@@ -9,7 +9,7 @@
 }
 
 .GridViewScrollHeader th, .GridViewScrollHeader td {
-    padding: 5px!important;
+    padding: 3px!important;
     font-weight: normal;
     white-space: nowrap;
     border-right: 1px solid #e6e6e6;
@@ -23,7 +23,7 @@
 
 
 .GridViewScrollItem td {
-    padding: 5px!important;
+    padding: 3px!important;
     white-space: nowrap;
     border-right: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
@@ -32,7 +32,7 @@
 }
 
 .GridViewScrollItemFreeze td {
-    padding: 5px!important;
+    padding: 3px!important;
     white-space: nowrap;
     border-right: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
@@ -41,7 +41,7 @@
 }
 
 .GridViewScrollFooterFreeze td {
-    padding: 5px!important;
+    padding: 3px!important;
     white-space: nowrap;
     border-right: 1px solid #e6e6e6;
     border-top: 1px solid #e6e6e6;
