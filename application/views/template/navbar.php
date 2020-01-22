@@ -45,7 +45,9 @@
                             <div class="dropleft dropdown-menu drop-left">
                               <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
                               <a class="dropdown-item" href="<?php echo base_url(); ?>mps.php">
-                                </span> MPS</a>
+                                </span> MPS VISAYAS</a>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>mps_luzon.php">
+                                </span> MPS LUZON</a>
                                 <!-- <a class="dropdown-item" href="../../rtd.php">
                                 </span> RTD php</a> -->
                             </div>
