@@ -96,7 +96,7 @@ if(empty($_GET)){
     if(!empty($_GET['region'])){
         $region = $_GET['region'];
         $filter_reg = $_GET['region'];
-    } */
+    } 
 
     if(empty($_GET['region'])){
         $region = 'VISAYAS';
@@ -220,7 +220,6 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" )
                 <th class="text-blk" scope="col">Initial</th>
             <?php } ?> 
             <td>Nothing follows</td> 
-
         </tr>
         <?php while($fetch = mysqli_fetch_array($rtd_q)):;?>
         <tr class="GridViewScrollItem">

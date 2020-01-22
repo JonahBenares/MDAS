@@ -14,22 +14,22 @@
     white-space: nowrap;
     border-right: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
-    background-color: #F4F4F4;
+    background-color: #fff;
     color: #999999;
     text-align: left;
     vertical-align: bottom;
 }
-
-
 
 .GridViewScrollItem td {
     padding: 3px!important;
     white-space: nowrap;
     border-right: 1px solid #e6e6e6;
     border-bottom: 1px solid #e6e6e6;
-    background-color: #FAFAFA;
+    
     color: #444444;
 }
+
+/*
 
 .GridViewScrollItemFreeze td {
     padding: 3px!important;
@@ -48,7 +48,7 @@
     border-bottom: 1px solid #e6e6e6;
     background-color: #F4F4F4;
     color: #444444;
-}
+}*/
 
 @media (max-height: 1007px){
     #gvMain{
