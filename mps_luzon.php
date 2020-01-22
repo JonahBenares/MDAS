@@ -50,7 +50,7 @@ $filter_type='';
 $filter_part='';
 $filter_res='';
 if(empty($_GET)){
-    $region="VISAYAS";
+    $region="LUZON";
     $month = date('m');
     $year = date('Y');
     $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
@@ -99,8 +99,8 @@ if(empty($_GET)){
     } 
 
     if(empty($_GET['region'])){
-        $region = 'VISAYAS';
-        $filter_reg = 'VISAYAS';
+        $region = 'LUZON';
+        $filter_reg = 'LUZON';
     }*/
 
     if(!empty($_GET['type_id'])){
