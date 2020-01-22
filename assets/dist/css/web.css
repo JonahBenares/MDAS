@@ -1,0 +1,130 @@
+﻿body {
+    height: 545px!important;
+    /*height: 100%!important;*/
+    margin: 0px!important;
+    font-size:12px!important; 
+    font-family: Arial, Helvetica, sans-serif!important;
+    font-weight: normal!important;
+    color: #333333!important;
+}
+
+.GridViewScrollHeader th, .GridViewScrollHeader td {
+    padding: 3px!important;
+    font-weight: normal;
+    white-space: nowrap;
+    border-right: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: #F4F4F4;
+    color: #999999;
+    text-align: left;
+    vertical-align: bottom;
+}
+
+
+
+.GridViewScrollItem td {
+    padding: 3px!important;
+    white-space: nowrap;
+    border-right: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: #FAFAFA;
+    color: #444444;
+}
+
+.GridViewScrollItemFreeze td {
+    padding: 3px!important;
+    white-space: nowrap;
+    border-right: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: #FAFAFA;
+    color: #444444;
+}
+
+.GridViewScrollFooterFreeze td {
+    padding: 3px!important;
+    white-space: nowrap;
+    border-right: 1px solid #e6e6e6;
+    border-top: 1px solid #e6e6e6;
+    border-bottom: 1px solid #e6e6e6;
+    background-color: #F4F4F4;
+    color: #444444;
+}
+
+@media (max-height: 1007px){
+    #gvMain{
+        height: 858px;
+        width: 1920px;
+    }
+} 
+@media (max-height: 979px){
+    #gvMain{
+        height: 830px;
+        width: 1920px;
+    }
+} 
+@media (max-height: 975px){
+    #gvMain{
+        height: 820px;
+        width: 1920px;
+    }
+}  
+@media (max-height: 969px){
+    #gvMain{
+        height: 800px;
+        width: 1920px;
+    }
+} 
+@media (max-height: 947px){
+    #gvMain{
+        height: 798px;
+        width: 1920px;
+    }
+}
+@media (max-height: 937px){
+    #gvMain{
+        height: 788px;
+        width: 1920px;
+    }
+}
+@media (max-height: 694px){
+    #gvMain{
+        height: 545px;
+        width: 1366px;
+    }
+}
+@media (max-height: 668px){
+    #gvMain{
+        height: 520px;
+        width: 1366px;
+    }
+}
+@media (max-height: 654px){
+    #gvMain{
+        height: 500px;
+        width: 1366px;
+    }
+}
+@media (max-height: 652px){
+    #gvMain{
+        height: 500px;
+        width: 1366px;
+    }
+}
+
+.text-blk{
+    color: #000!important;
+}
+.text-gry{
+    color: #aeaeae;
+}
+
+.good-review-score{
+    background-color:#66CC33;
+    color:white;
+    text-align: center;
+    padding: 10px;
+    margin-right: 5px
+/*width: 50px;
+    height: 30px; 
+    line-height: 30px*/
+}
