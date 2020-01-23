@@ -5,7 +5,11 @@
     <title>Market Prices & Schedule</title>
     <link href="http://localhost/MDAS/assets/dist/css/web.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="http://localhost/MDAS/assets/dist/css/style.css">
-    
+    <script type="text/javascript">
+        function mps_filter() {
+            window.open("mps_luzon_filter.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
+        }
+    </script>
 </head>
 <style type="text/css">
 @media (max-height: 1007px){
@@ -69,41 +73,6 @@
     }
 }
 </style>
-<!-- <script type="text/javascript" src="http://localhost/MDAS/assets/dist/js/gridviewscroll.min.js" ac></script>
-<script type="text/javascript">
-    function mps_filter() {
-        window.open("mps_filter.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
-    }
-</script>
-<script type="text/javascript">
-    var gridViewScroll = null;
-    window.onload = function () {
-        gridViewScroll = new GridViewScroll({
-            elementID: "gvMain",
-            width: 1380,
-            height: 600,
-            freezeColumn: true,
-            // freezeFooter: true,
-            freezeColumnCssClass: "GridViewScrollItemFreeze",
-            freezeFooterCssClass: "GridViewScrollFooterFreeze",
-            freezeHeaderRowCount: 2,
-            freezeColumnCount: 5,
-            onscroll: function (scrollTop, scrollLeft) {
-                console.log(scrollTop + " - " + scrollLeft);
-            }
-        });
-        gridViewScroll.enhance();
-    }
-    function getScrollPosition() {
-        var position = gridViewScroll.scrollPosition;
-        alert("scrollTop: " + position.scrollTop + ", scrollLeft: " + position.scrollLeft);
-    }
-    function setScrollPosition() {
-        var scrollPosition = { scrollTop: 50, scrollLeft: 50};
-
-        gridViewScroll.scrollPosition = scrollPosition;
-    }
-</script> -->
 
 <?php
 $conn = mysqli_connect('localhost', 'root', '','db_mdas');
@@ -114,15 +83,13 @@ $filter_type='';
 $filter_part='';
 $filter_res='';
 if(empty($_GET)){
-      $query ='';
     $region="LUZON";
     $month = date('m');
     $year = date('Y');
     $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
     $from =$year."-".$month."-01";
     $to = $year."-".$month."-".$days;
-
-   
+    $query='';
 } else {
 
     $query ='';
@@ -158,16 +125,6 @@ if(empty($_GET)){
         $to = $year."-".$month."-".$days;
     }
 
-    /*if(!empty($_GET['region'])){
-        $region = $_GET['region'];
-        $filter_reg = $_GET['region'];
-    }*/ 
-/*
-    if(empty($_GET['region'])){
-        $region = 'LUZON';
-        $filter_reg = 'LUZON';
-    }
-*/
     if(!empty($_GET['type_id'])){
         $type_id = $_GET['type_id'];
         $query .=" AND type_id = '$type_id'";
@@ -184,16 +141,13 @@ if(empty($_GET)){
         $filter_res = $_GET['resource_id'];
     }
 
-    //echo "type_id=".$type_id;
-
 }
 
 
-  $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, region_id, type, type_id, participant_id,resource_id FROM rtd WHERE region_id = 'LUZON' AND delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
-//echo "SELECT delivery_date,delivery_hour, region_id, type, type_id, participant_id,resource_id FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC<br>";
+   $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_luzon WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
 
 function  get_rtd_value($conn, $column, $date, $resource_id, $delivery_hour){
-  $rtd_val = mysqli_query($conn, "SELECT $column FROM rtd WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour' AND region_id = 'LUZON'");
+  $rtd_val = mysqli_query($conn, "SELECT $column FROM mps_luzon WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour'");
   $fetch_val = mysqli_fetch_array($rtd_val);
   return $fetch_val[$column];
 }
@@ -249,12 +203,12 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
         <tr>
             <td colspan="16">
                 <div class="alert alert-info m-b-0 p-2" role="alert">
+
                     <span class='btn btn-xs btn-info disabled'>Filter Applied</span>
-                    <span class="m-r-20"><b>Region:</b> <?php echo $filter_reg; ?></span>   
                     <span class="m-r-20"><b>Type:</b>  <?php echo $filter_type; ?> </span>
                     <span class="m-r-20"><b>Participant:</b><?php echo $filter_part; ?></span>
                     <span class="m-r-20"><b>Resource:</b>  <?php echo $filter_res; ?>  </span>
-                    <a href='http://localhost/MDAS/mps.php' class='remove_filter alert-link pull-right btn btn-xs'>
+                    <a href='http://localhost/MDAS/mps_luzon.php' class='remove_filter alert-link pull-right btn btn-xs'>
                         <span class="fa fa-times"></span>
                     </a>
                 </div>  
@@ -292,13 +246,13 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
             <?php while($fetch = mysqli_fetch_array($rtd_q)):;?>
             <tr class="GridViewScrollItem hover-high">
                 <td align="center"><?php echo $fetch['delivery_hour']; ?></td>
-                <td align="center"><?php echo $fetch['region_id']; ?></td>
+                <td align="center"><?php echo 'LUZON' ?></td>
                 <td align="center"><?php echo $fetch['type']; ?></td>
                 <td align="center"><?php echo $fetch['participant_id']; ?></td>
                 <td align="center" style="background-color: <?php echo get_row_color($conn, $fetch['type_id']); ?>; <?php echo ($fetch['type_id'] == '') ? 'background-color: #ffe1cb' : ''; ?>" ><?php echo $fetch['resource_id']; ?></td>
                 <?php for($x=1;$x<=$days;$x++){ 
                     $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
-                    $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?> 
+                    $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?> 
                     <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
                     <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                     <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
@@ -311,5 +265,11 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
     </div>
     
 </body>
-
+<script>
+     function setData(data) {
+       
+        var requestBinUrl = 'http://localhost/MDAS/mps_luzon.php?';
+        window.location.href = requestBinUrl+data;
+    }
+</script>
 </html>
