@@ -120,9 +120,68 @@ if(empty($_GET)){
     $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
     $from =$year."-".$month."-01";
     $to = $year."-".$month."-".$days;
+} else {
 
-   
-} 
+    $query ='';
+    if(!empty($_GET['year']) && empty($_GET['month'])){
+        $month = date('m');
+        $year = $_GET['year'];
+        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+        $from =$year."-".$month."-01";
+        $to = $year."-".$month."-".$days;
+    }
+
+    if(!empty($_GET['month']) && empty($_GET['year'])){
+        $month = str_pad($_GET['month'], 2, "0", STR_PAD_LEFT);
+        $year = date('Y');
+        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+        $from =$year."-".$month."-01";
+        $to = $year."-".$month."-".$days;
+    }
+
+    if(!empty($_GET['month']) && !empty($_GET['year'])){
+        $month = str_pad($_GET['month'], 2, "0", STR_PAD_LEFT);
+        $year = $_GET['year'];
+        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+        $from =$year."-".$month."-01";
+        $to = $year."-".$month."-".$days;
+    }
+
+     if(empty($_GET['month']) && empty($_GET['year'])){
+        $month = date('m');
+        $year = date('Y');
+        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+        $from =$year."-".$month."-01";
+        $to = $year."-".$month."-".$days;
+    }
+
+    /*if(!empty($_GET['region'])){
+        $region = $_GET['region'];
+        $filter_reg = $_GET['region'];
+    }*/ 
+
+    if(empty($_GET['region'])){
+        $region = 'VISAYAS';
+        $filter_reg = 'VISAYAS';
+    }
+
+    if(!empty($_GET['type_id'])){
+        $type_id = $_GET['type_id'];
+        $query .=" AND type_id = '$type_id'";
+        $filter_type = get_column($conn, "type_name", "pp_type", "type_id", $type_id);
+    }
+     if(!empty($_GET['participant_id'])){
+        $part_id = $_GET['participant_id'];
+        $query .=" AND participant_id = '$part_id'";
+        $filter_part = $_GET['participant_id'];
+    }
+     if(!empty($_GET['resource_id'])){
+        $resource = $_GET['resource_id'];
+        $query .=" AND resource_id = '$resource'";
+        $filter_res = $_GET['resource_id'];
+    }
+
+}
 
 
   $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, region_id, type, type_id, participant_id,resource_id FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$from' AND '$to' GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
