@@ -120,6 +120,7 @@ if(empty($_GET)){
     $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
     $from =$year."-".$month."-01";
     $to = $year."-".$month."-".$days;
+     $query ='';
 } else {
 
     $query ='';
@@ -160,10 +161,10 @@ if(empty($_GET)){
         $filter_reg = $_GET['region'];
     }*/ 
 
-    if(empty($_GET['region'])){
+/*    if(empty($_GET['region'])){
         $region = 'VISAYAS';
         $filter_reg = 'VISAYAS';
-    }
+    }*/
 
     if(!empty($_GET['type_id'])){
         $type_id = $_GET['type_id'];
@@ -184,11 +185,11 @@ if(empty($_GET)){
 }
 
 
-  $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, region_id, type, type_id, participant_id,resource_id FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$from' AND '$to' GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
+  $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, region_id, type, type_id, participant_id,resource_id FROM rtd WHERE region_id = 'VISAYAS' AND delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
 //echo "SELECT delivery_date,delivery_hour, region_id, type, type_id, participant_id,resource_id FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC<br>";
 
-function  get_rtd_value($conn, $column, $date, $resource_id, $delivery_hour, $region_id){
-  $rtd_val = mysqli_query($conn, "SELECT $column FROM rtd WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour' AND region_id = '$region_id'");
+function  get_rtd_value($conn, $column, $date, $resource_id, $delivery_hour){
+  $rtd_val = mysqli_query($conn, "SELECT $column FROM rtd WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour' AND region_id = 'VISAYAS'");
   $fetch_val = mysqli_fetch_array($rtd_val);
   return $fetch_val[$column];
 }
@@ -244,8 +245,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
         <tr>
             <td colspan="16">
                 <div class="alert alert-info m-b-0 p-2" role="alert">
-                    <span class='btn btn-xs btn-info disabled'>Filter Applied</span>
-                    <span class="m-r-20"><b>Region:</b> <?php echo $filter_reg; ?></span>   
+                    <span class='btn btn-xs btn-info disabled'>Filter Applied</span> 
                     <span class="m-r-20"><b>Type:</b>  <?php echo $filter_type; ?> </span>
                     <span class="m-r-20"><b>Participant:</b><?php echo $filter_part; ?></span>
                     <span class="m-r-20"><b>Resource:</b>  <?php echo $filter_res; ?>  </span>
@@ -293,10 +293,10 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
                 <td align="center" style="background-color: <?php echo get_row_color($conn, $fetch['type_id']); ?>; <?php echo ($fetch['type_id'] == '') ? 'background-color: #ffe1cb' : ''; ?>" ><?php echo $fetch['resource_id']; ?></td>
                 <?php for($x=1;$x<=$days;$x++){ 
                     $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
-                    $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?> 
+                    $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?> 
                     <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
-                    <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
-                    <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour'],$fetch['region_id']); ?></td>
+                    <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
+                    <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                  <?php } ?>  
                 <td style="background: #444444"><h6 style="margin: 0px">Nothing follows Nothing follows</h6></td>
 
