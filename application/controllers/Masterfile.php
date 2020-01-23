@@ -42,11 +42,24 @@ class Masterfile extends CI_Controller {
 
     }
 
-    public function index(){  
+    /*public function index(){  
+        $this->load->view('masterfile/login');
+    }*/
+
+    public function index()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/dashboard');
+        $this->load->view('template/footer');
+    } 
+
+
+    public function login(){  
         $this->load->view('masterfile/login');
     }
 
-    public function login(){
+    public function login_process(){
         $username=$this->input->post('username');
         $password=$this->input->post('password');
         $count=$this->super_model->login_user($username,$password);
@@ -65,7 +78,7 @@ class Masterfile extends CI_Controller {
                'logged_in'=> TRUE
             );
             $this->session->set_userdata($newdata);
-            redirect(base_url().'masterfile/dashboard/');
+            redirect(base_url());
         }
         else{
             $this->session->set_flashdata('error_msg', 'Username and password do not exist! Please contact your administrator.');
@@ -75,19 +88,10 @@ class Masterfile extends CI_Controller {
 
     public function user_logout(){
         $this->session->sess_destroy();
-        $this->load->view('masterfile/login');
+        //$this->load->view('masterfile/login');
         echo "<script>alert('You have successfully logged out.'); 
-        window.location ='".base_url()."masterfile/index'; </script>";
+        window.location ='".base_url()."masterfile/login'; </script>";
     }
-
-   
-    public function dashboard()
-    {
-        $this->load->view('template/header');
-        $this->load->view('template/navbar');
-        $this->load->view('masterfile/dashboard');
-        $this->load->view('template/footer');
-    }  
 
     public function change_password(){
         $data['company'] =  $this->super_model->select_all_order_by('company', 'company_name', 'ASC');
