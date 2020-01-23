@@ -317,7 +317,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 <script>
      function setData(data) {
        
-        var requestBinUrl = 'http://localhost/MDAS/mps.php?';
+        var requestBinUrl = 'http://localhost/MDAS/mps_luzon.php?';
         window.location.href = requestBinUrl+data;
     }
 </script>
