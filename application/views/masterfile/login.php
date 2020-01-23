@@ -30,7 +30,7 @@
                         </center>                        
                     </div>
                     <div class="login-form m-l-250 m-r-250 m-t-30"> 
-                        <form method="POST" action="<?php echo base_url(); ?>masterfile/login">
+                        <form method="POST" action="<?php echo base_url(); ?>masterfile/login_process">
                             <div class="form-group ">
                                 <input class="form-control m-b-10 shadow-login" type="text" name="username" placeholder="Username">
                                 <input class="form-control m-b-10 shadow-login" type="password" name="password" placeholder="Password">
