@@ -245,7 +245,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 
             </tr>
             <?php while($fetch = mysqli_fetch_array($rtd_q)):;?>
-            <tr class="GridViewScrollItem hover-high">
+            <tr class="GridViewScrollItem hover-high" style ="<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
                 <td align="center"><?php echo $fetch['delivery_hour']; ?></td>
                 <td align="center"><?php echo 'LUZON' ?></td>
                 <td align="center"><?php echo $fetch['type']; ?></td>
