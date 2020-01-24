@@ -279,24 +279,22 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
                 <td>Nothing follows</td> 
 
             </tr>
+
             <?php while($fetch = mysqli_fetch_array($rtd_q)):;?>
-            <tr class="GridViewScrollItem hover-high">
-                <td align="center"><?php echo $fetch['delivery_hour']; ?></td>
+            <tr class="GridViewScrollItem hover-high" style ="<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                <td align="center" ><?php echo $fetch['delivery_hour']; ?></td>
                 <td align="center"><?php echo 'VISAYAS' ?></td>
                 <td align="center"><?php echo $fetch['type']; ?></td>
                 <td align="center"><?php echo $fetch['participant_id']; ?></td>
                 <td align="center" style="background-color: <?php echo get_row_color($conn, $fetch['type_id']); ?>; <?php echo ($fetch['type_id'] == '') ? 'background-color: #ffe1cb' : ''; ?>" ><?php echo $fetch['resource_id']; ?></td>
                 <?php for($x=1;$x<=$days;$x++){ 
                     $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
-
-
                     $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?> 
                     <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
                     <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                     <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                  <?php } ?>  
                 <td style="background: #444444"><h6 style="margin: 0px">Nothing follows Nothing follows</h6></td>
-
             </tr>        
             <?php endwhile; ?>        
         </table>
