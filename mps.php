@@ -73,41 +73,7 @@
     }
 }
 </style>
-<!-- <script type="text/javascript" src="http://localhost/MDAS/assets/dist/js/gridviewscroll.min.js" ac></script>
-<script type="text/javascript">
-    function mps_filter() {
-        window.open("mps_filter.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
-    }
-</script>
-<script type="text/javascript">
-    var gridViewScroll = null;
-    window.onload = function () {
-        gridViewScroll = new GridViewScroll({
-            elementID: "gvMain",
-            width: 1380,
-            height: 600,
-            freezeColumn: true,
-            // freezeFooter: true,
-            freezeColumnCssClass: "GridViewScrollItemFreeze",
-            freezeFooterCssClass: "GridViewScrollFooterFreeze",
-            freezeHeaderRowCount: 2,
-            freezeColumnCount: 5,
-            onscroll: function (scrollTop, scrollLeft) {
-                console.log(scrollTop + " - " + scrollLeft);
-            }
-        });
-        gridViewScroll.enhance();
-    }
-    function getScrollPosition() {
-        var position = gridViewScroll.scrollPosition;
-        alert("scrollTop: " + position.scrollTop + ", scrollLeft: " + position.scrollLeft);
-    }
-    function setScrollPosition() {
-        var scrollPosition = { scrollTop: 50, scrollLeft: 50};
 
-        gridViewScroll.scrollPosition = scrollPosition;
-    }
-</script> -->
 
 <?php
 $conn = mysqli_connect('localhost', 'root', '','db_mdas');
@@ -180,7 +146,7 @@ if(empty($_GET)){
 
 
   $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_visayas WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
-//echo "SELECT delivery_date,delivery_hour, region_id, type, type_id, participant_id,resource_id FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC<br>";
+
 
 function  get_rtd_value($conn, $column, $date, $resource_id, $delivery_hour){
   $rtd_val = mysqli_query($conn, "SELECT $column FROM mps_visayas WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour'");
