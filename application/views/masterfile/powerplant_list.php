@@ -4,7 +4,7 @@
             <div class="col-md-7 align-self-center text-right">
                 <div class="d-flex  align-items-center"> <!-- justify-content-end -->
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>masterfile/dashboard/">Dashboard</a></li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>masterfile/index/">Dashboard</a></li>
                         <li class="breadcrumb-item active">Power Plant</li>
                         <li class="breadcrumb-item">
                         </li>

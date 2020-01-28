@@ -44,6 +44,16 @@ function showValues(){
                     </select>
                 </div>
                 <div class="form-group">
+                    <div class = "row">
+                        <div class = "col-6">
+                            <input type = "date" class="form-control" name ="from" id="from" required="">
+                        </div>
+                        <div class = "col-6">
+                            <input type = "date" class="form-control" name ="to" id="to" required="">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
                     <select class="form-control" name='year' id='year'>
                         <option value='' selected="">Select Year</option>
                         <?php for($x=2019;$x<=$curr_year;$x++){ ?>
@@ -60,13 +70,6 @@ function showValues(){
                         <?php } ?>
                     </select>
                 </div>   
-                <!-- <div class="form-group">
-                    <select class="form-control" name='region' id='region'>
-                        <option value='' selected="">Select Region</option>
-                        <option value='LUZON'>Luzon</option>
-                        <option value='VISAYAS'>Visayas</option>
-                    </select>
-                </div> -->   
                 <div class="form-group">
                     <input type='text' name='participant_id' id='participant_id' placeholder="Participant ID" class="form-control">
                 </div>   

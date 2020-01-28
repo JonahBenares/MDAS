@@ -10,7 +10,7 @@
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="<?php echo base_url(); ?>masterfile/dashboard/">
+                    <a class="navbar-brand" href="<?php echo base_url(); ?>masterfile/index/">
                         <b>
                             <img src="<?php echo base_url(); ?>assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                             <img src="<?php echo base_url(); ?>assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
@@ -25,7 +25,7 @@
                     <ul class="navbar-nav mr-auto">
                         
                         <li class="nav-item">
-                            <a class="nav-link text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/dashboard/" title="Dashboard"><i class="fa fa-tachometer "></i></a>
+                            <a class="nav-link text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/index/" title="Dashboard"><i class="fa fa-tachometer "></i></a>
                         </li>
                         
                         <li class="nav-item dropdown">
