@@ -18,7 +18,7 @@ function showValues(){
 }
 </script>
 
-<link rel="stylesheet" type="text/css" href="assets/dist/css/style.css">
+<link rel="stylesheet" type="text/css" href="http://localhost/MDAS/assets/dist/css/style.css">
 <div class="container">
     <div class="modal-content m-t-10">
         <div class="modal-header">

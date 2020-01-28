@@ -148,50 +148,79 @@ class Report extends CI_Controller {
             $price = trim($objPHPExcel->getActiveSheet()->getCell('H'.$x)->getValue());
             $initial = trim($objPHPExcel->getActiveSheet()->getCell('I'.$x)->getValue());
 
+                if($region_id == 'VISAYAS'){
 
-            $count = $this->super_model->count_custom_where("rtd","delivery_date='$delivery_date' AND resource_id ='$resource_id' AND delivery_hour = '$delivery_hour' AND region_id = '$region_id'");
+                    $count = $this->super_model->count_custom_where("mps_visayas","delivery_date='$delivery_date' AND resource_id ='$resource_id' AND delivery_hour = '$delivery_hour'");
 
-            $type_id = $this->get_type($resource_id);
-          
-                $data = array(
-                    'delivery_date'=>$delivery_date,
-                    'delivery_hour'=>$delivery_hour,
-                    'region_id'=>$region_id,
-                    'type'=>$type,
-                    'type_id'=>$type_id,
-                    'participant_id'=>$participant_id,
-                    'resource_id'=>$resource_id,
-                    'mw'=>$mw,
-                    'price'=>$price,
-                    'initial'=>$initial,
-                    'upload_timestamp'=>$timestamp,
-                    'upload_by'=>$userid
-                );
-            if($count==0) {
-                 if($this->super_model->insert_into("rtd", $data)){
-                    $error=0;
-                 } else {
-                    $error++;
-                 }
-            } else {
-                $duplicates++;
+                    $type_id = $this->get_type($resource_id);
+                  
+                        $data = array(
+                            'delivery_date'=>$delivery_date,
+                            'delivery_hour'=>$delivery_hour,
+                            'type'=>$type,
+                            'type_id'=>$type_id,
+                            'participant_id'=>$participant_id,
+                            'resource_id'=>$resource_id,
+                            'mw'=>$mw,
+                            'price'=>$price,
+                            'initial'=>$initial,
+                            'upload_timestamp'=>$timestamp,
+                            'upload_by'=>$userid
+                        );
+                        if($count==0) {
+                             if($this->super_model->insert_into("mps_visayas", $data)){
+                                $error=0;
+                             } else {
+                                $error++;
+                             }
+                        } else {
+                            $duplicates++;
+                        }
+
+                } else if($region_id == 'LUZON'){
+
+                    $count = $this->super_model->count_custom_where("mps_luzon","delivery_date='$delivery_date' AND resource_id ='$resource_id' AND delivery_hour = '$delivery_hour'");
+
+                    $type_id = $this->get_type($resource_id);
+                  
+                        $data = array(
+                            'delivery_date'=>$delivery_date,
+                            'delivery_hour'=>$delivery_hour,
+                            'type'=>$type,
+                            'type_id'=>$type_id,
+                            'participant_id'=>$participant_id,
+                            'resource_id'=>$resource_id,
+                            'mw'=>$mw,
+                            'price'=>$price,
+                            'initial'=>$initial,
+                            'upload_timestamp'=>$timestamp,
+                            'upload_by'=>$userid
+                        );
+                        if($count==0) {
+                             if($this->super_model->insert_into("mps_luzon", $data)){
+                                $error=0;
+                             } else {
+                                $error++;
+                             }
+                        } else {
+                            $duplicates++;
+                        }
+                }
             }
-
-       
-            }
-         if($duplicates>0){
-            $this->session->set_flashdata('msg_error', 'There were '.$duplicates.' duplicates found. The system prevented upload of duplicate data.');
-            redirect(base_url().'report/upload_rtd/');
-         } else {
-            
-            if($error==0){
-                     $this->session->set_flashdata('msg_updates', 'RTD successfully uploaded!');
-                     redirect(base_url().'report/upload_rtd/');
+             if($duplicates>0){
+                $this->session->set_flashdata('msg_error', 'There were '.$duplicates.' duplicates found. The system prevented upload of duplicate data.');
+                redirect(base_url().'report/upload_rtd/');
              } else {
-                    $this->session->set_flashdata('msg_error', 'There was an error uploading the RTD.');
-                     redirect(base_url().'report/upload_rtd/');
+                
+                if($error==0){
+                         $this->session->set_flashdata('msg_updates', 'MPS successfully uploaded!');
+                         redirect(base_url().'report/upload_rtd/');
+                 } else {
+                        $this->session->set_flashdata('msg_error', 'There was an error uploading the MPS.');
+                         redirect(base_url().'report/upload_rtd/');
+                }
             }
-        }
+
 
       
     }
