@@ -66,346 +66,710 @@
             </tr> 
         </table>
         <br>
-        <form>
-            <table class="table table-hover table-bordered" width="100%">
-                <thead>
-                    <tr>
-                        <th align="center" width="7%" ><center>Date</center></th>
-                        <th width="7%"><center>Interval</center></th>
-                        <th width="10%">Type</th>
-                        <th width="20%">Resource ID</th>
-                        <th width="7%"><center>Capacity</center></th>
-                        <th width="20%">Outage Type</th>
-                        <th width="29%">Remarks</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td align="center" class="p-0">Jan 1</td>
-                        <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control " name=""></td>
-                        <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
-                        <td class="p-0">
-                            <select class="form-control ">
-                                <option>---Select Outage Type---</option>
-                                <option>Planned</option>
-                                <option>Unplanned</option>
-                            </select>
-                        </td>
-                        <td class="p-0">
-                            <textarea class="form-control " rows="1"></textarea>
-                        </td>
-                    </tr>                
-                </tbody>
-            </table>
+        <form >
+            <div class="m-b-70">
+                <table class="table table-hover table-bordered" width="100%">
+                    <thead>
+                        <tr>
+                            <th align="center" width="7%" ><center>Date</center></th>
+                            <th width="7%"><center>Interval</center></th>
+                            <th width="10%">Type</th>
+                            <th width="20%">Resource ID</th>
+                            <th width="7%"><center>Capacity</center></th>
+                            <th width="20%">Outage Type</th>
+                            <th width="29%">Remarks</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>   
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>    
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>    
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td align="center" class="p-0">Jan 1</td>
+                            <td align="center" class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control " name=""></td>
+                            <td class="p-0"><input type="text" class="form-control al-cen" name=""></td>
+                            <td class="p-0">
+                                <select class="form-control ">
+                                    <option>---Select Outage Type---</option>
+                                    <option>Planned</option>
+                                    <option>Unplanned</option>
+                                </select>
+                            </td>
+                            <td class="p-0">
+                                <textarea class="form-control " rows="1"></textarea>
+                            </td>
+                        </tr>               
+                    </tbody>
+                </table>   
+            </div>
+            <div style="height: 100px;width: 100%;background-image: linear-gradient(to top, #fff,#fff0);position: fixed;bottom:0">
+                <div style="padding:60px 20px;width: 97%">
+                    <input type="button" class="btn btn-success-alt btn-sm btn-block" value="Save" name="">
+                </div>
+            </div>
         </form>
-    </div>  
+    </div>
 </body>
 </html>
