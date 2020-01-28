@@ -1,4 +1,5 @@
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
+<script src="http://localhost/MDAS/assets/js/jquery.min.js"></script>
 <?php 
 $conn = mysqli_connect('localhost', 'root', '','db_mdas');
 if (!$conn) {
