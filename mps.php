@@ -160,17 +160,22 @@ if(empty($_GET)){
     }
 
 
+    if(!empty($_GET['from']) && !empty($_GET['to'])){
+        $from = $_GET['from'];
+        $to = $_GET['to'];
+    }
+
     if(!empty($_GET['type_id'])){
         $type_id = $_GET['type_id'];
         $query .=" AND type_id = '$type_id'";
         $filter_type = get_column($conn, "type_name", "pp_type", "type_id", $type_id);
     }
-     if(!empty($_GET['participant_id'])){
+    if(!empty($_GET['participant_id'])){
         $part_id = $_GET['participant_id'];
         $query .=" AND participant_id = '$part_id'";
         $filter_part = $_GET['participant_id'];
     }
-     if(!empty($_GET['resource_id'])){
+    if(!empty($_GET['resource_id'])){
         $resource = $_GET['resource_id'];
         $query .=" AND resource_id = '$resource'";
         $filter_res = $_GET['resource_id'];
