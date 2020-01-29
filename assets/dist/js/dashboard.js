@@ -62,7 +62,7 @@ window.onload = function () {
         },
         data: [
         {
-            type: "splineArea", 
+            type: "area", 
             showInLegend: true,
             yValueFormatString: "##0",      
             name: "Unplanned Outage",
@@ -83,7 +83,7 @@ window.onload = function () {
             ]
         },
         {
-            type: "splineArea", 
+            type: "area", 
             showInLegend: true,
             name: "Planned Outage",
             yValueFormatString: "##00", 
