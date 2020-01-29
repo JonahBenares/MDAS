@@ -184,22 +184,31 @@ if(empty($_GET)){
     }
 
 
+    if(!empty($_GET['from']) && !empty($_GET['to'])){
+        $from = $_GET['from'];
+        $to = $_GET['to'];
+        $datetime1 = date_create($from);
+        $datetime2 = date_create($to);
+        $interval = date_diff($datetime1, $datetime2);
+        $days= $interval->days + 1;
+        $filter_day = $from." TO ".$to;
+    }
+
     if(!empty($_GET['type_id'])){
         $type_id = $_GET['type_id'];
         $query .=" AND type_id = '$type_id'";
         $filter_type = get_column($conn, "type_name", "pp_type", "type_id", $type_id);
     }
-     if(!empty($_GET['participant_id'])){
+    if(!empty($_GET['participant_id'])){
         $part_id = $_GET['participant_id'];
         $query .=" AND participant_id = '$part_id'";
         $filter_part = $_GET['participant_id'];
     }
-     if(!empty($_GET['resource_id'])){
+    if(!empty($_GET['resource_id'])){
         $resource = $_GET['resource_id'];
         $query .=" AND resource_id = '$resource'";
         $filter_res = $_GET['resource_id'];
     }
-
 }
 
 
@@ -229,7 +238,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 <body>
     <table class="table table-bordered" width="100%">
         <tr>
-            <td width="1%" rowspan="4" colspan="5">                
+            <td width="1%" rowspan="4" colspan="5">         
             </td>
         </tr>
         <tr>
@@ -267,6 +276,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
                 <div class="alert alert-info m-b-0 p-2" role="alert">
 
                     <span class='btn btn-xs btn-info disabled'>Filter Applied</span>
+                    <span class="m-r-20"><b>Day(FROM - TO):</b>  <?php echo $filter_day; ?> </span>
                     <span class="m-r-20"><b>Type:</b>  <?php echo $filter_type; ?> </span>
                     <span class="m-r-20"><b>Participant:</b><?php echo $filter_part; ?></span>
                     <span class="m-r-20"><b>Resource:</b>  <?php echo $filter_res; ?>  </span>
