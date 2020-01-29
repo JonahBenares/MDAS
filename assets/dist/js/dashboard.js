@@ -1,4 +1,49 @@
 window.onload = function () {
+    var selectBox = document.getElementById("selectBox");
+    var a = document.getElementById("month-sel");
+    var b = document.getElementById("quarter-sel");
+    var c = document.getElementById("year-sel");
+        selectBox.addEventListener('change', changeFunc);
+        function changeFunc() {
+            if(this.value == "Monthly"){
+                a.style.display = "block";
+                b.style.display = "none";
+                c.style.display = "block";
+            }else if (this.value == "Quarterly") {
+                a.style.display = "none";
+                b.style.display = "block";
+                c.style.display = "block";
+            }else if (this.value == "Yearly") {
+                a.style.display = "none";
+                b.style.display = "none";
+                c.style.display = "block";
+            }
+            ;
+        }
+    var chart = new CanvasJS.Chart("piechartOutage", {
+        animationEnabled: true,
+        // title: {
+        //     text: "Desktop Search Engine Market Share - 2016"
+        // },
+        data: [{
+            type: "pie",
+            startAngle: 240,
+            yValueFormatString: "##0.00\"%\"",
+            indexLabel: "{label} {y}",
+            dataPoints: [
+                {y: 2.45, label: "Coal", color: "#a68c73"},
+                {y: 7.31, label: "Solar", color: "#d4b980"},
+                {y: 7.06, label: "Natural Gas", color: "#ebe6a4"},
+                {y: 4.91, label: "Oil Based", color: "#e98d86"},
+                {y: 1.26, label: "Biomas", color: "#93839f"},
+                {y: 1.26, label: "Hydro Electric", color: "#6c9bc5"},
+                {y: 1.26, label: "Wind", color: "#7fb08d"},
+                {y: 1.26, label: "Geothermal", color: "#c3c6c4"}
+
+            ]
+        }]
+    });
+    chart.render();
 
     var chart = new CanvasJS.Chart("OutageArea", {
         animationEnabled: true,
@@ -19,45 +64,46 @@ window.onload = function () {
         {
             type: "splineArea", 
             showInLegend: true,
-            name: "Entertainment",
-            color: "#039be575",
-            yValueFormatString: "$#,##00",     
+            yValueFormatString: "##0",      
+            name: "Unplanned Outage",
+            color: "#ff3333",  
             dataPoints: [
-                { x: new Date(2016, 2), y: 10100 },
-                { x: new Date(2016, 3), y: 6000 },
-                { x: new Date(2016, 4), y: 3400 },
-                { x: new Date(2016, 5), y: 4000 },
-                { x: new Date(2016, 6), y: 9000 },
-                { x: new Date(2016, 7), y: 3900 },
-                { x: new Date(2016, 8), y: 4200 },
-                { x: new Date(2016, 9), y: 5000 },
-                { x: new Date(2016, 10), y: 14300 },
-                { x: new Date(2016, 11), y: 12300 },
-                { x: new Date(2017, 0), y: 8300 },
-                { x: new Date(2017, 1), y: 6300 }
+                { y: 233,  label: "01-1"},
+                { y: 140,  label: "01-2"},
+                { y: 344,  label: "01-3"},
+                { y: 84,  label: "01-4"},
+                { y: 457,  label: "01-5"},
+                { y: 344,  label: "01-6"},
+                { y: 45,  label: "01-7"},
+                { y: 343,  label: "01-8"},
+                { y: 393,  label: "01-9"},
+                { y: 120,  label: "01-10"},
+                { y: 112,  label: "01-11"},
+                { y: 101,  label: "01-12"}
             ]
         },
         {
             type: "splineArea", 
             showInLegend: true,
-            yValueFormatString: "$#,##0",      
-            name: "Maintenance",
+            name: "Planned Outage",
+            yValueFormatString: "##00", 
+            color: "#3c81ff",    
             dataPoints: [
-                { x: new Date(2016, 2), y: 1700 },
-                { x: new Date(2016, 3), y: 2600 },
-                { x: new Date(2016, 4), y: 1000 },
-                { x: new Date(2016, 5), y: 1400 },
-                { x: new Date(2016, 6), y: 900 },
-                { x: new Date(2016, 7), y: 1000 },
-                { x: new Date(2016, 8), y: 1200 },
-                { x: new Date(2016, 9), y: 5000 },
-                { x: new Date(2016, 10), y: 1300 },
-                { x: new Date(2016, 11), y: 2300 },
-                { x: new Date(2017, 0), y: 2800 },
-                { x: new Date(2017, 1), y: 1300 }
+                { y: 130,  label: "01-1" },
+                { y: 34,  label: "01-2"},
+                { y: 356,  label: "01-3"},
+                { y: 435,  label: "01-4"},
+                { y: 34,  label: "01-5"},
+                { y: 130,  label: "01-6"},
+                { y: 345,  label: "01-7"},
+                { y: 335,  label: "01-8"},
+                { y: 344,  label: "01-9"},
+                { y: 334,  label: "01-10"},
+                { y: 355,  label: "01-11"},
+                { y: 62,  label: "01-12"}
             ]
         }]
     });
     chart.render();
 
-    }
+}
