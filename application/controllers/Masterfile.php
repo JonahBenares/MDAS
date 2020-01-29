@@ -59,6 +59,14 @@ class Masterfile extends CI_Controller {
         $this->load->view('masterfile/login');
     }
 
+    public function dashboard()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('masterfile/dashboard');
+        $this->load->view('template/footer');
+    }
+
     public function login_process(){
         $username=$this->input->post('username');
         $password=$this->input->post('password');

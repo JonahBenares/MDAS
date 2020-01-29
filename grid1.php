@@ -5,9 +5,81 @@
     <title>Market Prices & Schedule</title>   
     <link rel="stylesheet" type="text/css" href="http://localhost/MDAS/assets/dist/css/style.css">
     <style type="text/css">
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 0.875rem;
+            font-weight: 400;
+            line-height: 1.5;
+            color: #212529;
+            text-align: left;
+            background-color: #edf1f5;
+        }
+        @media (max-height: 1007px){
+            .gvMain1{
+                height: 858px;
+                width: 1920px;
+            }
+        } 
+        @media (max-height: 979px){
+            .gvMain1{
+                height: 830px;
+                width: 1920px;
+            }
+        } 
+        @media (max-height: 975px){
+            .gvMain1{
+                height: 820px;
+                width: 1920px;
+            }
+        }  
+        @media (max-height: 969px){
+            .gvMain1{
+                height: 800px;
+                width: 1920px;
+            }
+        } 
+        @media (max-height: 947px){
+            .gvMain1{
+                height: 798px;
+                width: 1920px;
+            }
+        }
+        @media (max-height: 937px){
+            .gvMain1{
+                height: 788px;
+                width: 1920px;
+            }
+        }
+        @media (max-height: 694px){
+            .gvMain1{
+                height: 545px;
+                width: 1366px;
+            }
+        }
+        @media (max-height: 668px){
+            .gvMain1{
+                height: 520px;
+                width: 1366px;
+            }
+        }
+        @media (max-height: 654px){
+            .gvMain1{
+                height: 500px;
+                width: 1366px;
+            }
+        }
+        @media (max-height: 652px){
+            .gvMain1{
+                height: 500px;
+                width: 1366px;
+            }
+        }
         table {
           table-layout: fixed;
           border-spacing: 0px;
+          border-collapse: separate;
+          background-color: #fff;
         }
 
         td, th {
@@ -15,734 +87,196 @@
           padding-right: 5px;
         }
 
-        .tr_shaded:nth-child(even) {
+       /* .tr_shaded:nth-child(even) {
           background: #e0e0e0;
         }
 
         .tr_shaded:nth-child(odd) {
           background: #ffffff;
-        }
+        }*/
 
         .scrolly_table {
           white-space: nowrap;
           overflow: auto;
         }
 
-        /* The frozen cells will each get two class names,
-           making it easier for me to select all of them or
-           only a subset.  All frozen cells will be "fixed",
-           the corner will also be in class "freeze", and the
-           row and column headers will be "horizontal" and
-           "vertical" respectively. */
         .fixed.freeze {
           z-index: 10;
           position: relative;
+          /*padding: 3px 4px;*/
+          /*border:1px solid #000;*/
         }
 
         .fixed.freeze_vertical {
           z-index: 5;
           position: relative;
+          /*padding: 3px 4px;*/
+          /*border:1px solid #000;*/
         }
 
         .fixed.freeze_horizontal {
           z-index: 1;
           position: relative;
+          /*padding: 3px 4px;*/
+          /*border:1px solid #000;*/
         }
         table tr th, table tr td{
-            border:1px solid #000
+            border:0.001rem solid #cccccc;
         }
     </style>
 </head>
+<?php
+$conn = mysqli_connect('localhost', 'root', '','db_mdas');
+if (!$conn) {
+    die("Connection failed: " . mysqli_connect_error());
+} 
+$filter_type='';
+$filter_part='';
+$filter_res='';
+if(empty($_GET)){
+    $month = date('m');
+    $year = date('Y');
+    $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+    $from =$year."-".$month."-01";
+    $to = $year."-".$month."-".$days;
+    $query='';
+} else {
 
+    $query ='';
+    if(!empty($_GET['year']) && empty($_GET['month'])){
+        $month = date('m');
+        $year = $_GET['year'];
+        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+        $from =$year."-".$month."-01";
+        $to = $year."-".$month."-".$days;
+    }
+
+    if(!empty($_GET['month']) && empty($_GET['year'])){
+        $month = str_pad($_GET['month'], 2, "0", STR_PAD_LEFT);
+        $year = date('Y');
+        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+        $from =$year."-".$month."-01";
+        $to = $year."-".$month."-".$days;
+    }
+
+    if(!empty($_GET['month']) && !empty($_GET['year'])){
+        $month = str_pad($_GET['month'], 2, "0", STR_PAD_LEFT);
+        $year = $_GET['year'];
+        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+        $from =$year."-".$month."-01";
+        $to = $year."-".$month."-".$days;
+    }
+
+     if(empty($_GET['month']) && empty($_GET['year'])){
+        $month = date('m');
+        $year = date('Y');
+        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
+        $from =$year."-".$month."-01";
+        $to = $year."-".$month."-".$days;
+    }
+
+
+    if(!empty($_GET['type_id'])){
+        $type_id = $_GET['type_id'];
+        $query .=" AND type_id = '$type_id'";
+        $filter_type = get_column($conn, "type_name", "pp_type", "type_id", $type_id);
+    }
+     if(!empty($_GET['participant_id'])){
+        $part_id = $_GET['participant_id'];
+        $query .=" AND participant_id = '$part_id'";
+        $filter_part = $_GET['participant_id'];
+    }
+     if(!empty($_GET['resource_id'])){
+        $resource = $_GET['resource_id'];
+        $query .=" AND resource_id = '$resource'";
+        $filter_res = $_GET['resource_id'];
+    }
+
+}
+
+
+$rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_visayas WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
+
+
+function  get_rtd_value($conn, $column, $date, $resource_id, $delivery_hour){
+  $rtd_val = mysqli_query($conn, "SELECT $column FROM mps_visayas WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour'");
+  $fetch_val = mysqli_fetch_array($rtd_val);
+  return $fetch_val[$column];
+}
+
+function get_column($conn, $column, $table, $where_col, $where_val){
+    $get =  mysqli_query($conn, "SELECT $column FROM $table WHERE $where_col = '$where_val'");
+    $fetch = mysqli_fetch_array($get);
+    return $fetch[$column];
+}
+
+function get_row_color($conn, $type_id){
+  $get_color = mysqli_query($conn, "SELECT legend_color FROM pp_type WHERE type_id = '$type_id'");
+  $fetch_color = mysqli_fetch_array($get_color);
+  return $fetch_color['legend_color'];
+}
+
+$pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
+?>
 <body>    
-    <div id="scrolling_table_2" class="scrolly_table scrolling_table_2" style="max-width:700px; max-height:200px">
+    <div id="scrolling_table_2" class="scrolly_table scrolling_table_2 gvMain1" >
         <table class="table" style="border:1px solid #000">
             <tr>
-                <th style="background-color:white" class="fixed freeze" rowspan="2">Corner</th>
-                <th style="background-color:white" class="fixed freeze" rowspan="2">Corner</th>
-                <th style="background-color:white" class="fixed freeze" rowspan="2">Corner</th>
-                <th style="background-color:white" class="fixed freeze" rowspan="2">Corner</th>
-                <th style="background-color:white" class="fixed freeze" rowspan="2">Corner</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3">1</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3">2</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3">3</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3">4</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3">5</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3">6</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3">7</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3">8</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3">9</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3">10</th>
+                <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Delivery <br>_Hour</center></th>
+                <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Region_ID</center></th>
+                <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Type_ID</center></th>
+                <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Participant_ID</center></th>
+                <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Resource_ID</center></th>
+                <?php for($x=1;$x<=$days;$x++){ ?>
+                <th style="background-color:white" class="fixed freeze_vertical" colspan="3"><center><?php echo $x; ?></center></th>
+                <?php } ?>                
             </tr>
             <tr>
+                <?php for($x=1;$x<=$days;$x++){ ?> 
                 <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
-
+                <th style="background-color:white" class="fixed freeze_vertical" colspan="">Price</th>
+                <th style="background-color:white" class="fixed freeze_vertical" colspan="">Initial</th>
+            <?php } ?> 
             </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
+            <?php while($fetch = mysqli_fetch_array($rtd_q)):;?>
+            <tr class="tr_shaded" style ="<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                <td class="fixed freeze_horizontal p-0" align="center">
+                    <div class="p-l-5 p-r-5" style ="width:100%;<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                        <?php echo $fetch['delivery_hour']; ?>
+                    </div>
+                </td>
+                <td class="fixed freeze_horizontal p-0">
+                    <div class="p-l-5 p-r-5" style ="width:100%;<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                        <?php echo 'VISAYAS' ?>
+                    </div>
+                </td>
+                <td class="fixed freeze_horizontal p-0">
+                    <div class="p-l-5 p-r-5" style ="width:100%;<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                        <?php echo $fetch['type']; ?>
+                    </div>
+                </td>
+                <td class="fixed freeze_horizontal p-0">
+                    <div class="p-l-5 p-r-5" style ="width:100%;<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                        <?php echo $fetch['participant_id']; ?>
+                    </div>
+                </td>
+                <td class="fixed freeze_horizontal p-0">
+                    <div class="p-l-5 p-r-5" style ="width:100%;background-color: <?php echo get_row_color($conn, $fetch['type_id']); ?>; <?php echo ($fetch['type_id'] == '') ? 'background-color: #ffe1cb' : ''; ?>">
+                        <center><?php echo $fetch['resource_id']; ?></center>
+                    </div>
+                </td>
+                <?php for($x=1;$x<=$days;$x++){ 
+                    $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
+                    $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?> 
+                    <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
+                    <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
+                    <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
+                 <?php } ?>  
             </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-            <tr class="tr_shaded">
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td class="fixed freeze_horizontal">Row header</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-                <td>2</td>
-            </tr>
-
+            <?php endwhile; ?> 
         </table>
     </div>
-    <script type="text/javascript">
-        function freeze_pane_listener(what_is_this, table_class) {
-          // Wrapping a function so that the listener can be defined
-          // in a loop over a set of scrolling table id's.
-          // Cf. http://stackoverflow.com/questions/750486/javascript-closure-inside-loops-simple-practical-example
-      
-        return function() {
-            var i;
-            var translate_y = "translate(0," + what_is_this.scrollTop + "px)";
-            var translate_x = "translate(" + what_is_this.scrollLeft + "px,0px)";
-            var translate_xy = "translate(" + what_is_this.scrollLeft + "px," + what_is_this.scrollTop + "px)";
-            
-            var fixed_vertical_elts = document.getElementsByClassName(table_class + " freeze_vertical");
-            var fixed_horizontal_elts = document.getElementsByClassName(table_class + " freeze_horizontal");
-            var fixed_both_elts = document.getElementsByClassName(table_class + " freeze");
-            
-            // The webkitTransforms are for a set of ancient smartphones/browsers,
-            // one of which I have, so I code it for myself:
-            for (i = 0; i < fixed_horizontal_elts.length; i++) {
-              fixed_horizontal_elts[i].style.webkitTransform = translate_x;
-              fixed_horizontal_elts[i].style.transform = translate_x;
-            }
-
-            for (i = 0; i < fixed_vertical_elts.length; i++) {
-               fixed_vertical_elts[i].style.webkitTransform = translate_y;
-               fixed_vertical_elts[i].style.transform = translate_y;
-            }
-
-            for (i = 0; i < fixed_both_elts.length; i++) {
-               fixed_both_elts[i].style.webkitTransform = translate_xy;
-               fixed_both_elts[i].style.transform = translate_xy;
-            }
-          }
-        }
-
-        function even_odd_color(i) {
-          if (i % 2 == 0) {
-            return "#e0e0e0";
-          } else {
-            return "#ffffff";
-          }
-        }
-
-        function parent_id(wanted_node_name, elt) {
-          // Function to work up the DOM until it reaches
-          // an element of type wanted_node_name, and return
-          // that element's id.
-          
-          var wanted_parent = parent_elt(wanted_node_name, elt);
-          
-          if ((wanted_parent == undefined) || (wanted_parent.nodeName == null)) {
-            // Sad trombone noise.
-            return "";
-          } else {
-            return wanted_parent.id;
-          }
-        }
-
-        function parent_elt(wanted_node_name, elt) {
-          // Function to work up the DOM until it reaches 
-          // an element of type wanted_node_name, and return
-          // that element.
-          
-          var this_parent = elt.parentElement;
-          if ((this_parent == undefined) || (this_parent.nodeName == null)) {
-            // Sad trombone noise.
-            return null;
-          } else if (this_parent.nodeName == wanted_node_name) {
-            // Found it:
-            return this_parent;
-          } else {
-            // Recurse:
-            return parent_elt(wanted_node_name, this_parent);
-          }
-        }
-
-        var i, parent_div_id, parent_tr, table_i, scroll_div;
-        var scrolling_table_div_ids = [ "scrolling_table_2"];
-
-        // This array will let us keep track of even/odd rows:
-        var scrolling_table_tr_counters = [];
-        for (i = 0; i < scrolling_table_div_ids.length; i++) {
-          scrolling_table_tr_counters.push(0);
-        }
-
-        // Append the parent div id to the class of each frozen element:
-        var fixed_elements = document.getElementsByClassName("fixed");
-        for (i = 0; i < fixed_elements.length; i++) {
-          fixed_elements[i].className += " " + parent_id("DIV", fixed_elements[i]);
-        }
-
-        // Set background colours of row headers, alternating according to 
-        // even_odd_color(), which should have the same values as those
-        // defined in the CSS for the tr_shaded class.
-        var fixed_horizontal_elements = document.getElementsByClassName("freeze_horizontal");
-        for (i = 0; i < fixed_horizontal_elements.length; i++) {
-          parent_div_id = parent_id("DIV", fixed_horizontal_elements[i]);
-          table_i = scrolling_table_div_ids.indexOf(parent_div_id);
-          
-          if (table_i >= 0) {
-            parent_tr = parent_elt("TR", fixed_horizontal_elements[i]);
-            
-            if (parent_tr.className.match("tr_shaded")) {
-              fixed_horizontal_elements[i].style.backgroundColor = even_odd_color(scrolling_table_tr_counters[table_i]);
-              scrolling_table_tr_counters[table_i]++;
-            }
-          }
-        }
-
-        // Add event listeners.
-        for (i = 0; i < scrolling_table_div_ids.length; i++) {
-          scroll_div = document.getElementById(scrolling_table_div_ids[i]);
-          scroll_div.addEventListener("scroll", freeze_pane_listener(scroll_div, scrolling_table_div_ids[i]));
-        }
-    </script>
+    <script type="text/javascript" src="http://localhost/MDAS/grid1.min.js" ></script>
 </body>
 
 </html>
