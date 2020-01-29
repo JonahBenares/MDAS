@@ -32,6 +32,12 @@
                             <div class="row p-t-15">
                                 <div class="form-group">
                                     <select class="form-control">
+                                        <option>Visayas</option>
+                                        <option>Luzon</option>
+                                    </select>                
+                                </div>
+                                <div class="form-group">
+                                    <select class="form-control">
                                         <option>Planned</option>
                                         <option>Unplanned</option>
                                     </select>                
