@@ -89,10 +89,10 @@
                                             <div class="p-r-20">
                                                 <table width="100%">
                                                     <tr>
-                                                        <td width="5%"><p class=" ">Filter <span class="fa fa-filter"></span></p></td>
+                                                        <td colspan="2" width="5%"><p class=" ">Filter <span class="fa fa-filter"></span></p></td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="10%">
+                                                        <td colspan="2" width="10%">
                                                             <div class="form-group m-b-5">
                                                                 <select style="width: 100%">
                                                                     <option>Semi Annual</option>
@@ -102,7 +102,7 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="10%">
+                                                        <td colspan="2" width="10%">
                                                             <div class="form-group m-b-5">
                                                                 <select style="width: 100%">
                                                                     <option>Type</option>
@@ -111,56 +111,56 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>  
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>
-                                                            <div class="btn-group" style="padding: 0 5px 5px 5px;">
-                                                                <button class="btn p- btn-sm nosha"><input type="checkbox" style="width: 20px;height: 20px" name=""></button>
-                                                                <button style="background: #ececec; width:120px" class="btn btn-sm nosha">Resource ID</button>
-                                                            </div>  
-                                                        </td>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="1%"><input type="checkbox" style="width: 20px;height: 20px" name=""></td>
+                                                        <td>Resource ID</td>
                                                     </tr>
                                                 </table>
                                             </div>
