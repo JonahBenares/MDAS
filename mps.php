@@ -142,6 +142,7 @@ $filter_type='';
 $filter_part='';
 $filter_res='';
 if(empty($_GET)){
+    
     $month = date('m');
     $year = date('Y');
     $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
@@ -213,6 +214,7 @@ if(empty($_GET)){
 
 
 $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_visayas WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
+//$rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_visayas WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
 
 
 function  get_rtd_value($conn, $column, $date, $resource_id, $delivery_hour){
@@ -298,9 +300,9 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
                 <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Type_ID</center></th>
                 <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Participant_ID</center></th>
                 <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Resource_ID</center></th>
-                <?php for($x=1;$x<=$days;$x++){ ?>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3"><center><?php echo $x; ?></center></th>
-                <?php } ?>                
+                <?php $range = date("d",strtotime($from)); for($x=1;$x<=$days;$x++){ ?>
+                <th style="background-color:white" class="fixed freeze_vertical" colspan="3"><center><?php echo (!empty($_GET)) ? $range : $x; ?></center></th>
+                <?php $range++; } ?>                
             </tr>
             <tr>
                 <?php for($x=1;$x<=$days;$x++){ ?> 
@@ -336,13 +338,21 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
                         <center><?php echo $fetch['resource_id']; ?></center>
                     </div>
                 </td>
-                <?php for($x=1;$x<=$days;$x++){ 
-                    $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
-                    $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?> 
+                <?php 
+                    $range = date("d",strtotime($from)); 
+                    for($x=1;$x<=$days;$x++){ 
+                        if(!empty($_GET)){
+                            $date=$year."-".$month."-".str_pad($range, 2, "0", STR_PAD_LEFT); 
+                        }else{
+                            $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT);
+                        }
+
+                        $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); 
+                ?> 
                     <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
                     <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                     <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
-                 <?php } ?>  
+                <?php $range++; } ?>  
             </tr>
             <?php endwhile; ?> 
         </table>
