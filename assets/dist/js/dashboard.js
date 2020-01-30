@@ -1,4 +1,5 @@
 window.onload = function () {
+
     var selectBox = document.getElementById("selectBox");
     var a = document.getElementById("month-sel");
     var b = document.getElementById("quarter-sel");
@@ -20,6 +21,8 @@ window.onload = function () {
             }
             ;
         }
+
+
     var chart = new CanvasJS.Chart("piechartOutage", {
         animationEnabled: true,
         // title: {
@@ -105,5 +108,6 @@ window.onload = function () {
         }]
     });
     chart.render();
+
 
 }

@@ -83,6 +83,14 @@ class Report extends CI_Controller {
         $this->load->view('template/footer');    
     }
 
+    public function comparison_out()
+    {
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('report/comparison_out');
+        $this->load->view('template/footer');    
+    }
+
     public function get_type($resource_id){
         $powerplant_id = $this->super_model->select_column_where("pp_resources", "powerplant_id", "resource_id", $resource_id);
         $type_id = $this->super_model->select_column_where("powerplants", "type_id", "powerplant_id", $powerplant_id);

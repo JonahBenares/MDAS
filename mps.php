@@ -58,7 +58,7 @@
             width: 1920px;
         }
     }
-    @media (max-height: 694px){
+    @media (max-height: 695px){
         .gvMain1{
             height: 545px;
             width: 1366px;
@@ -272,9 +272,8 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
         </tr>    
         <?php if(!empty($_GET)){ ?>
         <tr>
-            <td colspan="10">
-                <div class="alert alert-info m-b-0 p-2" role="alert">
-
+            <td colspan="20">
+                <div class="alert alert-info m-b-0 p-1" role="alert">
                     <span class='btn btn-xs btn-info disabled'>Filter Applied</span>
                     <span class="m-r-20"><b>Day(FROM - TO):</b>  <?php echo $filter_day; ?> </span>
                     <span class="m-r-20"><b>Type:</b>  <?php echo $filter_type; ?> </span>

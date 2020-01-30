@@ -10,7 +10,7 @@
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="<?php echo base_url(); ?>masterfile/index/">
+                    <a class="navbar-brand" href="<?php echo base_url(); ?>masterfile/dashboard/">
                         <b>
                             <img src="<?php echo base_url(); ?>assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                             <img src="<?php echo base_url(); ?>assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
@@ -47,6 +47,7 @@
                             <a class="dropdown-item" href="<?php echo base_url(); ?>mps.php"></span> MPS VISAYAS</a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>mps_luzon.php"></span> MPS LUZON</a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage.php"></span> Actual Outages</a>
+                            <a class="dropdown-item" href="<?php echo base_url(); ?>report/comparison_out"></span> Comparison Outages</a>
                                 <!-- <a class="dropdown-item" href="../../rtd.php">
                                 </span> RTD php</a> -->
                             </div>
