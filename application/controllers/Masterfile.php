@@ -48,24 +48,68 @@ class Masterfile extends CI_Controller {
 
     public function index()
     {
+        $curr_month = date('Y-m');
+        $data['monthly'] = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' ORDER BY outage_date ASC");
+        $data['type'] = $this->super_model->select_all("pp_type");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
-        $this->load->view('masterfile/dashboard');
+        $this->load->view('masterfile/dashboard',$data);
         $this->load->view('template/footer');
     } 
 
+    public function outage_percentage_monthly($type_id){
+        $month = date('Y-m');
+        $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$month%'","summary_id");
+        $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$month%' AND type_id = '$type_id'","summary_id");
+        $percentage = (($outage_per_type/$total_outage)*100);
+        return number_format($percentage,2);
+    }
+
+    public function sum_outage_planned_filter($location,$interval){
+        echo $location;
+       /* $cap = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$date%' AND outage_interval = '$interval' AND outage_type='1'","summary_id");
+        if(empty($cap)){
+            $cap = 0;
+        } else {
+            $cap = $cap;
+        }
+        return $cap;*/
+    }
+
+
+
+    public function sum_outage_planned($date,$interval){
+        $cap = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$date%' AND outage_interval = '$interval' AND outage_type='1'","summary_id");
+        if(empty($cap)){
+            $cap = 0;
+        } else {
+            $cap = $cap;
+        }
+        return $cap;
+    }
+
+    public function sum_outage_unplanned($date,$interval){
+        $cap_up = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$date%' AND outage_interval = '$interval' AND outage_type='2'","summary_id");
+         if(empty($cap_up)){
+            $cap_up = 0;
+        } else {
+            $cap_up = $cap_up;
+        }
+        return $cap_up;
+    }
 
     public function login(){  
         $this->load->view('masterfile/login');
     }
 
-    public function dashboard()
+   /* public function dashboard()
     {
+
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('masterfile/dashboard');
         $this->load->view('template/footer');
-    }
+    }*/
 
     public function login_process(){
         $username=$this->input->post('username');

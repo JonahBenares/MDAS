@@ -20,7 +20,7 @@ window.onload = function () {
             }
             ;
         }
-    var chart = new CanvasJS.Chart("piechartOutage", {
+  /*  var chart = new CanvasJS.Chart("piechartOutage", {
         animationEnabled: true,
         // title: {
         //     text: "Desktop Search Engine Market Share - 2016"
@@ -43,8 +43,8 @@ window.onload = function () {
             ]
         }]
     });
-    chart.render();
-
+    chart.render();*/
+/*
     var chart = new CanvasJS.Chart("OutageArea", {
         animationEnabled: true,
         // title:{
@@ -105,5 +105,5 @@ window.onload = function () {
         }]
     });
     chart.render();
-
+*/
 }

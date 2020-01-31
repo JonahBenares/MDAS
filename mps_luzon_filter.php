@@ -1,9 +1,6 @@
 <script src="http://localhost/MDAS/assets/js/jquery.min.js"></script>
 <?php 
-$conn = mysqli_connect('localhost', 'root', '','db_mdas');
-if (!$conn) {
-    die("Connection failed: " . mysqli_connect_error());
-} 
+include 'conn.php';
 
 $curr_year = date('Y'); 
 
