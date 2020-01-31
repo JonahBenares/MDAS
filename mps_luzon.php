@@ -12,67 +12,126 @@
     </script>
 </head>
 <style type="text/css">
-@media (max-height: 1007px){
-    #gvMain1{
-        height: 858px;
-        width: 1920px;
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 0.875rem;
+        font-weight: 400;
+        line-height: 1.5;
+        color: #212529;
+        text-align: left;
+        background-color: #edf1f5;
     }
-} 
-@media (max-height: 979px){
-    #gvMain1{
-        height: 830px;
-        width: 1920px;
+   @media (max-height: 1007px){
+        .gvMain1{
+            height: 858px;
+            width: 1920px;
+        }
+    } 
+    @media (max-height: 979px){
+        .gvMain1{
+            height: 830px;
+            width: 1920px;
+        }
+    } 
+    @media (max-height: 975px){
+        .gvMain1{
+            height: 820px;
+            width: 1920px;
+        }
+    }  
+    @media (max-height: 969px){
+        .gvMain1{
+            height: 800px;
+            width: 1920px;
+        }
+    } 
+    @media (max-height: 947px){
+        .gvMain1{
+            height: 798px;
+            width: 1920px;
+        }
     }
-} 
-@media (max-height: 975px){
-    #gvMain1{
-        height: 820px;
-        width: 1920px;
+    @media (max-height: 937px){
+        .gvMain1{
+            height: 788px;
+            width: 1920px;
+        }
     }
-}  
-@media (max-height: 969px){
-    #gvMain1{
-        height: 800px;
-        width: 1920px;
+    @media (max-height: 695px){
+        .gvMain1{
+            height: 545px;
+            width: 1366px;
+        }
     }
-} 
-@media (max-height: 947px){
-    #gvMain1{
-        height: 798px;
-        width: 1920px;
+    @media (max-height: 668px){
+        .gvMain1{
+            height: 520px;
+            width: 1366px;
+        }
     }
-}
-@media (max-height: 937px){
-    #gvMain1{
-        height: 788px;
-        width: 1920px;
+    @media (max-height: 654px){
+        .gvMain1{
+            height: 500px;
+            width: 1366px;
+        }
     }
-}
-@media (max-height: 694px){
-    #gvMain1{
-        height: 545px;
-        width: 1366px;
+    @media (max-height: 652px){
+        .gvMain1{
+            height: 500px;
+            width: 1366px;
+        }
     }
-}
-@media (max-height: 668px){
-    #gvMain1{
-        height: 520px;
-        width: 1366px;
+    table {
+      table-layout: fixed;
+      border-spacing: 0px;
+      border-collapse: separate;
+      background-color: #fff;
     }
-}
-@media (max-height: 654px){
-    #gvMain1{
-        height: 500px;
-        width: 1366px;
+
+    td, th {
+      padding-left: 5px;
+      padding-right: 5px;
     }
-}
-@media (max-height: 652px){
-    #gvMain1{
-        height: 500px;
-        width: 1366px;
+
+   /* .tr_shaded:nth-child(even) {
+      background: #e0e0e0;
     }
-}
+
+    .tr_shaded:nth-child(odd) {
+      background: #ffffff;
+    }*/
+
+    .scrolly_table {
+      white-space: nowrap;
+      overflow: auto;
+    }
+
+    .fixed.freeze {
+      z-index: 10;
+      position: relative;
+      /*padding: 3px 4px;*/
+      /*border:1px solid #000;*/
+    }
+
+    .fixed.freeze_vertical {
+      z-index: 5;
+      position: relative;
+      /*padding: 3px 4px;*/
+      /*border:1px solid #000;*/
+    }
+
+    .fixed.freeze_horizontal {
+      z-index: 1;
+      position: relative;
+      /*padding: 3px 4px;*/
+      /*border:1px solid #000;*/
+    }
+    table tr th, table tr td{
+        border:0.001rem solid #cccccc;
+    }
 </style>
+
 
 <?php
 include 'conn.php';
@@ -137,22 +196,21 @@ if(empty($_GET)){
         $query .=" AND type_id = '$type_id'";
         $filter_type = get_column($conn, "type_name", "pp_type", "type_id", $type_id);
     }
-     if(!empty($_GET['participant_id'])){
+    if(!empty($_GET['participant_id'])){
         $part_id = $_GET['participant_id'];
         $query .=" AND participant_id = '$part_id'";
         $filter_part = $_GET['participant_id'];
     }
-     if(!empty($_GET['resource_id'])){
+    if(!empty($_GET['resource_id'])){
         $resource = $_GET['resource_id'];
         $query .=" AND resource_id = '$resource'";
         $filter_res = $_GET['resource_id'];
     }
-
 }
 
 
-  $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_luzon WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
-//echo "SELECT delivery_date,delivery_hour, region_id, type, type_id, participant_id,resource_id FROM rtd WHERE region_id = '$region' AND delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC<br>";
+$rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_luzon WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
+
 
 function  get_rtd_value($conn, $column, $date, $resource_id, $delivery_hour){
   $rtd_val = mysqli_query($conn, "SELECT $column FROM mps_luzon WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour'");
@@ -177,11 +235,13 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 <body>
     <table class="table table-bordered" width="100%">
         <tr>
-            <td width="1%" rowspan="4">
-                <a href="masterfile/index/" class="btn btn-sm btn-info-alt" style="height: 4rem"><span class="fa fa-home"></span> </a>
+            <td width="1%" rowspan="4" colspan="5">         
             </td>
         </tr>
         <tr>
+            <td rowspan="3">
+                <a href="masterfile/dashboard/" class="btn btn-sm btn-info-alt" style="height: 4rem"><span class="fa fa-home"></span> </a>
+            </td>
             <td colspan="2">MARKET PRICES AND SCHEDULE</td>
             <td colspan="1"></td>
             <td colspan="10" rowspan="3" width="50%">
@@ -209,8 +269,8 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
         </tr>    
         <?php if(!empty($_GET)){ ?>
         <tr>
-            <td colspan="16">
-                <div class="alert alert-info m-b-0 p-2" role="alert">
+            <td colspan="20">
+                <div class="alert alert-info m-b-0 p-1" role="alert">
 
                     <span class='btn btn-xs btn-info disabled'>Filter Applied</span>
                     <span class="m-r-20"><b>Day(FROM - TO):</b>  <?php echo $filter_day; ?> </span>
@@ -228,52 +288,72 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
             <td colspan="16"><br></td>
         </tr>   
     </table>
-    <div style="overflow: scroll" id="gvMain1">
-        <table cellspacing="0" id="gvMain" style="width: 100%; border-collapse: collapse;">
-            <tr class="GridViewScrollHeader">
-                <td colspan="3" style="background-color: #F4F4F4;">.</td>
-                <td colspan="2" style="background-color: #F4F4F4;">.</td>
-                <?php for($x=1;$x<=$days;$x++){ ?>
-                    <th class="text-blk" colspan="3" scope="col"><center><?php echo $x; ?></center></th>
-                <?php } ?> 
-                <td>Nothing follows</td>
+    <div id="scrolling_table_2" class="scrolly_table scrolling_table_2 gvMain1" >
+        <table class="table" style="border:1px solid #000">
+            <tr>
+                <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Delivery <br>_Hour</center></th>
+                <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Region_ID</center></th>
+                <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Type_ID</center></th>
+                <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Participant_ID</center></th>
+                <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Resource_ID</center></th>
+                <?php $range = date("d",strtotime($from)); for($x=1;$x<=$days;$x++){ ?>
+                <th style="background-color:white" class="fixed freeze_vertical" colspan="3"><center><?php echo (!empty($_GET)) ? $range : $x; ?></center></th>
+                <?php $range++; } ?>                
             </tr>
-            <tr class="GridViewScrollHeader">
-                <th class="text-blk" scope="col">Delivery_Hour</th>
-                <th class="text-blk" scope="col">Region_ID</th>
-                <th class="text-blk" scope="col">Type_ID</th>
-                <th class="text-blk" scope="col">Participant_ID</th>
-                <th class="text-blk" scope="col">Resource_ID</th>
-                <?php for($x=1;$x<=$days;$x++){ ?>      
-                    <th class="text-blk" scope="col">MW</th>
-                    <th class="text-blk" scope="col">Price</th>
-                    <th class="text-blk" scope="col">Initial</th>
-                <?php } ?> 
-                <td>Nothing follows</td> 
-
+            <tr>
+                <?php for($x=1;$x<=$days;$x++){ ?> 
+                <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
+                <th style="background-color:white" class="fixed freeze_vertical" colspan="">Price</th>
+                <th style="background-color:white" class="fixed freeze_vertical" colspan="">Initial</th>
+            <?php } ?> 
             </tr>
             <?php while($fetch = mysqli_fetch_array($rtd_q)):;?>
-            <tr class="GridViewScrollItem hover-high" style ="<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
-                <td align="center"><?php echo $fetch['delivery_hour']; ?></td>
-                <td align="center"><?php echo 'LUZON' ?></td>
-                <td align="center"><?php echo $fetch['type']; ?></td>
-                <td align="center"><?php echo $fetch['participant_id']; ?></td>
-                <td align="center" style="background-color: <?php echo get_row_color($conn, $fetch['type_id']); ?>; <?php echo ($fetch['type_id'] == '') ? 'background-color: #ffe1cb' : ''; ?>" ><?php echo $fetch['resource_id']; ?></td>
-                <?php for($x=1;$x<=$days;$x++){ 
-                    $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
-
-
-                    $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?> 
+            <tr class="tr_shaded" style ="<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                <td class="fixed freeze_horizontal p-0" align="center">
+                    <div class="p-l-5 p-r-5" style ="width:100%;<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                        <?php echo $fetch['delivery_hour']; ?>
+                    </div>
+                </td>
+                <td class="fixed freeze_horizontal p-0">
+                    <div class="p-l-5 p-r-5" style ="width:100%;<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                        <?php echo 'LUZON' ?>
+                    </div>
+                </td>
+                <td class="fixed freeze_horizontal p-0">
+                    <div class="p-l-5 p-r-5" style ="width:100%;<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                        <?php echo $fetch['type']; ?>
+                    </div>
+                </td>
+                <td class="fixed freeze_horizontal p-0">
+                    <div class="p-l-5 p-r-5" style ="width:100%;<?php echo ($fetch['delivery_hour']==1) ? "background: yellow;" : ''; ?>">
+                        <?php echo $fetch['participant_id']; ?>
+                    </div>
+                </td>
+                <td class="fixed freeze_horizontal p-0">
+                    <div class="p-l-5 p-r-5" style ="width:100%;background-color: <?php echo get_row_color($conn, $fetch['type_id']); ?>; <?php echo ($fetch['type_id'] == '') ? 'background-color: #ffe1cb' : ''; ?>">
+                        <center><?php echo $fetch['resource_id']; ?></center>
+                    </div>
+                </td>
+                <?php 
+                    $range = date("d",strtotime($from)); 
+                    for($x=1;$x<=$days;$x++){ 
+                        if(!empty($_GET)){
+                            $date=$year."-".$month."-".str_pad($range, 2, "0", STR_PAD_LEFT); 
+                        }else{
+                            $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT);
+                        }
+                        //$date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT); 
+                        $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); 
+                ?> 
                     <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
                     <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                     <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
-                 <?php } ?>  
-                <td style="background: #444444"><h6 style="margin: 0px">Nothing follows Nothing follows</h6></td>
-
-            </tr>        
-            <?php endwhile; ?>        
+                <?php $range++; } ?>  
+            </tr>
+            <?php endwhile; ?> 
         </table>
     </div>
+    <script type="text/javascript" src="http://localhost/MDAS/grid1.min.js" ></script>
     
 </body>
 <script>

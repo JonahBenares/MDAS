@@ -1,4 +1,5 @@
 window.onload = function () {
+
     var selectBox = document.getElementById("selectBox");
     var a = document.getElementById("month-sel");
     var b = document.getElementById("quarter-sel");
@@ -20,7 +21,13 @@ window.onload = function () {
             }
             ;
         }
+<<<<<<< HEAD
   /*  var chart = new CanvasJS.Chart("piechartOutage", {
+=======
+
+
+    var chart = new CanvasJS.Chart("piechartOutage", {
+>>>>>>> a739c7198bce2860cc4e79dfa57cd7d4278a3e69
         animationEnabled: true,
         // title: {
         //     text: "Desktop Search Engine Market Share - 2016"
@@ -105,5 +112,10 @@ window.onload = function () {
         }]
     });
     chart.render();
+<<<<<<< HEAD
 */
+=======
+
+
+>>>>>>> a739c7198bce2860cc4e79dfa57cd7d4278a3e69
 }
