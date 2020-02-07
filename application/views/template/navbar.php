@@ -22,8 +22,7 @@
                  	</a>
                 </div>
                 <div class="navbar-collapse">
-                    <ul class="navbar-nav mr-auto">
-                        
+                    <ul class="navbar-nav mr-auto">                        
                         <li class="nav-item">
                             <a class="nav-link text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>masterfile/index/" title="Dashboard"><i class="fa fa-tachometer "></i></a>
                         </li>
@@ -37,31 +36,17 @@
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/plant_type_list/">Power Plant Type</a>
                             </div>
                         </li>
-                        <!-- <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>task/add_task/" title="Add New Task"><i class="fa fa-pencil-square-o "></i></a>
-                        </li> -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Task Report" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-tasks "></i></a>
                             <div class="dropleft dropdown-menu drop-left">
                             <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
-<<<<<<< HEAD
                             <a class="dropdown-item" href="<?php echo base_url(); ?>mps.php"></span> MPS (V)</a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>mps_luzon.php"></span> MPS (L)</a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage_visayas.php"></span> Actual Outages (V)</a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage_visayas.php"></span> Actual Outages (L)</a>
-=======
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>mps.php"></span> MPS VISAYAS</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>mps_luzon.php"></span> MPS LUZON</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage.php"></span> Actual Outages</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>report/comparison_out"></span> Comparison Outages</a>
->>>>>>> a739c7198bce2860cc4e79dfa57cd7d4278a3e69
-                                <!-- <a class="dropdown-item" href="../../rtd.php">
-                                </span> RTD php</a> -->
+                            <a class="dropdown-item" href="<?php echo base_url(); ?>comparison_out"></span> Comparison Outages</a>
                             </div>
                         </li>
-                        <!-- <li class="nav-item ">
-                            <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="<?php echo base_url(); ?>reminder/reminder_list" title="Reminder"><i class="fa fa-bell animated infinite headShake "></i></a>
-                        </li> -->
                     </ul>
                     <ul class="navbar-nav my-lg-0">
                         <li class="nav-item hidden-sm-up"> <a class="nav-link nav-toggler waves-effect waves-light" href="javascript:void(0)"><i class="ti-menu"></i></a></li>
