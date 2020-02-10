@@ -5,8 +5,8 @@
                 <div class="d-flex  align-items-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>report/rtd_report/">RTD</a></li>
-                        <li class="breadcrumb-item active">Upload RTD</li>
+                        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>report/rtd_report/">MPS</a></li>
+                        <li class="breadcrumb-item active">Upload MPS</li>
                     </ol>
                 </div>
             </div>
@@ -21,7 +21,7 @@
                     <div class="card-body">                                
                         <div class="module-head">
                             <h2>
-                                UPLOAD RTD                                                                  
+                                UPLOAD MPS                                                                  
                             </h2>                                    
                         </div>
                         <div class="module-body" >

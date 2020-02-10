@@ -242,7 +242,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
         </tr>
         <tr>
             <td rowspan="3">
-                <a href="masterfile/dashboard/" class="btn btn-sm btn-info-alt" style="height: 4rem"><span class="fa fa-home"></span> </a>
+                <a href="masterfile/index/" class="btn btn-sm btn-info-alt" style="height: 4rem"><span class="fa fa-home"></span> </a>
             </td>
             <td colspan="2">MARKET PRICES AND SCHEDULE</td>
             <td colspan="1"></td>

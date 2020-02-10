@@ -1,11 +1,12 @@
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <body class="skin-default-dark fixed-layout">
-    <!-- <div class="preloader">
+    <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
-            <p class="loader__label">TASK MONITORING SYSTEM</p>
+            <p class="loader__label">Market Data Analysis System</p>
         </div>
-    </div> -->
+    </div>
     <div id="main-wrapper">
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
@@ -29,7 +30,7 @@
                         
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Masterfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-key "></i></a>
-                            <div class="dropleft dropdown-menu drop-left">
+                            <div class="dropleft dropdown-menu drop-left" style="border: 1px solid #495056;border-radius: 0px">
                                 <span class="dropdown-item bg-main text-white" disable><center><small>MASTERFILE</small></center></span>
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/location_list/">Location</a>
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>masterfile/powerplant_list/">Power Plant</a>
@@ -38,15 +39,23 @@
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Task Report" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-tasks "></i></a>
-                            <div class="dropleft dropdown-menu drop-left">
-
-                            <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>mps.php"></span> MPS (V)</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>mps_luzon.php"></span> MPS (L)</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage_visayas.php"></span> Actual Outages (V)</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage_visayas.php"></span> Actual Outages (L)</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>comparison_out"></span> Comparison Outages</a>
-
+                            <div class="dropleft dropdown-menu drop-left" style="border: 1px solid #495056;border-radius: 0px">
+                                <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
+                                <button id="mps" class="dropdown-item"></span> MPS</button>
+                                <div class="child-st" style="top:34px" id="mps_child">
+                                    <a href="<?php echo base_url(); ?>mps.php" class="dropdown-item">Visayas</a>
+                                    <a href="<?php echo base_url(); ?>mps_luzon.php" class="dropdown-item">Luzon</a>
+                                </div>
+                                <button id="actual" class="dropdown-item"></span> Actual Outages</button>
+                                <div class="child-st" style="top:69px" id="actual_child">
+                                    <a href="<?php echo base_url(); ?>actual_outage_visayas.php" class="dropdown-item">Visayas</a>
+                                    <a href="<?php echo base_url(); ?>actual_outage_luzon.php" class="dropdown-item">Luzon</a>
+                                </div>
+                                <button id="comparison" class="dropdown-item"></span> Comparison Outages</button>
+                                <div class="child-st" style="top:104px" id="comparison_child">
+                                    <a href="<?php echo base_url(); ?>comparison_out_visayas.php" class="dropdown-item">Visayas</a>
+                                    <a href="<?php echo base_url(); ?>comparison_out_luzon.php" class="dropdown-item">Luzon</a>
+                                </div>
                             </div>
                         </li>
                     </ul>
@@ -76,5 +85,24 @@
                 </div>
             </nav>
         </header>
-        
+        <script type="text/javascript">
+            $(document).ready(function(){
+                $("#mps").hover(function(){
+                    $("#mps_child").css("display", "block");
+                    $("#actual_child").css("display", "none");
+                    $("#comparison_child").css("display", "none");
+                });
+                $("#actual").hover(function(){
+                    $("#actual_child").css("display", "block");
+                    $("#mps_child").css("display", "none");
+                    $("#comparison_child").css("display", "none");
+                });
+                $("#comparison").hover(function(){
+                    $("#comparison_child").css("display", "block");
+                    $("#mps_child").css("display", "none");
+                    $("#actual_child").css("display", "none");
+                });
+            });
+        </script>
+
         <script type="text/javascript" src="<?php echo base_url(); ?>assets/dist/js/navbar.js"></script>

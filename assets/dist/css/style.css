@@ -3990,7 +3990,7 @@ tbody.collapse.show {
   .dropdown-item:hover, .dropdown-item:focus {
     color: #16181b;
     text-decoration: none;
-    background-color: #f8f9fa; }
+    background-color: #e9eef3; }
   .dropdown-item.active, .dropdown-item:active {
     color: #fff;
     text-decoration: none;
@@ -22398,3 +22398,16 @@ a table tr:hover{
         background: white;
     }
 }*/
+.child-st{
+  position:absolute;
+  z-index:2;
+  left:206px;
+  top:35px;
+  background: #fff;
+  display: none;
+  border: 1px solid #495056;
+}
+
+.actual-tr{
+  border-bottom: 2px solid #ffdba5
+}
