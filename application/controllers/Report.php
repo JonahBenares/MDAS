@@ -75,6 +75,13 @@ class Report extends CI_Controller {
         //$this->load->view('template/footer');    
     }
 
+    public  function get_column($column, $table, $where_col, $where_val){
+        $col = $this->super_model->select_column_where($table, $column, $where_col,$where_val);
+        
+        return $col;
+    }
+
+
     public function upload_rtd()
     {
         $this->load->view('template/header');
@@ -88,6 +95,42 @@ class Report extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $this->load->view('report/comparison_out');
+        $this->load->view('template/footer');    
+    }
+
+    public function get_interval($summary_id){
+       
+        $min_interval = $this->super_model->get_min_where("outage_profile_visayas", "outage_interval","summary_id = '$summary_id'");
+        $max_interval = $this->super_model->get_max_where("outage_profile_visayas", "outage_interval","summary_id = '$summary_id'");
+       
+
+        if($min_interval == $max_interval){
+            $interval = $max_interval;
+        } else {
+            $interval = $min_interval . " - " . $max_interval;
+        }
+        return $interval;
+    }
+
+      public function actual_outage_visayas()
+    {
+         //$curr_month = date('Y-m');
+        $curr_month = '2020-01';
+        foreach($this->super_model->custom_query("SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC") AS $outage){
+            $data['outage'][] = array(
+                'outage_date'=>$outage->outage_date,
+                'outage_interval'=>$outage->outage_interval,
+                'summary_id'=>$outage->summary_id,
+                'type_id'=>$outage->type_id,
+                'participant_id'=>$outage->participant_id,
+                'resource_id'=>$outage->resource_id,
+                'capacity_dependable'=>$outage->capacity_dependable,
+
+            );
+        }
+        $this->load->view('template/header');
+        $this->load->view('template/navbar');
+        $this->load->view('report/actual_outage_visayas',$data);
         $this->load->view('template/footer');    
     }
 

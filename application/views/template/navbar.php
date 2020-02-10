@@ -43,18 +43,12 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Task Report" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-tasks "></i></a>
                             <div class="dropleft dropdown-menu drop-left">
-                            <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
-<<<<<<< HEAD
+                            <a class="dropdown-item" href="<?php echo base_url(); ?>report/upload_rtd"></span> Upload MPS</a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>mps.php"></span> MPS (V)</a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>mps_luzon.php"></span> MPS (L)</a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage_visayas.php"></span> Actual Outages (V)</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage_visayas.php"></span> Actual Outages (L)</a>
-=======
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>mps.php"></span> MPS VISAYAS</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>mps_luzon.php"></span> MPS LUZON</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage.php"></span> Actual Outages</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>report/comparison_out"></span> Comparison Outages</a>
->>>>>>> a739c7198bce2860cc4e79dfa57cd7d4278a3e69
+                            <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage_luzon.php"></span> Actual Outages (L)</a>
+
                                 <!-- <a class="dropdown-item" href="../../rtd.php">
                                 </span> RTD php</a> -->
                             </div>

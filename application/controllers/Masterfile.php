@@ -49,7 +49,8 @@ class Masterfile extends CI_Controller {
     public function index()
     {
         $curr_month = date('Y-m');
-        $data['monthly'] = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' ORDER BY outage_date ASC");
+        //$curr_month = '2020-01';
+        $data['monthly_v'] = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' ORDER BY outage_date ASC");
         $data['type'] = $this->super_model->select_all("pp_type");
         $this->load->view('template/header');
         $this->load->view('template/navbar');
@@ -57,13 +58,182 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/footer');
     } 
 
-    public function outage_percentage_monthly($type_id){
-        $month = date('Y-m');
-        $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$month%'","summary_id");
-        $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$month%' AND type_id = '$type_id'","summary_id");
-        $percentage = (($outage_per_type/$total_outage)*100);
+    public function outage_pie_visayas($type_id, $outage_type,$duration, $month, $year, $quarter){
+        //$month = date('Y-m');
+        //$month = '2020-01';
+        //echo $duration ." - " . $month . " - ". $year. "- ".$quarter;
+        if(empty($outage_type) && empty($duration)){
+
+           // echo "default";
+           $duration = date('Y-m');
+            $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%'","summary_id");
+            $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%' AND type_id = '$type_id'","summary_id");
+            $percentage = (($outage_per_type/$total_outage)*100);
+
+        } 
+
+        if((!empty($outage_type) && empty($duration)) || (!empty($outage_type) && !empty($duration))){
+             //echo "with filter";
+            if(empty($duration)){
+                $duration = date('Y-m');
+            
+                $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%' AND outage_type = '$outage_type'","summary_id");
+                $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%' AND type_id = '$type_id' AND outage_type = '$outage_type'","summary_id");
+                 $percentage = (($outage_per_type/$total_outage)*100);
+             } else {
+                     if($duration == 'Monthly'){
+                         $duration = $year."-".$month;
+                         $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%' AND outage_type = '$outage_type'","summary_id");
+                        $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%' AND type_id = '$type_id' AND outage_type = '$outage_type'","summary_id");
+                        $percentage = (($outage_per_type/$total_outage)*100);
+                    } if($duration == 'Yearly'){
+                         $duration = $year;
+                         $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%' AND outage_type = '$outage_type'","summary_id");
+                        $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%' AND type_id = '$type_id' AND outage_type = '$outage_type'","summary_id");
+                        $percentage = (($outage_per_type/$total_outage)*100);
+                    } if($duration == 'Quarterly'){
+                          if($quarter=='1'){
+                            $duration1 = $year."-01-01";
+                            $duration2 = $year."-03-31";
+                        } else if($quarter=='2'){
+                            $duration1 = $year."-04-01";
+                            $duration2 = $year."-06-30";
+                        } else if($quarter=='3'){
+                            $duration1 = $year."-07-01";
+                            $duration2 = $year."-09-30";
+                        } else if($quarter=='4'){
+                            $duration1 = $year."-10-01";
+                            $duration2 = $year."-12-31";
+                        }
+                         $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date BETWEEN '$duration1' AND '$duration2' AND outage_type = '$outage_type'","summary_id");
+                        $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date BETWEEN '$duration1' AND '$duration2' AND type_id = '$type_id' AND outage_type = '$outage_type'","summary_id");
+                        $percentage = (($outage_per_type/$total_outage)*100);
+                    }
+                }
+            } 
+            if(empty($outage_type) && !empty($duration)){
+                //echo "empty_outage";
+                 if($duration == 'Monthly'){
+                     $duration = $year."-".$month;
+                     $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%'","summary_id");
+                    $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%' AND type_id = '$type_id'","summary_id");
+                    $percentage = (($outage_per_type/$total_outage)*100);
+                } if($duration == 'Yearly'){
+                     $duration = $year;
+                     $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%'","summary_id");
+                    $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$duration%' AND type_id = '$type_id'","summary_id");
+                    $percentage = (($outage_per_type/$total_outage)*100);
+                } if($duration == 'Quarterly'){
+                      if($quarter=='1'){
+                        $duration1 = $year."-01-01";
+                        $duration2 = $year."-03-31";
+                    } else if($quarter=='2'){
+                        $duration1 = $year."-04-01";
+                        $duration2 = $year."-06-30";
+                    } else if($quarter=='3'){
+                        $duration1 = $year."-07-01";
+                        $duration2 = $year."-09-30";
+                    } else if($quarter=='4'){
+                        $duration1 = $year."-10-01";
+                        $duration2 = $year."-12-31";
+                    }
+                     $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date BETWEEN '$duration1' AND '$duration2'","summary_id");
+                    $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date BETWEEN '$duration1' AND '$duration2' AND type_id = '$type_id'","summary_id");
+                    $percentage = (($outage_per_type/$total_outage)*100);
+                }
+            } 
         return number_format($percentage,2);
     }
+
+
+    public function outage_pie_luzon($type_id, $outage_type,$duration, $month, $year, $quarter){
+        //$month = date('Y-m');
+        //$month = '2020-01';
+        //echo $duration ." - " . $month . " - ". $year. "- ".$quarter;
+        if(empty($outage_type) && empty($duration)){
+
+           // echo "default";
+           $duration = date('Y-m');
+           //$duration = "2020-01";
+            $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%'","summary_id");
+            $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%' AND type_id = '$type_id'","summary_id");
+            $percentage = (($outage_per_type/$total_outage)*100);
+
+        } 
+
+        if((!empty($outage_type) && empty($duration)) || (!empty($outage_type) && !empty($duration))){
+             //echo "with filter";
+            if(empty($duration)){
+                $duration = date('Y-m');
+            
+                $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%' AND outage_type = '$outage_type'","summary_id");
+                $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%' AND type_id = '$type_id' AND outage_type = '$outage_type'","summary_id");
+                 $percentage = (($outage_per_type/$total_outage)*100);
+             } else {
+                     if($duration == 'Monthly'){
+                         $duration = $year."-".$month;
+                         $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%' AND outage_type = '$outage_type'","summary_id");
+                        $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%' AND type_id = '$type_id' AND outage_type = '$outage_type'","summary_id");
+                        $percentage = (($outage_per_type/$total_outage)*100);
+                    } if($duration == 'Yearly'){
+                         $duration = $year;
+                         $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%' AND outage_type = '$outage_type'","summary_id");
+                        $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%' AND type_id = '$type_id' AND outage_type = '$outage_type'","summary_id");
+                        $percentage = (($outage_per_type/$total_outage)*100);
+                    } if($duration == 'Quarterly'){
+                          if($quarter=='1'){
+                            $duration1 = $year."-01-01";
+                            $duration2 = $year."-03-31";
+                        } else if($quarter=='2'){
+                            $duration1 = $year."-04-01";
+                            $duration2 = $year."-06-30";
+                        } else if($quarter=='3'){
+                            $duration1 = $year."-07-01";
+                            $duration2 = $year."-09-30";
+                        } else if($quarter=='4'){
+                            $duration1 = $year."-10-01";
+                            $duration2 = $year."-12-31";
+                        }
+                         $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date BETWEEN '$duration1' AND '$duration2' AND outage_type = '$outage_type'","summary_id");
+                        $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date BETWEEN '$duration1' AND '$duration2' AND type_id = '$type_id' AND outage_type = '$outage_type'","summary_id");
+                        $percentage = (($outage_per_type/$total_outage)*100);
+                    }
+                }
+            } 
+            if(empty($outage_type) && !empty($duration)){
+                //echo "empty_outage";
+                 if($duration == 'Monthly'){
+                     $duration = $year."-".$month;
+                     $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%'","summary_id");
+                    $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%' AND type_id = '$type_id'","summary_id");
+                    $percentage = (($outage_per_type/$total_outage)*100);
+                } if($duration == 'Yearly'){
+                     $duration = $year;
+                     $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%'","summary_id");
+                    $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$duration%' AND type_id = '$type_id'","summary_id");
+                    $percentage = (($outage_per_type/$total_outage)*100);
+                } if($duration == 'Quarterly'){
+                      if($quarter=='1'){
+                        $duration1 = $year."-01-01";
+                        $duration2 = $year."-03-31";
+                    } else if($quarter=='2'){
+                        $duration1 = $year."-04-01";
+                        $duration2 = $year."-06-30";
+                    } else if($quarter=='3'){
+                        $duration1 = $year."-07-01";
+                        $duration2 = $year."-09-30";
+                    } else if($quarter=='4'){
+                        $duration1 = $year."-10-01";
+                        $duration2 = $year."-12-31";
+                    }
+                     $total_outage = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date BETWEEN '$duration1' AND '$duration2'","summary_id");
+                    $outage_per_type = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date BETWEEN '$duration1' AND '$duration2' AND type_id = '$type_id'","summary_id");
+                    $percentage = (($outage_per_type/$total_outage)*100);
+                }
+            } 
+        return number_format($percentage,2);
+    }
+
 
     public function sum_outage_planned_filter($location,$interval){
         echo $location;
@@ -76,6 +246,101 @@ class Masterfile extends CI_Controller {
         return $cap;*/
     }
 
+    public function outage_graph_visayas($duration, $month, $year, $quarter){
+
+        //echo $duration ." - " . $month . " - ". $year. "- ".$quarter;
+        if(empty($duration)){
+            $duration = date('Y-m');
+            $data = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE outage_date LIKE '$duration%' ORDER BY outage_date ASC");
+        } else {
+            if($duration == 'Monthly'){
+                $duration = $year."-".$month;
+                $data = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE outage_date LIKE '$duration%' ORDER BY outage_date ASC");
+            }
+            if($duration == 'Yearly'){
+                $duration = $year;
+                $data = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE outage_date LIKE '$duration%' ORDER BY outage_date ASC");
+            }
+            if($duration == 'Quarterly'){
+                if($quarter=='1'){
+                    $duration1 = $year."-01-01";
+                    $duration2 = $year."-03-31";
+                } else if($quarter=='2'){
+                    $duration1 = $year."-04-01";
+                    $duration2 = $year."-06-30";
+                } else if($quarter=='3'){
+                    $duration1 = $year."-07-01";
+                    $duration2 = $year."-09-30";
+                } else if($quarter=='4'){
+                    $duration1 = $year."-10-01";
+                    $duration2 = $year."-12-31";
+                }
+              
+                $data = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE outage_date BETWEEN '$duration1' AND '$duration2' ORDER BY outage_date ASC");
+            }
+        }
+
+       return $data;
+    }
+
+
+     public function outage_graph_luzon($duration, $month, $year, $quarter){
+
+        //echo $duration ." - " . $month . " - ". $year. "- ".$quarter;
+        if(empty($duration)){
+            $duration = date('Y-m');
+            //$duration ="2020-01";
+            $data = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_luzon WHERE outage_date LIKE '$duration%' ORDER BY outage_date ASC");
+        } else {
+            if($duration == 'Monthly'){
+                $duration = $year."-".$month;
+                $data = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_luzon WHERE outage_date LIKE '$duration%' ORDER BY outage_date ASC");
+            }
+            if($duration == 'Yearly'){
+                $duration = $year;
+                $data = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_luzon WHERE outage_date LIKE '$duration%' ORDER BY outage_date ASC");
+            }
+            if($duration == 'Quarterly'){
+                if($quarter=='1'){
+                    $duration1 = $year."-01-01";
+                    $duration2 = $year."-03-31";
+                } else if($quarter=='2'){
+                    $duration1 = $year."-04-01";
+                    $duration2 = $year."-06-30";
+                } else if($quarter=='3'){
+                    $duration1 = $year."-07-01";
+                    $duration2 = $year."-09-30";
+                } else if($quarter=='4'){
+                    $duration1 = $year."-10-01";
+                    $duration2 = $year."-12-31";
+                }
+              
+                $data = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_luzon WHERE outage_date BETWEEN '$duration1' AND '$duration2' ORDER BY outage_date ASC");
+            }
+        }
+
+       return $data;
+    }
+
+
+    public function visayas_outage(){
+         $curr_month = date('Y-m');
+       $data['monthly_v'] = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' ORDER BY outage_date ASC");
+        $data['type'] = $this->super_model->select_all("pp_type");
+        $this->load->view('template/header');
+        $this->load->view('masterfile/visayas_outage',$data);
+        $this->load->view('template/footer');
+    }
+
+    public function luzon_outage(){
+         //$curr_month = '2020-01';
+         $curr_month = date('Y-m');
+        $data['monthly_l'] = $this->super_model->custom_query("SELECT DISTINCT outage_date FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' ORDER BY outage_date ASC");
+        $data['type'] = $this->super_model->select_all("pp_type");
+        $this->load->view('template/header');
+        $this->load->view('masterfile/luzon_outage',$data);
+        $this->load->view('template/footer');
+    }
 
 
     public function sum_outage_planned($date,$interval){
@@ -90,6 +355,27 @@ class Masterfile extends CI_Controller {
 
     public function sum_outage_unplanned($date,$interval){
         $cap_up = $this->super_model->select_sum_join("capacity_dependable","outage_profile_visayas","outage_summary_visayas", "outage_date  LIKE '$date%' AND outage_interval = '$interval' AND outage_type='2'","summary_id");
+         if(empty($cap_up)){
+            $cap_up = 0;
+        } else {
+            $cap_up = $cap_up;
+        }
+        return $cap_up;
+    }
+
+
+    public function sum_outage_planned_luzon($date,$interval){
+        $cap = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$date%' AND outage_interval = '$interval' AND outage_type='1'","summary_id");
+        if(empty($cap)){
+            $cap = 0;
+        } else {
+            $cap = $cap;
+        }
+        return $cap;
+    }
+
+    public function sum_outage_unplanned_luzon($date,$interval){
+        $cap_up = $this->super_model->select_sum_join("capacity_dependable","outage_profile_luzon","outage_summary_luzon", "outage_date  LIKE '$date%' AND outage_interval = '$interval' AND outage_type='2'","summary_id");
          if(empty($cap_up)){
             $cap_up = 0;
         } else {

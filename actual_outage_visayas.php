@@ -5,55 +5,96 @@
     <title>Market Prices & Schedule</title>
     <link href="http://localhost/MDAS/assets/dist/css/web.css" rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="http://localhost/MDAS/assets/dist/css/style.css">
+
 </head>
-<style type="text/css">
-    .form-control {
-        color: #212529;
-        min-height: 0px;
-        display: block;
-        padding: 2px;
-        font-size: 12px;
-        border:0px solid #fff;
-    }
-    select.form-control:not([size]):not([multiple]) {
-        height: calc(1.5rem + 2px); 
-    }
-    .highlight{
-        background: #dcf6ff;
-    }
-    .al-cen{
-        text-align: center
-    }
-</style>
 <?php
     include 'conn.php';
+    include 'functions.php';
+    
+    $MAC = exec('getmac'); 
+    $MAC = strtok($MAC, ' '); 
+    
 
-function get_column($conn, $column, $table, $where_col, $where_val){
-    $get =  mysqli_query($conn, "SELECT $column FROM $table WHERE $where_col = '$where_val'");
-    $fetch = mysqli_fetch_array($get);
-    return $fetch[$column];
-}
-
-function get_interval($conn, $summary_id){
-    $get_min_interval = mysqli_query($conn, "SELECT min(outage_interval) AS min_interval FROM outage_profile_visayas WHERE summary_id = '$summary_id'");
-    $fetch_min_interval = mysqli_fetch_assoc($get_min_interval);
-
-    $get_max_interval = mysqli_query($conn, "SELECT max(outage_interval) AS max_interval FROM outage_profile_visayas WHERE summary_id = '$summary_id'");
-    $fetch_max_interval = mysqli_fetch_assoc($get_max_interval);
-
-    if($fetch_min_interval['min_interval'] == $fetch_max_interval['max_interval']){
-        $interval = $fetch_max_interval['max_interval'];
-    } else {
-        $interval = $fetch_min_interval['min_interval'] . " - " . $fetch_max_interval['max_interval'];
-    }
-    return $interval;
-}
+$get_type = mysqli_query($conn, "SELECT * FROM pp_type");
+$summary_id = get_summary_id($conn, 'outage_profile_visayas');
    
-    $curr_month = date('Y-m');
+
+if(isset($_POST['add_outage'])){
+
+    foreach($_POST as $var=>$value)
+        $$var = mysqli_real_escape_string($conn, $value);
+
+    $timestamp = date('Y-m-d H:i:s');
+    for($x=$interval_start; $x<=$interval_end; $x++){
+        $date= date('Y-m-d', strtotime($outage_date));
+
+        $insert = mysqli_query($conn, "INSERT INTO outage_profile_visayas (outage_date, outage_interval, summary_id, type_id, resource_id, capacity_dependable, insert_timestamp, added_by) VALUES ('$date', '$x','$summary_id', '$type', '$resource_id', '$capacity','$timestamp', '$MAC')");
+        }
+
+      $insert_summary = mysqli_query($conn, "INSERT INTO outage_summary_visayas (summary_id, outage_type, remarks) VALUES ('$summary_id', '$outage_type', '$remarks')");
+      if($insert_summary){
+        header("Refresh:0; url=actual_outage_visayas.php");
+      }
+
+    }
+
+    //$curr_month = date('Y-m');
+    $curr_month = '2020-01';
     $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
     //echo "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id";
 ?>
 <body>
+    <div class="modal fade" id="addOutage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add Outage</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="date" class="form-control " placeholder="Date" name="outage_date" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" placeholder="Interval Start" name="interval_start" min='1' max='24' style='width:49%'>
+                        <input type="number" class="form-control" placeholder="Interval End" name="interval_end" min='1' max='24' style='width:49%'>
+                    </div>
+                    <div class="form-group">
+                        <select class="form-control" name="type" required>
+                            <option value='' selected>Select Powerplant Type</option>
+                            <?php while($fetch_type = mysqli_fetch_assoc($get_type)){ ?>
+                                <option value="<?php echo $fetch_type['type_id']; ?>"><?php echo $fetch_type['type_name']; ?></option>
+                            <?php } ?>
+                        </select>
+                    </div>  
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Resource ID" name="resource_id" required>
+                    </div>  
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Capacity" name="capacity" required>
+                    </div>      
+                    <div class="form-group">
+                        <select class="form-control" name="outage_type" required>
+                            <option value='' selected>Select Outage Type</option>
+                            <option value="1">Planned</option>
+                            <option value="2">Unplanned</option>
+                        </select>
+                    </div>      
+                    <div class="form-group">
+                        <textarea name='remarks' class="form-control" placeholder="Remarks"></textarea>
+                    </div>            
+                </div>
+                <div class="modal-footer">                                        
+                    <input type="submit" class="btn btn-primary btn-block" name='add_outage' value='Submit'>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
     <div class="container-fluid" style="background-color: #fff">
         <br>
         <table class="table table-hover table-bordered" width="100%">
@@ -67,32 +108,15 @@ function get_interval($conn, $summary_id){
                     </center> -->
                 </td>
             </tr>
-            <tr>
-                <td colspan="8"><br></td>
-            </tr>
-            <tr>
-                <form>
-                    <td width="7%" class="p-0 highlight"><input type="date" class="form-control highlight" placeholder="Date" name=""></td>
-                    <td width="7%" class="p-0 highlight"><input type="text" class="form-control highlight" placeholder="Interval" name=""></td>
-                    <td width="10%" class="p-0 highlight"><input type="text" class="form-control highlight" placeholder="Type" name=""></td>
-                    <td width="20%" class="p-0 highlight"><input type="text" class="form-control highlight" placeholder="Resource ID" name=""></td>
-                    <td width="7%" class="p-0 highlight"><input type="text" class="form-control highlight" placeholder="Capacity" name=""></td>
-                    <td width="20%" class="p-0 highlight">
-                        <select class="form-control highlight">
-                            <option>---Select Outage Type---</option>
-                            <option>Planned</option>
-                            <option>Unplanned</option>
-                        </select>
-                    </td>
-                    <td width="26%" class="p-0 highlight">
-                        <textarea class="form-control highlight" placeholder="Remarks" rows="1"></textarea>
-                    </td>
-                    <td width="2%" class="highlight">
-                        <button class="btn btn-info-alt btn-sm"><span class="fa fa-plus"></span></button>
-                    </td>
-                </form>
-            </tr> 
-        </table>
+            </table>
+           
+         <span data-toggle="modal" data-target="#addOutage">
+                <a href="#" class="btn btn-info-alt btn-sm bor-radius pull-right" data-toggle="tooltip" data-placement="top" title="Add Outage" >
+                    <span class="fa fa-plus" ></span>
+                </a>
+            </span>
+                 
+        
         <br>
         <form >
             <div class="m-b-70">
@@ -100,12 +124,12 @@ function get_interval($conn, $summary_id){
                     <thead>
                         <tr>
                             <th align="center" width="7%" ><center><strong>Date</strong></center></th>
-                            <th width="7%"><center><strong>Interval</strong></center></th>
+                            <th width="10%"><center><strong>Interval</strong></center></th>
                             <th width="10%"><center><strong>Type</strong></center></th>
-                            <th width="20%"><center><strong>Resource ID</strong></center></th>
+                            <th width="13%"><center><strong>Resource ID</strong></center></th>
                             <th width="7%"><center><strong>Capacity</strong></center></th>
                             <th width="20%"><center><strong>Outage Type</strong></center></th>
-                            <th width="26%"><center><strong>Remarks</strong></center></th>
+                            <th width="20%"><center><strong>Remarks</strong></center></th>
                             <th width="2%"></th>
                         </tr>
                     </thead>
@@ -119,7 +143,7 @@ function get_interval($conn, $summary_id){
 
                         <tr>
                             <td align="center" class="p-0"><?php echo date('F d', strtotime($fetch_outage['outage_date'])); ?></td>
-                            <td align="center" class="p-0"><?php echo get_interval($conn, $fetch_outage['summary_id']); ?></td>
+                            <td align="center" class="p-0"><?php echo get_interval($conn, 'outage_profile_visayas',$fetch_outage['summary_id']); ?></td>
                             <td class="p-0"><?php echo $type; ?></td>
                             <td class="p-0"><?php echo $fetch_outage['resource_id']; ?></td>
                             <td class="p-0"><input type="text" class="form-control al-cen" name="capacity" value="<?php echo $fetch_outage['capacity_dependable']; ?>"></td>
@@ -150,3 +174,5 @@ function get_interval($conn, $summary_id){
     </div>
 </body>
 </html>
+ <script src="assets/dist/js/jquery.min.js"></script>
+<script src="assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
