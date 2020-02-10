@@ -54,4 +54,10 @@ function get_interval($conn, $table, $summary_id){
     }
     return $interval;
 }
+
+  function get_capacity_per_date($conn,$resource_id, $date){
+    	$get_cap = mysqli_query($conn, "SELECT sum(capacity_dependable) AS capdep FROM outage_profile_visayas WHERE resource_id = '$resource_id' AND outage_date = '$date'");
+    	$fetch_cap = mysqli_fetch_assoc($get_cap);
+    	return $fetch_cap['capdep'];
+    }
 ?>

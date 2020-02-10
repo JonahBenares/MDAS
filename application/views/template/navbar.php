@@ -45,7 +45,7 @@
                             <a class="dropdown-item" href="<?php echo base_url(); ?>mps_luzon.php"></span> MPS (L)</a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage_visayas.php"></span> Actual Outages (V)</a>
                             <a class="dropdown-item" href="<?php echo base_url(); ?>actual_outage_visayas.php"></span> Actual Outages (L)</a>
-                            <a class="dropdown-item" href="<?php echo base_url(); ?>comparison_out"></span> Comparison Outages</a>
+                            <a class="dropdown-item" href="<?php echo base_url(); ?>comparison_out.php"></span> Comparison Outages</a>
 
                             </div>
                         </li>
