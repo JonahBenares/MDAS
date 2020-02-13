@@ -22,20 +22,20 @@
             if($_POST['duration']=='semi'){
 
                 if($_POST['semi']=='1'){
-                    $filter .= "Semi-Annual = First half of " .$year; 
+                    $filter .= "<b>Semi-Annual</b> = First half of " .$year; 
                     $first_half_start = $year."-01-01";
                     $first_half_end = $year."-06-30";
                     $q .= " outage_date BETWEEN '$first_half_start' AND '$first_half_end' AND ";
                 }
                  if($_POST['semi']=='2'){
-                    $filter .= "Semi-Annual = Second half " .$year; 
+                    $filter .= "<b>Semi-Annual</b> = Second half " .$year; 
                     $second_half_start = $year."-07-01";
                     $second_half_end = $year."-12-31";
                     $q .= " outage_date BETWEEN '$second_half_start' AND '$second_half_end' AND ";
                 }
             } 
             if($_POST['duration']=='yearly'){
-                $filter .= "Yearly = " .$year; 
+                $filter .= "<b>Yearly</b> = " .$year; 
                 $year = $_POST['year'];
                 $q .= " outage_date LIKE '$year%' AND ";
             }
@@ -43,7 +43,7 @@
         $query_res ='(';
         if(!empty($_POST['resources'])){
 
-             $filter_res = "Resources = "; 
+             $filter_res = "<b>Resources </b>= "; 
             foreach($_POST['resources'] AS $res){
                  $filter_res .= $res . ", "; 
                 $query_res.= "resource_id = '".$res . "' OR ";
@@ -73,8 +73,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" type="image/png" sizes="16x16" href="http://localhos
-        t/MDAS/assets/images/favicon.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/images/favicon.png">
         <title>Market Data Analysis System</title>
         <link href="http://localhost/MDAS/assets/dist/css/style.css" rel="stylesheet">
         <link href="http://localhost/MDAS/assets/dist/css/pages/dashboard1.css" rel="stylesheet">
@@ -88,9 +87,7 @@
             .bg-white{
                 background: #fff;
             }
-        </style>
-        <!-- <script src="http://localhost/MDAS/assets/dist/js/report.js"></script> -->
-        
+        </style>        
         <script>
             window.onload = function () {
                 var selectBox = document.getElementById("selectBox5");
@@ -171,106 +168,101 @@
                         e.dataSeries.visible = true;
                     }
                     chart.render();
-                }
-
-        }
-
-
-function selectAll(source) {
-        checkboxes = document.getElementsByName('resources[]');
-        for(var i in checkboxes)
-            checkboxes[i].checked = source.checked;
-    }
-
+                }}
+            function selectAll(source) {
+                checkboxes = document.getElementsByName('resources[]');
+                for(var i in checkboxes)
+                    checkboxes[i].checked = source.checked;
+            }
         </script>
-        <div class="page-wrapper ">
-            <div class="card oh">
-                <div class="card-body m-t-60">
-                    <center>
-                        <h2>Comparison of Outage with same plant Category (Visayas)</h2>
-                    </center>
-                    <div class="p-t-20">
-                        <div class="row">                                
-                            <div class="col-lg-10">
-                                <?php 
-                                if(!empty($filter) || !empty($filter)){
-                                    echo "Filter: ". $filter . ((!empty($filter_res)) ? ", " .$filter_res : "");
-                                } else {
-                                     echo "Data: ". $current_year . ", Coal";
-                                } ?>
-                               <div id="lineOut" style="height: 400px; width: 100%;"></div>   
-                            </div>   
-                            <div class="col-lg-2">
-                                <form method="POST">
-                                    <div style="overflow-y: scroll;overflow-x:hidden;height: 350px;">
-                                        <div class="p-r-20">
-                                            <table width="100%">
-                                                <tr>
-                                                    <td colspan="2" width="5%"><p class=" ">Filter <span class="fa fa-filter"></span></p></td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" width="10%">
-                                                        <div class="form-group m-b-5" id='duration'>
-                                                            <select class="" style="width:100%"  id="selectBox5" name='duration'>
-                                                                <option value=''>-Duration-</option>
-                                                                <option value="semi">Semi-Annual</option>
-                                                                <option value="yearly">Yearly</option>
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                               
-                                                <tr >
-                                                    <td colspan="2" width="10%">
-                                                        <div class="form-group m-b-5"  id="quarter-sel5">
-                                                            <select class="" style="width:100%"  name="semi">
-                                                                <option value=''>Select Semi-Annual</option>
-                                                                <option value="1">1st Half</option>
-                                                                <option value="2">2nd Half</option>
-                                                            </select> 
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr  >
-                                                    <td colspan="2" width="10%">
-                                                        <div class="form-group m-b-5" id="year-sel5">
-                                                            <select class="" style="width:100%"  name="year" required>
-                                                                <option value=''>Select Year</option>
-                                                                <?php for($y=2020; $y<=$current_year; $y++){ ?>
-                                                                    <option value='<?php echo $y; ?>'><?php echo $y; ?></option>
-                                                                <?php } ?>
-                                                            </select> 
-                                                        </div>
-                                                    </td>
-                                                </tr>
-                                                <tr>
-                                                    <td colspan="2" width="10%">
-                                                        <div class="form-group m-b-5">
-                                                            <select style="width: 100%" id='type'>
-                                                                <option value=''>Type</option>
-                                                                <?php while($fetch_type = mysqli_fetch_assoc($get_type)){ ?>
-                                                                <option value="<?php echo $fetch_type['type_id']; ?>"><?php echo $fetch_type['type_name']; ?></option>
-                                                                <?php } ?>
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                </tr>                                               
-                                                <tr>
-                                                    <td>
-                                                        <div id='resources'></div>
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div>
+        <?php include('navbar.php'); ?>
+        <div class="card oh">
+            <div class="card-body ">
+                <center>
+                    <h2>Comparison of Outage with same plant Category (Visayas)</h2>
+                </center>
+                <div class="p-t-20">
+                    <div class="row">                                
+                        <div class="col-lg-10">
+                            <?php 
+                            if(!empty($filter) || !empty($filter)){
+                                echo "<div class='alert alert-info m-b-0 p-1' role='alert'><span class='btn btn-xs btn-info disabled'>Filter Applied</span><span style='font-size: 12px'>". $filter . ((!empty($filter_res)) ? ", " .$filter_res : "" )." </span>
+                                    <a href='http://localhost/MDAS/comparison_out_visayas.php' class='remove_filter alert-link pull-right btn btn-xs'><span class='fa fa-times'></span></a>
+                                </div>";
+                            } else {
+                                 echo "<h4>Data:<b> ". $current_year . ", Coal</b></h4>";
+                            } ?>
+                           <div id="lineOut" style="height: 400px; width: 100%;"></div>   
+                        </div>   
+                        <div class="col-lg-2">
+                            <form method="POST">
+                                <div style="overflow-y: scroll;overflow-x:hidden;height: 350px;">
+                                    <div class="p-r-20">
+                                        <table width="100%">
+                                            <tr>
+                                                <td colspan="2" width="5%"><p class=" ">Filter <span class="fa fa-filter"></span></p></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" width="10%">
+                                                    <div class="form-group m-b-5" id='duration'>
+                                                        <select class="" style="width:100%"  id="selectBox5" name='duration'>
+                                                            <option value=''>-Duration-</option>
+                                                            <option value="semi">Semi-Annual</option>
+                                                            <option value="yearly">Yearly</option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>                                           
+                                            <tr >
+                                                <td colspan="2" width="10%">
+                                                    <div class="form-group m-b-5"  id="quarter-sel5">
+                                                        <select class="" style="width:100%"  name="semi">
+                                                            <option value=''>Select Semi-Annual</option>
+                                                            <option value="1">1st Half</option>
+                                                            <option value="2">2nd Half</option>
+                                                        </select> 
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr  >
+                                                <td colspan="2" width="10%">
+                                                    <div class="form-group m-b-5" id="year-sel5">
+                                                        <select class="" style="width:100%"  name="year" required>
+                                                            <option value=''>Select Year</option>
+                                                            <?php for($y=2020; $y<=$current_year; $y++){ ?>
+                                                                <option value='<?php echo $y; ?>'><?php echo $y; ?></option>
+                                                            <?php } ?>
+                                                        </select> 
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2" width="10%">
+                                                    <div class="form-group m-b-5">
+                                                        <select style="width: 100%" id='type'>
+                                                            <option value=''>Type</option>
+                                                            <?php while($fetch_type = mysqli_fetch_assoc($get_type)){ ?>
+                                                            <option value="<?php echo $fetch_type['type_id']; ?>"><?php echo $fetch_type['type_name']; ?></option>
+                                                            <?php } ?>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>                                               
+                                            <tr>
+                                                <td>
+                                                    <div id='resources'></div>
+                                                </td>
+                                            </tr>
+                                        </table>
                                     </div>
-                                    <input type="submit" class="btn btn-info-alt btn-block" value="Filter" name="">
-                                </form>
-                            </div>                                                          
-                        </div>
+                                </div>
+                                <input type="submit" class="btn btn-info-alt btn-block" value="Filter" name="">
+                            </form>
+                        </div>                                                          
                     </div>
                 </div>
-            </div>   
-        </div>
+            </div>
+        </div> 
 
         <script src="http://localhost/MDAS/assets/dist/js/jquery.min.js"></script>
         <script src="http://localhost/MDAS/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
