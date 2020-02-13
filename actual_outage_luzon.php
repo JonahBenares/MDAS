@@ -42,6 +42,7 @@
     if(isset($_POST['save_summary'])){
         foreach($_POST as $var=>$value)
             $$var = mysqli_real_escape_string($conn, $value);
+
         for($y=1;$y<$count_outage;$y++){
             $sumid = "summary_id".$y; 
             $rem = "remarks".$y; 
@@ -60,13 +61,27 @@
                 }
             } else {
                 $update = mysqli_query($conn, "UPDATE outage_summary_luzon SET outage_type = '$outage_type', remarks = '$remarks' WHERE summary_id = '$sid'");
+                //echo "UPDATE outage_summary_luzon SET outage_type = '$outage_type', remarks = '$remarks' WHERE summary_id = '$sid'<br>";
             }        
         }      
-        header("Refresh:0; url=actual_outage_luzon.php");
+        //header("Refresh:0; url=actual_outage_luzon.php");
     }
     $curr_month = date('Y-m');
     //$curr_month = '2020-03';
-    $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
+     if(!isset($_POST['filter'])){
+        $previousdate = date('Y-m');
+        $curr_month = date('Y-m');
+        $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
+    } else {
+        $mo = $_POST['month'];
+        $yr = $_POST['year'];
+        $curr_month = $yr."-".$mo;
+        $previousdate = $yr."-".$mo;
+        $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
+    }
+
+  
+    $curr_year = date("Y");
     //echo "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id";
 ?>
 <?php include('navbar.php'); ?>
@@ -126,19 +141,35 @@
             <h3 class="m-0"><b>Actual Outages</b></h3>
             <p class="m-0" style="letter-spacing: 10px">LUZON</p>
         </center> 
+        <form method="POST">
         <table class="m-b-10 m-t-20" width="100%">
             <tr>
                 <td width="15%">
-                    <select class="form-control" style="min-height: 25px">
-                        <option>Month</option>
-                    </select>
+                     <select class="form-control" style="min-height: 25px" name='month'>
+                            <option value=''>Month</option>
+                            <option value='01'>January</option>
+                            <option value='02'>February</option>
+                            <option value='03'>March</option>
+                            <option value='04'>April</option>
+                            <option value='05'>May</option>
+                            <option value='06'>June</option>
+                            <option value='07'>July</option>
+                            <option value='08'>August</option>
+                            <option value='09'>September</option>
+                            <option value='10'>October</option>
+                            <option value='11'>November</option>
+                            <option value='12'>December</option>
+                        </select>
                 </td>
                 <td width="15%">
-                    <select class="form-control" style="min-height: 25px">
-                        <option>Year</option>
-                    </select>
+                    <select class="form-control" style="min-height: 25px" name='year'>
+                            <option value=''>Year</option>
+                            <?php for($y='2020';$y<=$curr_year;$y++) { ?>
+                                <option value='<?php echo $y; ?>'><?php echo $y; ?></option>
+                            <?php } ?>
+                        </select>
                 </td>
-                <td width="15%"><input type="button" class="btn btn-md btn-info-alt btn-sm" name="" value="Filter"></td>
+                <td width="15%"><input type="submit" class="btn btn-md btn-info-alt btn-sm" name="filter" value="Filter"></td>
                 <td>
                     <span data-toggle="modal" data-target="#addOutage">
                         <a href="#" class="btn btn-info-alt btn-sm bor-radius pull-right" data-toggle="tooltip" data-placement="top" title="Add Outage" >
@@ -148,6 +179,7 @@
                 </td>
             </tr>
         </table> 
+        </form>
         <form method='POST' >
             <div class="m-b-70">
                 <table class="table table-hover table-bordered" width="100%">
@@ -173,8 +205,8 @@
                         $remarks = get_column($conn, "remarks", "outage_summary_luzon", "summary_id", $fetch_outage['summary_id']);
                         //echo "**".$outage_type; ?>
 
-                        <tr class="actual-tr">
-                            <td align="center" class="p-0"><?php echo date('F d', strtotime($fetch_outage['outage_date'])); ?></td>
+                        <tr <?php echo (($previousdate !== '' && $previousdate !== $fetch_outage['outage_date'])  ? "class='actual-tr'" : ""); ?>>
+                            <td align="center" class="p-0"><?php echo (($previousdate !== '' && $previousdate !== $fetch_outage['outage_date'])  ?date('F d', strtotime($fetch_outage['outage_date'])) : ""); ?></td>
                             <td align="center" class="p-0"><?php echo get_interval($conn, 'outage_profile_luzon',$fetch_outage['summary_id']); ?></td>
                             <td class="p-0"><?php echo $type; ?></td>
                             <td class="p-0"><?php echo $fetch_outage['resource_id']; ?></td>
@@ -190,14 +222,16 @@
                             </td>
                             <td class="p-0">
                                 <textarea class="form-control font-12" name="remarks<?php echo $a; ?>" rows="1" style="min-height: 30px; padding: 0px 10px"><?php echo $remarks; ?></textarea>
-                            </td>
                                  <input type='hidden' name='summary_id<?php echo $a; ?>' value="<?php echo $fetch_outage['summary_id']; ?>">
+                            </td>
+                                
                             <!-- <td width="2%" class="">
                                 <button class="btn btn-danger-alt btn-sm"><span class="fa fa-times"></span></button>
                             </td> -->
                         </tr>    
                         <?php 
                         $a++; 
+                         $previousdate = $fetch_outage['outage_date'];
                         } ?>        
                         <input type='hidden' name='count_outage' value="<?php echo $a; ?>">                        
                     </tbody>
