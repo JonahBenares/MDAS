@@ -64,8 +64,8 @@
         }      
         header("Refresh:0; url=actual_outage_luzon.php");
     }
-    //$curr_month = date('Y-m');
-    $curr_month = '2020-03';
+    $curr_month = date('Y-m');
+    //$curr_month = '2020-03';
     $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
     //echo "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id";
 ?>
