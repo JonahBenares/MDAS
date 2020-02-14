@@ -11,7 +11,7 @@
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="masterfile/dashboard/">
+                    <a class="navbar-brand" href="masterfile/index/">
                         <b>
                             <img src="assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                             <img src="assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
