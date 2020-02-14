@@ -121,7 +121,7 @@
             </div>
         </div>
     </div>
-    <div class="container m-t-80 p-t-20" style="background-color: #fff">
+    <div class="container m-t-80 p-t-20" style="background-color: #fff;max-width: 1200px;">
         <center>
             <h3 class="m-0"><b>Actual Outages</b></h3>
             <p class="m-0" style="letter-spacing: 10px">LUZON</p>
@@ -160,7 +160,7 @@
                             <th width="7%"><center><strong>Capacity</strong></center></th>
                             <th width="15%"><center><strong>Outage Type</strong></center></th>
                             <th width="20%"><center><strong>Remarks</strong></center></th>
-                            <!-- <th width="2%"></th> -->
+                            <th width="10%">Total Capacity on Outage</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -192,9 +192,9 @@
                                 <textarea class="form-control font-12" name="remarks<?php echo $a; ?>" rows="1" style="min-height: 30px; padding: 0px 10px"><?php echo $remarks; ?></textarea>
                             </td>
                                  <input type='hidden' name='summary_id<?php echo $a; ?>' value="<?php echo $fetch_outage['summary_id']; ?>">
-                            <!-- <td width="2%" class="">
-                                <button class="btn btn-danger-alt btn-sm"><span class="fa fa-times"></span></button>
-                            </td> -->
+                            <td  class="p-0">
+                                CDS1
+                            </td>
                         </tr>    
                         <?php 
                         $a++; 
@@ -204,7 +204,7 @@
                 </table>   
             </div>
             <div style="height: 100px;width: 100%;background-image: linear-gradient(to top, #fff,#fff0);position: fixed;bottom:0">
-                <div style="padding:50px 20px;width: 69%">
+                <div style="padding:50px 20px;width: 88%">
                     <input type="submit" class="btn btn-success-alt btn-md btn-block" value="Save" name="save_summary">
                 </div>
             </div>
