@@ -44,6 +44,7 @@
 
                             <div class="dropleft dropdown-menu drop-left" style="border: 1px solid #495056;border-radius: 0px">
                                 <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>report/upload_rtd">Upload MPS</a>
                                 <button id="mps" class="dropdown-item"></span> MPS</button>
                                 <div class="child-st" style="top:34px" id="mps_child">
                                     <a href="<?php echo base_url(); ?>mps.php" class="dropdown-item">Visayas</a>
