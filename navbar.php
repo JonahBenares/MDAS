@@ -43,20 +43,21 @@
                                 <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>report/upload_rtd">Upload MPS</a>
                                 <button id="mps" class="dropdown-item"></span> MPS</button>
-                                <div class="child-st" style="top:34px" id="mps_child">
-                                    <a href="mps.php" class="dropdown-item">Visayas</a>
-                                    <a href="mps_luzon.php" class="dropdown-item">Luzon</a>
+                                <div class="child-st" style="top:69px" id="mps_child">
+                                    <a href="<?php echo base_url(); ?>mps.php" class="dropdown-item">Visayas</a>
+                                    <a href="<?php echo base_url(); ?>mps_luzon.php" class="dropdown-item">Luzon</a>
                                 </div>
                                 <button id="actual" class="dropdown-item"></span> Actual Outages</button>
-                                <div class="child-st" style="top:69px" id="actual_child">
-                                    <a href="actual_outage_visayas.php" class="dropdown-item">Visayas</a>
-                                    <a href="actual_outage_luzon.php" class="dropdown-item">Luzon</a>
+                                <div class="child-st" style="top:104px" id="actual_child">
+                                    <a href="<?php echo base_url(); ?>actual_outage_visayas.php" class="dropdown-item">Visayas</a>
+                                    <a href="<?php echo base_url(); ?>actual_outage_luzon.php" class="dropdown-item">Luzon</a>
                                 </div>
                                 <button id="comparison" class="dropdown-item"></span> Comparison Outages</button>
-                                <div class="child-st" style="top:104px" id="comparison_child">
-                                    <a href="comparison_out_visayas.php" class="dropdown-item">Visayas</a>
-                                    <a href="comparison_out_luzon.php" class="dropdown-item">Luzon</a>
+                                <div class="child-st" style="top:140px" id="comparison_child">
+                                    <a href="<?php echo base_url(); ?>comparison_out_visayas.php" class="dropdown-item">Visayas</a>
+                                    <a href="<?php echo base_url(); ?>comparison_out_luzon.php" class="dropdown-item">Luzon</a>
                                 </div>
+
                             </div>
                         </li>
                     </ul>
