@@ -40,8 +40,6 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Task Report" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-tasks "></i></a>
 
-
-
                             <div class="dropleft dropdown-menu drop-left" style="border: 1px solid #495056;border-radius: 0px">
                                 <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
                                 <a class="dropdown-item" href="<?php echo base_url(); ?>report/upload_rtd">Upload MPS</a>
