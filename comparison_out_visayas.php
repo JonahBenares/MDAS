@@ -148,7 +148,7 @@
                             showInLegend: true,
                             markerSize: 0,
                             color:"<?php echo $colors[$color_series]; ?>",
-                            yValueFormatString: "$#,###k",
+                            yValueFormatString: "#,###",
                             dataPoints: [    
                             <?php
                             while($fetch_date = mysqli_fetch_assoc($get_date)){

@@ -346,7 +346,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 
                         $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); 
                 ?> 
-                    <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
+                    <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw) && $fetch['resource_id'] != '5TPC_G01') { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
                     <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                     <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                 <?php $range++; } ?>  
