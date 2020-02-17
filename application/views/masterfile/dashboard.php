@@ -11,7 +11,10 @@ $curr_year = date('Y');
      #month-sel2, #quarter-sel2, #year-sel2{
         display: none;
     }
+   
 </style>
+
+
 <div class="page-wrapper">
     <div class="container-fluid">
         <div class="row page-titles">
@@ -35,23 +38,6 @@ $curr_year = date('Y');
                             <h2>Outage Capacity by Outage Type</h2>
                         </center>
 
-                        <?php 
-
-                       /*  foreach($type AS $tp){
-                                echo '{y: '. $CI->outage_pie_visayas($tp->type_id,NULL,'Monthly', '01', '2020', NULL) .', label: "'. $tp->type_name.'" , color: "'.$tp->legend_color .'"},';
-                             }*/
-
-
-                       /* foreach($CI->outage_graph_visayas('quarterly', NULL, '2020', '4') AS $c){
-                             for($x=1;$x<=24;$x++){
-                            $cap = $CI->sum_outage_unplanned($c->outage_date,$x);
-
-                            echo ' { y:' . $cap .', label: "'. date('m-d',strtotime($c->outage_date)). " " . $x .'"},'; 
-                         }
-
-                      
-
-                        }*/ ?>
                           <div class="p-l-70 p-r-70" style='margin-top:50px'>
                             <div class="row"><h3>VISAYAS</h3></div>
                         </div>
@@ -115,9 +101,9 @@ $curr_year = date('Y');
                             </div>
                         </div>
                         </form>
-                        
-                    <iframe src='<?php echo base_url(); ?>masterfile/visayas_outage' style='width:100%; height: 500px' loading="eager" name='outage_visayas' frameborder='0'></iframe>
-
+                      
+                    <iframe src='<?php echo base_url(); ?>masterfile/visayas_outage' style='width:100%; height: 500px' loading="eager" name='outage_visayas' frameborder='0' ></iframe>
+                  
             <!--             <div class="p-t-10">
         <div class="row">
             <div class="col-lg-8">

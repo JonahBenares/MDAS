@@ -41,7 +41,8 @@
 
     }
     if(empty($_POST)){
-    $query = mysqli_query($conn, "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_visayas WHERE type_id= '1' AND outage_date LIKE '$current_year%' ORDER BY participant_id ASC");
+
+    $query = mysqli_query($conn, "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_luzon WHERE type_id= '1' AND outage_date LIKE '$current_year%' ORDER BY participant_id ASC");
      
     } else {
         $q = ' ';
@@ -90,22 +91,22 @@
 
         //echo $q;
 
-        $query = mysqli_query($conn, "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_visayas WHERE $q ORDER BY participant_id ASC");
+        $query = mysqli_query($conn, "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_luzon WHERE $q ORDER BY participant_id ASC");
 
 
     }
- /*$query2 = mysqli_query($conn, "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_visayas WHERE type_id= '1' AND outage_date LIKE '$current_year%' ORDER BY participant_id ASC");
+/* $query2 = mysqli_query($conn, "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_luzon WHERE type_id= '1' AND outage_date LIKE '$current_year%' ORDER BY participant_id ASC");
      while($fetch2 = mysqli_fetch_assoc($query2)) {
-         $get_date = mysqli_query($conn, "SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE resource_id = '$fetch2[resid]' AND outage_date LIKE '2020-01%' ORDER BY outage_date ASC");
-         //echo  "SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE resource_id = '$fetch2[resid]' AND outage_date LIKE '2020-01%' ORDER BY outage_date ASC<br>";
+         $get_date = mysqli_query($conn, "SELECT DISTINCT outage_date FROM outage_profile_luzon WHERE resource_id = '$fetch2[resid]'  ORDER BY outage_date ASC");
+        
          while($fetch_date = mysqli_fetch_assoc($get_date)){
         $year = date('Y',strtotime($fetch_date['outage_date']));
         $month = date('m',strtotime($fetch_date['outage_date']));
         $day = date('d',strtotime($fetch_date['outage_date']));
-        echo '{ x: new Date('.$year.', '.$month .', '.$day.'), y: '.get_capacity_per_date($conn, $fetch2['resid'], $fetch_date['outage_date']).' },<br>';
+        echo '{ x: new Date('.$year.', '.$month .', '.$day.'), y: '.get_capacity_per_date($conn, $fetch2['resid'], $fetch_date['outage_date'], 'luzon').' },<br>';
         }  
-     }*/
-
+     }
+*/
 ?>
 
 
@@ -178,7 +179,7 @@
                             $color_series = $color_series;
                         }
                         
-                        $get_date = mysqli_query($conn, "SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE resource_id = '$fetch[resid]' ORDER BY outage_date ASC");
+                        $get_date = mysqli_query($conn, "SELECT DISTINCT outage_date FROM outage_profile_luzon WHERE resource_id = '$fetch[resid]' ORDER BY outage_date ASC");
                         ?>
                       
                         {
@@ -196,7 +197,7 @@
                                 $month = date('m',strtotime($fetch_date['outage_date']));
                                 $mo = getmo($month);
                                 $day = date('d',strtotime($fetch_date['outage_date']));
-                                echo '{ x: new Date('.$year.', '.$mo .', '.$day.'), y: '.get_capacity_per_date($conn, $fetch['resid'], $fetch_date['outage_date'], 'visayas').' },';
+                                echo '{ x: new Date('.$year.', '.$mo .', '.$day.'), y: '.get_capacity_per_date($conn, $fetch['resid'], $fetch_date['outage_date'], 'luzon').' },';
                                 }  
                             ?> 
                             ]
@@ -227,7 +228,7 @@
         <div class="card oh">
             <div class="card-body ">
                 <center>
-                    <h2>Comparison of Outage with same plant Category (Visayas)</h2>
+                    <h2>Comparison of Outage with same plant Category (LUZON)</h2>
                 </center>
                 <div class="p-t-20">
                     <div class="row">                                
@@ -235,7 +236,7 @@
                             <?php 
                             if(!empty($filter) || !empty($filter)){
                                 echo "<div class='alert alert-info m-b-0 p-1' role='alert'><span class='btn btn-xs btn-info disabled'>Filter Applied</span><span style='font-size: 12px'>". $filter . ((!empty($filter_res)) ? ", " .$filter_res : "" )." </span>
-                                    <a href='http://localhost/MDAS/comparison_out_visayas.php' class='remove_filter alert-link pull-right btn btn-xs'><span class='fa fa-times'></span></a>
+                                    <a href='http://localhost/MDAS/comparison_out_luzon.php' class='remove_filter alert-link pull-right btn btn-xs'><span class='fa fa-times'></span></a>
                                 </div>";
                             } else {
                                  echo "<h4>Data:<b> ". $current_year . ", Coal</b></h4>";

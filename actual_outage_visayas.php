@@ -28,12 +28,13 @@
             $$var = mysqli_real_escape_string($conn, $value);
 
         $timestamp = date('Y-m-d H:i:s');
+        $summary_id = get_summary_id($conn, 'outage_profile_visayas');
         for($x=$interval_start; $x<=$interval_end; $x++){
             $date= date('Y-m-d', strtotime($outage_date));
 
             $insert = mysqli_query($conn, "INSERT INTO outage_profile_visayas (outage_date, outage_interval, summary_id, type_id, resource_id, capacity_dependable, insert_timestamp, added_by) VALUES ('$date', '$x','$summary_id', '$type', '$resource_id', '$capacity','$timestamp', '$MAC')");
         }
-            $insert_summary = mysqli_query($conn, "INSERT INTO outage_profile_visayas (summary_id, outage_type, remarks) VALUES ('$summary_id', '$outage_type', '$remarks')");
+            $insert_summary = mysqli_query($conn, "INSERT INTO outage_summary_visayas (summary_id, outage_type, remarks) VALUES ('$summary_id', '$outage_type', '$remarks')");
             if($insert_summary){
             header("Refresh:0; url=actual_outage_visayas.php");
             }

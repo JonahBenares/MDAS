@@ -284,7 +284,6 @@ if(!empty($_POST)) {
 }
         </script>
 
-
     <div class="p-t-10">
         <div class="row">
             <div class="col-lg-8">
