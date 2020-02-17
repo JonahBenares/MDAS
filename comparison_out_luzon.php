@@ -65,8 +65,6 @@
 
         //echo  "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_luzon WHERE $q ORDER BY participant_id ASC";
     }
-
-
 ?>
 
 <!DOCTYPE html>
@@ -93,8 +91,6 @@
                 background: #fff;
             }
         </style>
-        <!-- <script src="http://localhost/MDAS/assets/dist/js/report.js"></script> -->
-
         <script>
             window.onload = function () {
                 var selectBox = document.getElementById("selectBox5");
@@ -177,20 +173,19 @@
                     }
                     chart.render();
                 }
+            }
 
-        }
 
-
-function selectAll(source) {
-        checkboxes = document.getElementsByName('resources[]');
-        for(var i in checkboxes)
-            checkboxes[i].checked = source.checked;
-    }
-
+            function selectAll(source) {
+                checkboxes = document.getElementsByName('resources[]');
+                for(var i in checkboxes)
+                    checkboxes[i].checked = source.checked;
+            }
         </script>
+        <?php include('navbar.php'); ?>
         <div class="page-wrapper ">
             <div class="card oh">
-                <div class="card-body m-t-60">
+                <div class="card-body">
                     <center>
                         <h2>Comparison of Outage with same plant Category (luzon)</h2>
                     </center>
@@ -199,9 +194,11 @@ function selectAll(source) {
                             <div class="col-lg-10">
                                 <?php 
                                 if(!empty($filter) || !empty($filter)){
-                                    echo "Filter: ". $filter . ((!empty($filter_res)) ? ", " .$filter_res : "");
+                                    echo "<div class='alert alert-info m-b-0 p-1' role='alert'><span class='btn btn-xs btn-info disabled'>Filter Applied</span><span style='font-size: 12px'>". $filter . ((!empty($filter_res)) ? ", " .$filter_res : "" )." </span>
+                                        <a href='http://localhost/MDAS/comparison_out_luzon.php' class='remove_filter alert-link pull-right btn btn-xs'><span class='fa fa-times'></span></a>
+                                    </div>";
                                 } else {
-                                     echo "Data: ". $current_year . ", Coal";
+                                     echo "<h4>Data:<b> ". $current_year . ", Coal</b></h4>";
                                 } ?>
                                <div id="lineOut" style="height: 400px; width: 100%;"></div>   
                             </div>   
@@ -276,12 +273,10 @@ function selectAll(source) {
                 </div>
             </div>   
         </div>
-
         <script src="http://localhost/MDAS/assets/dist/js/jquery.min.js"></script>
         <script src="http://localhost/MDAS/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
         <script src="http://localhost/MDAS/assets/dist/js/waves.js"></script>       
         <script src="http://localhost/MDAS/assets/dist/js/jquery.canvasjs.min.js"></script>
-
     </body>
 </html>
 <script>
