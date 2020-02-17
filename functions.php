@@ -66,4 +66,34 @@ function get_interval($conn, $table, $summary_id){
     }
     return $fetch_cap['capdep'];
 }
+
+function get_month($month){
+    if($month =='01'){
+        $mo = '00';
+    } else if ($month =='02'){
+        $mo = '01';
+    } else if ($month =='03'){
+        $mo = '02';
+    } else if ($month =='04'){
+        $mo = '03';
+    } else if ($month =='05'){
+        $mo = '04';
+    } else if ($month =='06'){
+        $mo = '05';
+    } else if ($month =='07'){
+        $mo = '06';
+    } else if ($month =='08'){
+        $mo = '07';
+    } else if ($month =='09'){
+        $mo = '08';
+    } else if ($month =='10'){
+        $mo = '09';
+    } else if ($month =='11'){
+        $mo = '10';
+    } else if ($month =='12'){
+        $mo = '11';
+    }
+
+    return $mo;
+}
 ?>

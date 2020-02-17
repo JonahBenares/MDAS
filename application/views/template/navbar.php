@@ -11,7 +11,7 @@
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="<?php echo base_url(); ?>masterfile/dashboard/">
+                    <a class="navbar-brand" href="<?php echo base_url(); ?>masterfile/index">
                         <b>
                             <img src="<?php echo base_url(); ?>assets/images/logo-icon.png" alt="homepage" class="dark-logo" />
                             <img src="<?php echo base_url(); ?>assets/images/logo-light-icon.png" alt="homepage" class="light-logo" />
@@ -40,22 +40,21 @@
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" title="Task Report" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="fa fa-tasks "></i></a>
 
-
-
                             <div class="dropleft dropdown-menu drop-left" style="border: 1px solid #495056;border-radius: 0px">
                                 <span class="dropdown-item bg-main text-white" disable><center><small>REPORT</small></center></span>
+                                <a class="dropdown-item" href="<?php echo base_url(); ?>report/upload_rtd">Upload MPS</a>
                                 <button id="mps" class="dropdown-item"></span> MPS</button>
-                                <div class="child-st" style="top:34px" id="mps_child">
+                                <div class="child-st" style="top:69px" id="mps_child">
                                     <a href="<?php echo base_url(); ?>mps.php" class="dropdown-item">Visayas</a>
                                     <a href="<?php echo base_url(); ?>mps_luzon.php" class="dropdown-item">Luzon</a>
                                 </div>
                                 <button id="actual" class="dropdown-item"></span> Actual Outages</button>
-                                <div class="child-st" style="top:69px" id="actual_child">
+                                <div class="child-st" style="top:104px" id="actual_child">
                                     <a href="<?php echo base_url(); ?>actual_outage_visayas.php" class="dropdown-item">Visayas</a>
                                     <a href="<?php echo base_url(); ?>actual_outage_luzon.php" class="dropdown-item">Luzon</a>
                                 </div>
                                 <button id="comparison" class="dropdown-item"></span> Comparison Outages</button>
-                                <div class="child-st" style="top:104px" id="comparison_child">
+                                <div class="child-st" style="top:140px" id="comparison_child">
                                     <a href="<?php echo base_url(); ?>comparison_out_visayas.php" class="dropdown-item">Visayas</a>
                                     <a href="<?php echo base_url(); ?>comparison_out_luzon.php" class="dropdown-item">Luzon</a>
                                 </div>

@@ -5,7 +5,6 @@
                 <div class="d-flex  align-items-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?php echo base_url(); ?>report/rtd_report/">MPS</a></li>
                         <li class="breadcrumb-item active">Upload MPS</li>
                     </ol>
                 </div>
