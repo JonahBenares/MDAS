@@ -11,7 +11,9 @@ $curr_year = date('Y');
      #month-sel2, #quarter-sel2, #year-sel2{
         display: none;
     }
-   
+.holds-the-iframe {
+  background:url(<?php base_url(); ?>/assets/images/loader.gif) center center no-repeat;
+}
 </style>
 
 
@@ -101,9 +103,10 @@ $curr_year = date('Y');
                             </div>
                         </div>
                         </form>
-                      
-                    <iframe src='<?php echo base_url(); ?>masterfile/visayas_outage' style='width:100%; height: 500px' loading="eager" name='outage_visayas' frameborder='0' ></iframe>
-                  
+                     <div class="holds-the-iframe">
+                    <iframe src='<?php echo base_url(); ?>masterfile/visayas_outage' style='width:100%; height: 500px'  name='outage_visayas' frameborder='0' >Loading..</iframe>
+                </div>
+              
             <!--             <div class="p-t-10">
         <div class="row">
             <div class="col-lg-8">

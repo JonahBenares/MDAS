@@ -1,12 +1,12 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <body class="skin-default-dark fixed-layout">
-    <!-- <div class="preloader">
+    <!--  <div class="preloader">
         <div class="loader">
             <div class="loader__figure"></div>
             <p class="loader__label">Market Data Analysis System</p>
         </div>
-    </div> -->
+    </div>  -->
     <div id="main-wrapper">
         <header class="topbar">
             <nav class="navbar top-navbar navbar-expand-md navbar-dark">
@@ -44,18 +44,18 @@
                                 <a class="dropdown-item" href="report/upload_rtd">Upload MPS</a>
                                 <button id="mps" class="dropdown-item"></span> MPS</button>
                                 <div class="child-st" style="top:69px" id="mps_child">
-                                    <a href="mps.php" class="dropdown-item">Visayas</a>
-                                    <a href="mps_luzon.php" class="dropdown-item">Luzon</a>
+                                    <a href="mps.php" class="dropdown-item" target="_blank">Visayas</a>
+                                    <a href="mps_luzon.php" class="dropdown-item" target="_blank">Luzon</a>
                                 </div>
                                 <button id="actual" class="dropdown-item"></span> Actual Outages</button>
                                 <div class="child-st" style="top:104px" id="actual_child">
-                                    <a href="actual_outage_visayas.php" class="dropdown-item">Visayas</a>
-                                    <a href="actual_outage_luzon.php" class="dropdown-item">Luzon</a>
+                                    <a href="actual_outage_visayas.php" class="dropdown-item" target="_blank">Visayas</a>
+                                    <a href="actual_outage_luzon.php" class="dropdown-item" target="_blank">Luzon</a>
                                 </div>
                                 <button id="comparison" class="dropdown-item"></span> Comparison Outages</button>
                                 <div class="child-st" style="top:140px" id="comparison_child">
-                                    <a href="comparison_out_visayas.php" class="dropdown-item">Visayas</a>
-                                    <a href="comparison_out_luzon.php" class="dropdown-item">Luzon</a>
+                                    <a href="comparison_out_visayas.php" class="dropdown-item" target="_blank">Visayas</a>
+                                    <a href="comparison_out_luzon.php" class="dropdown-item" target="_blank">Luzon</a>
                                 </div>
 
                             </div>
@@ -107,4 +107,4 @@
             });
         </script>
 
-        <script type="text/javascript" src="assets/dist/js/navbar.js"></script>
+        <script type="text/javascript" src="<?php echo base_url; ?>/assets/dist/js/navbar.js"></script>

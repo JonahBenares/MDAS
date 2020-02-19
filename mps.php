@@ -1,10 +1,14 @@
+<?php
+include 'conn.php';
+include 'functions.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <title>Market Prices & Schedule</title>
-    <link href="http://localhost/MDAS/assets/dist/css/web.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="http://localhost/MDAS/assets/dist/css/style.css">
+    <link href="<?php echo base_url; ?>/assets/dist/css/web.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>/assets/dist/css/style.css">
     <script type="text/javascript">
         function mps_filter() {
             window.open("mps_filter.php", "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=50,left=450,width=500,height=500");
@@ -130,11 +134,23 @@
     table tr th, table tr td{
         border:0.001rem solid #cccccc;
     }
+
+
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(<?php echo base_url; ?>/assets/images/loader.gif) center no-repeat #fff;
+}
 </style>
 
 
 <?php
-include 'conn.php';
 $filter_type='';
 $filter_part='';
 $filter_res='';
@@ -149,38 +165,6 @@ if(empty($_GET)){
 } else {
 
     $query ='';
-    if(!empty($_GET['year']) && empty($_GET['month'])){
-        $month = date('m');
-        $year = $_GET['year'];
-        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
-        $from =$year."-".$month."-01";
-        $to = $year."-".$month."-".$days;
-    }
-
-    if(!empty($_GET['month']) && empty($_GET['year'])){
-        $month = str_pad($_GET['month'], 2, "0", STR_PAD_LEFT);
-        $year = date('Y');
-        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
-        $from =$year."-".$month."-01";
-        $to = $year."-".$month."-".$days;
-    }
-
-    if(!empty($_GET['month']) && !empty($_GET['year'])){
-        $month = str_pad($_GET['month'], 2, "0", STR_PAD_LEFT);
-        $year = $_GET['year'];
-        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
-        $from =$year."-".$month."-01";
-        $to = $year."-".$month."-".$days;
-    }
-
-     if(empty($_GET['month']) && empty($_GET['year'])){
-        $month = date('m');
-        $year = date('Y');
-        $days=cal_days_in_month(CAL_GREGORIAN,$month,$year);
-        $from =$year."-".$month."-01";
-        $to = $year."-".$month."-".$days;
-    }
-
 
     if(!empty($_GET['from']) && !empty($_GET['to'])){
         $from = $_GET['from'];
@@ -190,6 +174,12 @@ if(empty($_GET)){
         $interval = date_diff($datetime1, $datetime2);
         $days= $interval->days + 1;
         $filter_day = $from." TO ".$to;
+    }
+
+    if(!empty($_GET['interval'])){
+        $interval = $_GET['interval'];
+        $query .=" AND delivery_hour = '$interval'";
+        $filter_interval =$interval;
     }
 
     if(!empty($_GET['type_id'])){
@@ -211,30 +201,12 @@ if(empty($_GET)){
 
 
 $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_visayas WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
-//$rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_visayas WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
 
-
-function  get_rtd_value($conn, $column, $date, $resource_id, $delivery_hour){
-  $rtd_val = mysqli_query($conn, "SELECT $column FROM mps_visayas WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour'");
-  $fetch_val = mysqli_fetch_array($rtd_val);
-  return $fetch_val[$column];
-}
-
-function get_column($conn, $column, $table, $where_col, $where_val){
-    $get =  mysqli_query($conn, "SELECT $column FROM $table WHERE $where_col = '$where_val'");
-    $fetch = mysqli_fetch_array($get);
-    return $fetch[$column];
-}
-
-function get_row_color($conn, $type_id){
-  $get_color = mysqli_query($conn, "SELECT legend_color FROM pp_type WHERE type_id = '$type_id'");
-  $fetch_color = mysqli_fetch_array($get_color);
-  return $fetch_color['legend_color'];
-}
 
 $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 ?>
 <body>
+<div class="se-pre-con"></div>
     <table class="table table-bordered" width="100%">
         <tr>
             <td width="1%" rowspan="4" colspan="5">         
@@ -242,7 +214,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
         </tr>
         <tr>
             <td rowspan="3">
-                <a href="masterfile/index/" class="btn btn-sm btn-info-alt" style="height: 4rem"><span class="fa fa-home"></span> </a>
+                <a href="<?php echo base_url; ?>/masterfile/index/" class="btn btn-sm btn-info-alt" style="height: 4rem"><span class="fa fa-home"></span> </a>
             </td>
             <td colspan="2">MARKET PRICES AND SCHEDULE</td>
             <td colspan="1"></td>
@@ -274,7 +246,8 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
             <td colspan="20">
                 <div class="alert alert-info m-b-0 p-1" role="alert">
                     <span class='btn btn-xs btn-info disabled'>Filter Applied</span>
-                    <span class="m-r-20"><b>Day(FROM - TO):</b>  <?php echo $filter_day; ?> </span>
+                    <span class="m-r-20"><b>Date Range:</b>  <?php echo $filter_day; ?> </span>
+                    <span class="m-r-20"><b>Interval:</b>  <?php echo $filter_interval; ?> </span>
                     <span class="m-r-20"><b>Type:</b>  <?php echo $filter_type; ?> </span>
                     <span class="m-r-20"><b>Participant:</b><?php echo $filter_part; ?></span>
                     <span class="m-r-20"><b>Resource:</b>  <?php echo $filter_res; ?>  </span>
@@ -339,29 +312,42 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
                     $range = date("d",strtotime($from)); 
                     for($x=1;$x<=$days;$x++){ 
                         if(!empty($_GET)){
-                            $date=$year."-".$month."-".str_pad($range, 2, "0", STR_PAD_LEFT); 
+                            $year_from = date('Y', strtotime($from));
+                            $month_from = date('m', strtotime($from));
+                            $date=$year_from."-".$month_from."-".str_pad($range, 2, "0", STR_PAD_LEFT); 
+                            
                         }else{
                             $date=$year."-".$month."-".str_pad($x, 2, "0", STR_PAD_LEFT);
                         }
 
-                        $mw = get_rtd_value($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); 
+
+
+                        $mw = get_rtd_value_visayas($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); 
                 ?> 
                     <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw) && $fetch['resource_id'] != '5TPC_G01') { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
-                    <td align="center"> <?php echo get_rtd_value($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
-                    <td align="center"> <?php echo get_rtd_value($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
+                    <td align="center"> <?php echo get_rtd_value_visayas($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
+                    <td align="center"> <?php echo get_rtd_value_visayas($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                 <?php $range++; } ?>  
             </tr>
             <?php endwhile; ?> 
         </table>
     </div>
-    <script type="text/javascript" src="http://localhost/MDAS/grid1.min.js" ></script>
+    <script type="text/javascript" src="<?php echo base_url; ?>/grid1.min.js" ></script>
     
 </body>
 <script>
      function setData(data) {
        
-        var requestBinUrl = 'http://localhost/MDAS/mps.php?';
+        var requestBinUrl = '<?php echo base_url; ?>/mps.php?';
         window.location.href = requestBinUrl+data;
     }
+</script>
+<script src="<?php echo base_url; ?>/assets/dist/js/jquery.min.js"></script>
+<script src="<?php echo base_url; ?>/assets/dist/js/modernizr.js"></script>
+<script>
+    $(window).load(function() {
+        // Animate loader off screen
+        $(".se-pre-con").fadeOut("slow");;
+    });
 </script>
 </html>

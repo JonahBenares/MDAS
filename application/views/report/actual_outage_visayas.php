@@ -71,10 +71,19 @@
                     <tbody>
                     <?php
                     //print_r($outage);
+                        $total = 0;
+                        $previousdate='';
                         foreach($outage AS $out){
                         
                         $type = $ci->get_column("type_name", "pp_type", "type_id", $out['type_id']);
-                        $outage_type = $ci->get_column("outage_type", "outage_summary_visayas", "summary_id", $out['summary_id']); ?>
+                        $outage_type = $ci->get_column("outage_type", "outage_summary_visayas", "summary_id", $out['summary_id']); 
+
+                        if($previousdate !== '' && $previousdate !== $out['outage_date']){
+                            $total += $out['capacity_dependable'];
+                        } else {
+                            $total = 0;
+                        }
+                        ?>
 
                         <tr>
                             <td align="center" class="p-0"><?php echo date('F d', strtotime($out['outage_date'])); ?></td>
@@ -93,10 +102,13 @@
                                 <textarea class="form-control " rows="1"></textarea>
                             </td>
                             <td width="2%" class="">
+                                <?php echo "**".$total; ?>
                                 <!-- <button class="btn btn-danger-alt btn-sm"><span class="fa fa-times"></span></button> -->
                             </td>
                         </tr>    
-                        <?php } ?>                                
+                        <?php 
+                        $previousdate=$out['outage_date'];
+                        } ?>                                
                     </tbody>
                 </table>   
           

@@ -24,7 +24,7 @@ function showValues(){
         </div>
         <form id = 'popupForm'>
             <div class="modal-body">
-                <div class="form-group">
+                <!-- <div class="form-group">
                    <select class="form-control" name='month' id='month'>
                         <option value='' selected="">Select Month</option>
                         <option value='1'>January</option>
@@ -40,7 +40,7 @@ function showValues(){
                         <option value='11'>November</option>
                         <option value='12'>December</option>
                     </select>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <div class = "row">
                         <div class = "col-6">
@@ -51,14 +51,24 @@ function showValues(){
                         </div>
                     </div>
                 </div>
-                <div class="form-group">
+                 <div class="form-group">
+                  
+                       <select name='interval' class="form-control" >
+                        <option value='' selected>Select Interval</option>
+                        <?php for($x=1;$x<=24;$x++){ ?>
+                            <option value="<?php echo $x; ?>"><?php echo $x; ?></option>
+                        <?php } ?>
+                       </select>
+                    
+                </div>
+               <!--  <div class="form-group">
                     <select class="form-control" name='year' id='year'>
                         <option value='' selected="">Select Year</option>
                         <?php for($x=2019;$x<=$curr_year;$x++){ ?>
                          <option value='<?php echo $x; ?>'><?php echo $x; ?></option>
                         <?php } ?>
                     </select>
-                </div>
+                </div> -->
                 <div class="form-group">
                     <select class="form-control" name='type_id' id='type_id'>
                         <option value='' selected="">Select Type</option>

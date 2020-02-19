@@ -1,23 +1,37 @@
+<?php
+    include 'conn.php';
+    include 'functions.php';
+?>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <title>Market Prices & Schedule</title>
-    <link href="http://localhost/MDAS/assets/dist/css/web.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="http://localhost/MDAS/assets/dist/css/style.css">
-
+    <link href="<?php echo base_url; ?>/assets/dist/css/web.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>/assets/dist/css/style.css">
+<style>
+    .no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(<?php echo base_url; ?>/assets/images/loader.gif) center no-repeat #fff;
+}
+</style>
 </head>
-<?php
-    include 'conn.php';
-    include 'functions.php';
 
+<?php
     $MAC = exec('getmac'); 
     $MAC = strtok($MAC, ' '); 
 
 
 $get_type = mysqli_query($conn, "SELECT * FROM pp_type");
 $summary_id = get_summary_id($conn, 'outage_profile_visayas');
-
+$curr_year = date('Y');
 
 if(isset($_POST['add_outage'])){
 
@@ -47,9 +61,11 @@ if(isset($_POST['save_summary'])){
 
         $sumid = "summary_id".$y; 
         $rem = "remarks".$y; 
+        $capacity = "capacity".$y; 
         $out_type = "outage_type".$y; 
         $sid= $$sumid;
         $remarks= $$rem;
+        $cap= $$capacity;
         $outage_type= $$out_type;
 
         $existing = mysqli_query($conn, "SELECT summary_id FROM outage_summary_visayas WHERE summary_id = '$sid'");
@@ -62,6 +78,7 @@ if(isset($_POST['save_summary'])){
             }
         } else {
             $update = mysqli_query($conn, "UPDATE outage_summary_visayas SET outage_type = '$outage_type', remarks = '$remarks' WHERE summary_id = '$sid'");
+            $update_capacity = mysqli_query($conn, "UPDATE outage_profile_visayas SET capacity_dependable = '$cap' WHERE summary_id = '$sid'");
         }
 
      }
@@ -69,12 +86,20 @@ if(isset($_POST['save_summary'])){
        header("Refresh:0; url=actual_outage_visayas.php");
 
 }
-    $curr_month = date('Y-m');
-    //$curr_month = '2020-03';
+
+  if(!isset($_POST['filter'])){
+    $month = date('Y-m');  
+    $curr_month = date('Y-m');  
     $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
+  } else {
+
+    $month = $_POST['year']."-".$_POST['month'];  
+    $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
+  }
     //echo "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id";
 ?>
 <body>
+    <div class="se-pre-con"></div>
     <?php include('navbar.php'); ?>
     <div class="modal fade" id="addOutage" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -133,19 +158,35 @@ if(isset($_POST['save_summary'])){
             <h3 class="m-0"><b>Actual Outages</b></h3>
             <p class="m-0" style="letter-spacing: 10px">VISAYAS</p>
         </center> 
+        <form method='POST'>
         <table class="m-b-10 m-t-20" width="100%">
             <tr>
                 <td width="15%">
-                    <select class="form-control" style="min-height: 25px">
-                        <option>Month</option>
+                    <select class="form-control" style="min-height: 25px" name='month'>
+                        <option value=''>Month</option>
+                        <option value='01'>January</option>
+                        <option value='02'>February</option>
+                        <option value='03'>March</option>
+                        <option value='04'>April</option>
+                        <option value='05'>May</option>
+                        <option value='06'>June</option>
+                        <option value='07'>July</option>
+                        <option value='08'>August</option>
+                        <option value='09'>September</option>
+                        <option value='10'>October</option>
+                        <option value='11'>November</option>
+                        <option value='12'>December</option>
                     </select>
                 </td>
                 <td width="15%">
-                    <select class="form-control" style="min-height: 25px">
-                        <option>Year</option>
+                    <select class="form-control" style="min-height: 25px" name='year'>
+                        <option value=''>Year</option>
+                        <?php for($y=2020;$y<=$curr_year;$y++){ ?>
+                        <option value='<?php echo $y; ?>'><?php echo $y; ?></option>
+                        <?php } ?>
                     </select>
                 </td>
-                <td width="15%"><input type="button" class="btn btn-md btn-info-alt btn-sm" name="" value="Filter"></td>
+                <td width="15%"><input type="submit" class="btn btn-md btn-info-alt btn-sm" name="filter" value="Filter"></td>
                 <td>
                     <span data-toggle="modal" data-target="#addOutage">
                         <a href="#" class="btn btn-info-alt btn-sm bor-radius pull-right" data-toggle="tooltip" data-placement="top" title="Add Outage" >
@@ -155,6 +196,7 @@ if(isset($_POST['save_summary'])){
                 </td>
             </tr>
         </table> 
+        </form>
         <form method='POST' >
             <div class="m-b-70">
                 <table class="table table-hover table-bordered" width="100%">
@@ -173,19 +215,22 @@ if(isset($_POST['save_summary'])){
                     <tbody>
                     <?php
                         $a=1;
+                         $previousdate = '';
+                        
                         while($fetch_outage = mysqli_fetch_array($get_outages)){
 
                         $type = get_column($conn, "type_name", "pp_type", "type_id", $fetch_outage['type_id']);
                         $outage_type = get_column($conn, "outage_type", "outage_summary_visayas", "summary_id", $fetch_outage['summary_id']);
                         $remarks = get_column($conn, "remarks", "outage_summary_visayas", "summary_id", $fetch_outage['summary_id']);
-                        //echo "**".$outage_type; ?>
 
-                        <tr class="actual-tr">
-                            <td align="center" class="p-0"><?php echo date('F d', strtotime($fetch_outage['outage_date'])); ?></td>
+                        ?>
+
+                        <tr <?php echo (($previousdate !== '' && $previousdate !== $fetch_outage['outage_date']) ? "class='actual-tr'" : "");  ?>>
+                            <td align="center" class="p-0"><?php echo (($month !== '' && $month !== $fetch_outage['outage_date']) ? date('F d', strtotime($fetch_outage['outage_date'])) : ''); ?></td>
                             <td align="center" class="p-0"><?php echo get_interval($conn, 'outage_profile_visayas',$fetch_outage['summary_id']); ?></td>
                             <td class="p-0"><?php echo $type; ?></td>
                             <td class="p-0"><?php echo $fetch_outage['resource_id']; ?></td>
-                            <td class="p-0"><input type="text" class="form-control font-12 al-cen" name="capacity" value="<?php echo $fetch_outage['capacity_dependable']; ?>" style="min-height: 30px; padding: 0px 10px"></td>
+                            <td class="p-0"><input type="text" class="form-control font-12 al-cen" name="capacity<?php echo $a; ?>" value="<?php echo $fetch_outage['capacity_dependable']; ?>" style="min-height: 30px; padding: 0px 10px"></td>
                             <td class="p-0">
                                 <select class="form-control font-12" name='outage_type<?php echo $a; ?>' style="min-height: 30px; padding: 0px 10px">
                                    <option value=''>Choose Outage Type</option>
@@ -196,13 +241,15 @@ if(isset($_POST['save_summary'])){
                             <td class="p-0">
                                 <textarea class="form-control font-12" name="remarks<?php echo $a; ?>" rows="1" style="min-height: 30px; padding: 0px 10px"><?php echo $remarks; ?></textarea>
                             </td>
-                            <td width="2%" class="">
-                                 <input type='hidden' name='summary_id<?php echo $a; ?>' value="<?php echo $fetch_outage['summary_id']; ?>">
-                                <!-- <button class="btn btn-danger-alt btn-sm"><span class="fa fa-times"></span></button> -->
+                            <td width="2%" ><center><strong>
+                              <?php echo (($previousdate !== $fetch_outage['outage_date']) ? get_total_perday($conn, $fetch_outage['outage_date'], 'visayas') : "");  ?></strong></center>
                             </td>
+                              <input type='hidden' name='summary_id<?php echo $a; ?>' value="<?php echo $fetch_outage['summary_id']; ?>">
                         </tr>    
                         <?php 
                         $a++; 
+                        $month = $fetch_outage['outage_date'];
+                        $previousdate = $fetch_outage['outage_date'];
                         } ?>        
                         <input type='hidden' name='count_outage' value="<?php echo $a; ?>">                        
                     </tbody>
@@ -217,5 +264,11 @@ if(isset($_POST['save_summary'])){
     </div>
 </body>
 </html>
- <script src="assets/dist/js/jquery.min.js"></script>
-<script src="assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url; ?>/assets/dist/js/jquery.min.js"></script>
+<script src="<?php echo base_url; ?>/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url; ?>/assets/dist/js/modernizr.js"></script>
+<script>
+    $(window).load(function() {
+        $(".se-pre-con").fadeOut("slow");;
+    });
+</script>

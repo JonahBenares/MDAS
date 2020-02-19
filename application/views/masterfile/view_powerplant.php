@@ -20,7 +20,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
-                            <div class="col-lg-6">
+                            <div class="col-lg-6"> 
+                                <a href="<?php echo base_url(); ?>masterfile/add_powerplant/<?php echo $powerplant_id; ?>" class="btn btn-warning-alt btn-xs bor-radius" title="Update Powerplant" style='float: right'><span class="fa fa-pencil"></span></a>
                                 <?php foreach($powerplant AS $p){ ?>
                                     <h5><small>Facility Name</small><br><?php echo $p['facility_name']; ?></h5>
                                     <h5><small>Short Name</small><br><?php echo $p['short_name']; ?></h5>
@@ -41,6 +42,7 @@
                                     <h5><small>Type of Contract </small><br><?php echo $p['type_of_contract']; ?></h5>
                                     <h5><small>Status </small><br><?php echo ($p['status']==0) ? 'Active' : 'Inactive'; ?></h5>
                                 <?php } ?>
+
                             </div>
                             <div class="col-lg-6">
                                 <div style="overflow-y: scroll;height: 750px;padding: 20px;background: #efefef">
@@ -48,6 +50,7 @@
                                         <div class="card shadow bor-radius20 p-20">
                                             <h5><small>Resource ID</small><br><?php echo $r['resource_id'];?></h5>
                                             <h5><small>Date Commisioned/Commercial</small><br><?php echo $r['date_commissioned'];?></h5>
+                                            <span style="height:15px; background-color: <?php echo (!empty($r['hex']) ? $r['hex'] : '#000000') ;?>"></span>
                                         </div>
                                     <?php } ?>
                                 </div>

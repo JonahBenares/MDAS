@@ -52,7 +52,7 @@
                             <tbody>
                                 <?php foreach($powerplant AS $p){ ?>
                                 <tr>
-                                    <td><?php echo $p['resource_id']; ?></td>
+                                    <td><?php echo $p['resources']; ?></td>
                                     <td><?php echo $p['facility_name']; ?></td>
                                     <td><?php echo $p['short_name']; ?></td>
                                     <td><?php echo $p['type']; ?></td>

@@ -2,8 +2,8 @@
     include 'conn.php';
     include 'functions.php';
 
-    $colors = array('#FFFF00','#8B008B', '#FF0000', '#7CFC00', '#8B4513','#00CED1','#DC143C', '#0000FF','#2F4F4F','#FF6347','#800000','#228B22','#BA55D3', '#DAA520','#8FBC8F','#556B2F','#696969','#00FFFF',  '#483D8B', '#008080',  '#BDB76B',   '#808000', '#A9A9A9',  '#9ACD32','#FF1493','#8B0000','#00FA9A','#66CDAA', '#FFDEAD','#FF8C00','#4B0082','#D2B48C','#FFA07A','#EE82EE');
-
+   /* $colors = array('#FFFF00','#8B008B', '#FF0000', '#7CFC00', '#8B4513','#00CED1','#DC143C', '#0000FF','#2F4F4F','#FF6347','#800000','#228B22','#BA55D3', '#DAA520','#8FBC8F','#556B2F','#696969','#00FFFF',  '#483D8B', '#008080',  '#BDB76B',   '#808000', '#A9A9A9',  '#9ACD32','#FF1493','#8B0000','#00FA9A','#66CDAA', '#FFDEAD','#FF8C00','#4B0082','#D2B48C','#FFA07A','#EE82EE');
+*/
     $current_year = date('Y');
     $color_series=0;
     $previousparticipant = '';
@@ -13,7 +13,7 @@
     if(empty($_POST)){
          $current_year = date('Y');
     $query = mysqli_query($conn, "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_visayas WHERE type_id= '1' AND outage_date LIKE '$current_year%' ORDER BY participant_id ASC");
-    //echo "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_visayas WHERE type_id= '1' AND outage_date LIKE '$current_year%' ORDER BY participant_id ASC";
+   
     } else {
         $q = ' ';
         $filter = ' ';
@@ -59,11 +59,8 @@
                   $q .= $q_res;
         }
 
-        //echo $q;
-
         $query = mysqli_query($conn, "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_visayas WHERE $q ORDER BY participant_id ASC");
 
-        //echo  "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_visayas WHERE $q ORDER BY participant_id ASC";
     }
 ?>
 
@@ -75,12 +72,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" type="image/png" sizes="16x16" href="http://localhos
-        t/MDAS/assets/images/favicon.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="<?php echo base_url; ?>/assets/images/favicon.png">
         <title>Market Data Analysis System</title>
-        <link href="http://localhost/MDAS/assets/dist/css/style.css" rel="stylesheet">
-        <link href="http://localhost/MDAS/assets/dist/css/pages/dashboard1.css" rel="stylesheet">
-        <link href="http://localhost/MDAS/assets/dist/css/jquery.dataTables.min.css" rel="stylesheet">      
+        <link href="<?php echo base_url; ?>/assets/dist/css/style.css" rel="stylesheet">
+        <link href="<?php echo base_url; ?>/assets/dist/css/pages/dashboard1.css" rel="stylesheet">
+        <link href="<?php echo base_url; ?>/assets/dist/css/jquery.dataTables.min.css" rel="stylesheet">      
     </head>
     <body class="bg-white">      
         <style type="text/css">
@@ -127,14 +123,13 @@
                     data: [
                     <?php
                     while($fetch = mysqli_fetch_assoc($query)) {
-
-                        if($previousparticipant !== '' && $previousparticipant !== $fetch['participant_id']){
-                            $color_series++;
-                        } else {
-                            $color_series = $color_series;
-                        }
-
                         $get_date = mysqli_query($conn, "SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE resource_id = '$fetch[resid]'");
+                        $color=get_resource_color($conn,$fetch['resid']);
+                        if(empty($color)){
+                            $color='#000000';
+                        } else {
+                            $color = $color;
+                        }
                         ?>
 
                         {
@@ -143,7 +138,7 @@
                             name: "<?php echo $fetch['resid']; ?>",
                             showInLegend: true,
                             markerSize: 0,
-                            color:"<?php echo $colors[$color_series]; ?>",
+                            color:"<?php echo $color; ?>",
                             yValueFormatString: "#,###",
                             dataPoints: [    
                             <?php
@@ -272,17 +267,17 @@
             </div>   
         </div>
 
-        <script src="http://localhost/MDAS/assets/dist/js/jquery.min.js"></script>
-        <script src="http://localhost/MDAS/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="http://localhost/MDAS/assets/dist/js/waves.js"></script>       
-        <script src="http://localhost/MDAS/assets/dist/js/jquery.canvasjs.min.js"></script>
+        <script src="<?php echo base_url; ?>/assets/dist/js/jquery.min.js"></script>
+        <script src="<?php echo base_url; ?>/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url; ?>/assets/dist/js/waves.js"></script>       
+        <script src="<?php echo base_url; ?>/assets/dist/js/jquery.canvasjs.min.js"></script>
 
     </body>
 </html>
 <script>
  $(document).ready(function() { 
     document.getElementById('type').onchange = function (){
-           var redirect = 'http://localhost/MDAS/resources_list.php';
+           var redirect = '<?php echo base_url; ?>/resources_list.php';
            var type = $("#type").val();
             $.ajax({
                 type: 'POST',

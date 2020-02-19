@@ -42,7 +42,7 @@
                                             </div>
                                             <div class="form-group m-t-15">
                                                 <p class=" m-b-0">Choose Color:</p>
-                                                <input placeholder="Choose Color" type="color" class="form-control" name="" value = "#ff0000">
+                                                <input placeholder="Choose Color" type="color" class="form-control" name="hex<?php echo $x; ?>" value = "<?php echo (!empty($resource[$x]['hex'])) ? $resource[$x]['hex'] : '#000000'; ?>">
                                             </div>
                                             <input type="hidden" class="form-control" name="ppr_id<?php echo $x; ?>" value = "<?php echo (!empty($resource[$x]['ppr_id'])) ? $resource[$x]['ppr_id'] : ''; ?>">
                                         </div>

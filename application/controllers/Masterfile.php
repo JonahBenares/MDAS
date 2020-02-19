@@ -450,11 +450,14 @@ class Masterfile extends CI_Controller {
             $type = $this->super_model->select_column_where("pp_type","type_name","type_id",$po->type_id);
             $subtype = $this->super_model->select_column_where("pp_subtype","subtype_name","subtype_id",$po->subtype_id);
             $location = $this->super_model->select_column_where("location","location_name","location_code",$po->location_id);
-            $resource_id = $this->super_model->select_column_where("pp_resources","resource_id","powerplant_id",$po->powerplant_id);
+            $resources = '';
+            foreach($this->super_model->select_row_where("pp_resources","powerplant_id",$po->powerplant_id) AS $res){
+                $resources.=$res->resource_id."<br>";
+            }
             $data['powerplant'][]=array(
                 "powerplant_id"=>$po->powerplant_id,
-                "resource_id"=>$resource_id,
                 "facility_name"=>$po->facility_name,
+                "resources"=>$resources,
                 "short_name"=>$po->short_name,
                 "type"=>$type,
                 "subtype"=>$subtype,
@@ -473,6 +476,7 @@ class Masterfile extends CI_Controller {
         $this->load->view('template/header');
         $this->load->view('template/navbar');
         $powerplant_id = $this->uri->segment(3);
+        $data['powerplant_id'] = $powerplant_id;
         foreach($this->super_model->select_row_where("powerplants","powerplant_id",$powerplant_id) AS $po){
             $type = $this->super_model->select_column_where("pp_type","type_name","type_id",$po->type_id);
             $subtype = $this->super_model->select_column_where("pp_subtype","subtype_name","subtype_id",$po->subtype_id);
@@ -506,6 +510,7 @@ class Masterfile extends CI_Controller {
                 $data['resource'][]=array(
                     "resource_id"=>$rp->resource_id,
                     "date_commissioned"=>$rp->date_commissioned,
+                    "hex"=>$rp->hex
                 );
             }
         }else {
@@ -759,6 +764,7 @@ class Masterfile extends CI_Controller {
                 'ppr_id'=>$p->ppr_id,
                 'resource_id'=>$p->resource_id,
                 'date_commissioned'=>$p->date_commissioned,
+                'hex'=>$p->hex,
             );
         }
         $this->load->view('masterfile/add_powerplant_second',$data);
@@ -771,10 +777,12 @@ class Masterfile extends CI_Controller {
         for($x=0;$x<$count;$x++){
             $resource_id = trim($this->input->post('resource_id'.$x)," ");
             $com_date = trim($this->input->post('com_date'.$x)," ");
+            $hex = trim($this->input->post('hex'.$x)," ");
             $data = array(
                 'resource_id'=>$resource_id,
                 'powerplant_id'=>$powerplant_id,
                 'date_commissioned'=>$com_date,
+                'hex'=>$hex
             );
             $this->super_model->insert_into("pp_resources", $data);
         }
@@ -789,10 +797,12 @@ class Masterfile extends CI_Controller {
             $resource_id = trim($this->input->post('resource_id'.$x)," ");
             $com_date = trim($this->input->post('com_date'.$x)," ");
             $ppr_id = trim($this->input->post('ppr_id'.$x)," ");
+            $hex = trim($this->input->post('hex'.$x)," ");
             $data = array(
                 'resource_id'=>$resource_id,
                 'powerplant_id'=>$powerplant_id,
                 'date_commissioned'=>$com_date,
+                'hex'=>$hex
             );
 
             if(!empty($ppr_id)){

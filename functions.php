@@ -1,4 +1,5 @@
 <?php
+define("base_url", "http://localhost/MDAS");
 function get_capacity($conn,$resource_id){
 
 		$get_cap = mysqli_query($conn,"SELECT capacity_dependable FROM powerplants pp INNER JOIN pp_resources ppr ON pp.powerplant_id = ppr.powerplant_id WHERE ppr.resource_id = '$resource_id'");
@@ -38,6 +39,30 @@ function get_column($conn, $column, $table, $where_col, $where_val){
     $get =  mysqli_query($conn, "SELECT $column FROM $table WHERE $where_col = '$where_val'");
     $fetch = mysqli_fetch_array($get);
     return $fetch[$column];
+}
+
+
+function  get_rtd_value_visayas($conn, $column, $date, $resource_id, $delivery_hour){
+ 
+ $rtd_val = mysqli_query($conn, "SELECT $column FROM mps_visayas WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour'");
+$fetch_val = mysqli_fetch_array($rtd_val);
+   
+  return $fetch_val[$column];
+}
+
+function  get_rtd_value_luzon($conn, $column, $date, $resource_id, $delivery_hour){
+ 
+    $rtd_val = mysqli_query($conn, "SELECT $column FROM mps_luzon WHERE delivery_date = '$date' AND resource_id = '$resource_id' AND delivery_hour = '$delivery_hour'");
+      $fetch_val = mysqli_fetch_array($rtd_val);
+ 
+  return $fetch_val[$column];
+}
+
+
+function get_row_color($conn, $type_id){
+  $get_color = mysqli_query($conn, "SELECT legend_color FROM pp_type WHERE type_id = '$type_id'");
+  $fetch_color = mysqli_fetch_array($get_color);
+  return $fetch_color['legend_color'];
 }
 
 function get_interval($conn, $table, $summary_id){
@@ -96,4 +121,35 @@ function get_month($month){
 
     return $mo;
 }
+
+function get_resource_color($conn,$resource_id){
+    $get = mysqli_query($conn, "SELECT hex FROM pp_resources WHERE resource_id = '$resource_id'");
+    $fetch = mysqli_fetch_assoc($get);
+    return $fetch['hex'];
+}
+
+function get_total_perday($conn, $date, $location){
+    if($location=='visayas'){
+        $total=array();
+        $get = mysqli_query($conn, "SELECT DISTINCT resource_id, capacity_dependable FROM outage_profile_visayas WHERE outage_date = '$date' GROUP BY resource_id");
+        while($fetch = mysqli_fetch_assoc($get)){
+            $total[] = $fetch['capacity_dependable'];
+        }
+        $ttl = array_sum($total);
+
+    }
+
+    if($location=='luzon'){
+        $total=array();
+        $get = mysqli_query($conn, "SELECT DISTINCT resource_id, capacity_dependable FROM outage_profile_luzon WHERE outage_date = '$date' GROUP BY resource_id");
+        while($fetch = mysqli_fetch_assoc($get)){
+            $total[] = $fetch['capacity_dependable'];
+        }
+        $ttl = array_sum($total);
+
+    }
+
+    return number_format($ttl);
+}
+
 ?>
