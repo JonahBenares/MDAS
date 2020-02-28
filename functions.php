@@ -1,5 +1,5 @@
 <?php
-define("base_url", "http://localhost/MDAS");
+define("base_url", "http://localhost/MDAS/");
 function get_capacity($conn,$resource_id){
 
 		$get_cap = mysqli_query($conn,"SELECT capacity_dependable FROM powerplants pp INNER JOIN pp_resources ppr ON pp.powerplant_id = ppr.powerplant_id WHERE ppr.resource_id = '$resource_id'");
@@ -80,7 +80,7 @@ function get_interval($conn, $table, $summary_id){
     return $interval;
 }
 
-  function get_capacity_per_date($conn,$resource_id, $date, $location){
+/*  function get_capacity_per_date($conn,$resource_id, $date, $location){
   	if($location=='visayas'){
     	$get_cap = mysqli_query($conn, "SELECT sum(capacity_dependable) AS capdep FROM outage_profile_visayas WHERE resource_id = '$resource_id' AND outage_date = '$date'");
     	$fetch_cap = mysqli_fetch_assoc($get_cap);
@@ -90,6 +90,23 @@ function get_interval($conn, $table, $summary_id){
     	$fetch_cap = mysqli_fetch_assoc($get_cap);
     }
     return $fetch_cap['capdep'];
+}*/
+
+  function get_capacity_per_date($conn,$resource_id, $date,$hour, $location){
+    if($location=='visayas'){
+        $get_cap = mysqli_query($conn, "SELECT sum(capacity_dependable) AS capdep FROM outage_profile_visayas WHERE resource_id = '$resource_id' AND outage_interval = '$hour' AND outage_date = '$date'");
+        $fetch_cap = mysqli_fetch_assoc($get_cap);
+        
+    } else if($location=='luzon'){
+        $get_cap = mysqli_query($conn, "SELECT sum(capacity_dependable) AS capdep FROM outage_profile_luzon WHERE resource_id = '$resource_id' AND outage_interval = '$hour' AND outage_date = '$date'");
+        $fetch_cap = mysqli_fetch_assoc($get_cap);
+    }
+    if($fetch_cap['capdep']==""){
+        $capdep=0;
+    } else {
+        $capdep= $fetch_cap['capdep'];
+    }
+    return $capdep;
 }
 
 function get_month($month){

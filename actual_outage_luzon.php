@@ -44,7 +44,7 @@ if(isset($_POST['add_outage'])){
         $insert = mysqli_query($conn, "INSERT INTO outage_profile_luzon (outage_date, outage_interval, summary_id, type_id, resource_id, capacity_dependable, insert_timestamp, added_by) VALUES ('$date', '$x','$summary_id', '$type', '$resource_id', '$capacity','$timestamp', '$MAC')");
      }
 
-      $insert_summary = mysqli_query($conn, "INSERT INTO outage_profile_luzon (summary_id, outage_type, remarks) VALUES ('$summary_id', '$outage_type', '$remarks')");
+      $insert_summary = mysqli_query($conn, "INSERT INTO outage_summary_luzon (summary_id, outage_type, remarks) VALUES ('$summary_id', '$outage_type', '$remarks')");
       if($insert_summary){
         header("Refresh:0; url=actual_outage_luzon.php");
       }

@@ -105,7 +105,7 @@
                 var chart = new CanvasJS.Chart("lineOut", {
 
                     axisX: {
-                        valueFormatString: "MMM YYYY"
+                        valueFormatString: "MMM YYYY HH"
                     },
 
                     toolTip: {
@@ -154,8 +154,10 @@
                                 $month = date('m',strtotime($fetch_date['outage_date']));
                                 $month =get_month($month);
                                 $day = date('d',strtotime($fetch_date['outage_date']));
-                                echo '{ x: new Date('.$year.', '.$month .', '.$day.'), y: '.get_capacity_per_date($conn, $fetch['resid'], $fetch_date['outage_date'],'luzon').' },';
-                                }  
+                                for($x=1;$x<=24;$x++){
+                                    echo '{ x: new Date('.$year.', '.$month .', '.$day.', '.$x.'), y: '.get_capacity_per_date($conn, $fetch['resid'], $fetch_date['outage_date'],$x,'luzon').' },';
+                                    }  
+                                }
                             ?> 
                             ]
                         },
@@ -197,7 +199,7 @@
                                 <?php 
                                 if(!empty($filter) || !empty($filter)){
                                     echo "<div class='alert alert-info m-b-0 p-1' role='alert'><span class='btn btn-xs btn-info disabled'>Filter Applied</span><span style='font-size: 12px'>". $filter . ((!empty($filter_res)) ? ", " .$filter_res : "" )." </span>
-                                        <a href='http://localhost/MDAS/comparison_out_luzon.php' class='remove_filter alert-link pull-right btn btn-xs'><span class='fa fa-times'></span></a>
+                                        <a href=".base_url."/'comparison_out_luzon.php' class='remove_filter alert-link pull-right btn btn-xs'><span class='fa fa-times'></span></a>
                                     </div>";
                                 } else {
                                      echo "<h4>Data:<b> ". $current_year . ", Coal</b></h4>";

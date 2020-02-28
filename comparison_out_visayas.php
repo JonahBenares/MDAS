@@ -13,6 +13,9 @@
     if(empty($_POST)){
          $current_year = date('Y');
     $query = mysqli_query($conn, "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_visayas WHERE type_id= '1' AND outage_date LIKE '$current_year%' ORDER BY participant_id ASC");
+
+    $rows = mysqli_num_rows($query);
+    //echo $rows;
    
     } else {
         $q = ' ';
@@ -62,6 +65,26 @@
         $query = mysqli_query($conn, "SELECT DISTINCT resource_id AS resid, participant_id FROM outage_profile_visayas WHERE $q ORDER BY participant_id ASC");
 
     }
+/* while($fetch = mysqli_fetch_assoc($query)) {
+                        $get_date = mysqli_query($conn, "SELECT DISTINCT outage_date FROM outage_profile_visayas WHERE resource_id = '$fetch[resid]'");
+                        $color=get_resource_color($conn,$fetch['resid']);
+                        if(empty($color)){
+                            $color='#000000';
+                        } else {
+                            $color = $color;
+                        }
+     while($fetch_date = mysqli_fetch_assoc($get_date)){
+                                $year = date('Y',strtotime($fetch_date['outage_date']));
+                                $month = date('m',strtotime($fetch_date['outage_date']));
+                                $month =get_month($month);
+                                $day = date('d',strtotime($fetch_date['outage_date']));
+                                
+                                for($x=1;$x<=24;$x++){
+                                    echo '{ x: new Date('.$year.', '.$month .', '.$day.', '.$x.'), y: '.get_capacity_per_date($conn, $fetch['resid'], $fetch_date['outage_date'],$x,'visayas').' },<br>';
+                                    }  
+                                }
+                            }*/
+                            
 ?>
 
 <!DOCTYPE html>
@@ -107,7 +130,7 @@
                 var chart = new CanvasJS.Chart("lineOut", {
 
                     axisX: {
-                        valueFormatString: "MMM YYYY"
+                        valueFormatString: "DD MMM YYYY HH"
                     },
 
                     toolTip: {
@@ -147,8 +170,10 @@
                                 $month = date('m',strtotime($fetch_date['outage_date']));
                                 $month =get_month($month);
                                 $day = date('d',strtotime($fetch_date['outage_date']));
-                                echo '{ x: new Date('.$year.', '.$month .', '.$day.'), y: '.get_capacity_per_date($conn, $fetch['resid'], $fetch_date['outage_date'],'visayas').' },';
-                                }  
+                                for($x=1;$x<=24;$x++){
+                                 echo '{ x: new Date('.$year.', '.$month .', '.$day.', '.$x.'), y: '.get_capacity_per_date($conn, $fetch['resid'], $fetch_date['outage_date'],$x,'visayas').' },';
+                                    }  
+                                }
                             ?> 
                             ]
                         },
@@ -188,7 +213,7 @@
                                 <?php 
                                 if(!empty($filter) || !empty($filter)){
                                     echo "<div class='alert alert-info m-b-0 p-1' role='alert'><span class='btn btn-xs btn-info disabled'>Filter Applied</span><span style='font-size: 12px'>". $filter . ((!empty($filter_res)) ? ", " .$filter_res : "" )." </span>
-                                        <a href='http://localhost/MDAS/comparison_out_visayas.php' class='remove_filter alert-link pull-right btn btn-xs'><span class='fa fa-times'></span></a>
+                                        <a href='".base_url."/comparison_out_visayas.php' class='remove_filter alert-link pull-right btn btn-xs'><span class='fa fa-times'></span></a>
                                     </div>";
                                 } else {
                                      echo "<h4>Data:<b> ". $current_year . ", Coal</b></h4>";
