@@ -153,6 +153,7 @@ include 'functions.php';
 <?php
 $filter_type='';
 $filter_part='';
+$filter_interval='';
 $filter_res='';
 if(empty($_GET)){
     
@@ -206,7 +207,7 @@ $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, 
 $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 ?>
 <body>
-<div class="se-pre-con"></div>
+<div class="se-pre-con"></div> 
     <table class="table table-bordered" width="100%">
         <tr>
             <td width="1%" rowspan="4" colspan="5">         
@@ -346,7 +347,6 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 <script src="<?php echo base_url; ?>/assets/dist/js/modernizr.js"></script>
 <script>
     $(window).load(function() {
-        // Animate loader off screen
         $(".se-pre-con").fadeOut("slow");;
     });
 </script>

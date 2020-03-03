@@ -44,10 +44,10 @@ function showValues(){
                 <div class="form-group">
                     <div class = "row">
                         <div class = "col-6">
-                            <input type = "date" class="form-control" name ="from" id="from" required="">
+                            <input type = "date" class="form-control" name ="from" id="from" >
                         </div>
                         <div class = "col-6">
-                            <input type = "date" class="form-control" name ="to" id="to" required="">
+                            <input type = "date" class="form-control" name ="to" id="to" >
                         </div>
                     </div>
                 </div>
