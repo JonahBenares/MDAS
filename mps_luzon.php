@@ -134,7 +134,17 @@ include 'functions.php';
     table tr th, table tr td{
         border:0.001rem solid #cccccc;
     }
-
+.no-js #loader { display: none;  }
+.js #loader { display: block; position: absolute; left: 100px; top: 0; }
+.se-pre-con {
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background: url(<?php echo base_url; ?>/assets/images/loader.gif) center no-repeat #fff;
+}
 
 
 </style>
@@ -143,6 +153,7 @@ include 'functions.php';
 <?php
 $filter_type='';
 $filter_part='';
+$filter_interval='';
 $filter_res='';
 if(empty($_GET)){
     
@@ -196,7 +207,7 @@ $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, 
 $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 ?>
 <body>
-
+<div class="se-pre-con"></div> 
     <table class="table table-bordered" width="100%">
         <tr>
             <td width="1%" rowspan="4" colspan="5">         
@@ -328,9 +339,15 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 <script>
      function setData(data) {
        
-        var requestBinUrl = '<?php echo base_url; ?>/mps.php?';
+        var requestBinUrl = '<?php echo base_url; ?>/mps_luzon.php?';
         window.location.href = requestBinUrl+data;
     }
 </script>
-
+<script src="<?php echo base_url; ?>/assets/dist/js/jquery.min.js"></script>
+<script src="<?php echo base_url; ?>/assets/dist/js/modernizr.js"></script>
+<script>
+    $(window).load(function() {
+        $(".se-pre-con").fadeOut("slow");;
+    });
+</script>
 </html>
