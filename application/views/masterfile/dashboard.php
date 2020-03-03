@@ -98,9 +98,11 @@ $curr_year = date('Y');
                                     </select> 
                                 </div>
                                 <div class="form-group">
-                                    <input type="submit" class="btn btn-primary" value="Filter" name="Filter" id='filterOutage'>
+                                    <input type="submit" class="btn btn-info-alt" value="Filter" name="Filter" id='filterOutage'>
                                 </div>
+                                
                             </div>
+                            
                         </div>
                         </form>
                      <div class="holds-the-iframe">
@@ -120,7 +122,7 @@ $curr_year = date('Y');
         </div>
     </div> -->
 
-                        <div class="p-l-70 p-r-70" style='margin-top:50px'>
+                        <div class="p-l-70 p-r-70" style='margin-top:0px'>
                             <div class="row"><h3>LUZON</h3></div>
                         </div>
                          <form method="POST" action="<?php echo base_url(); ?>masterfile/luzon_outage" target="outage_luzon">
@@ -177,7 +179,7 @@ $curr_year = date('Y');
                                     </select> 
                                 </div>
                                 <div class="form-group">
-                                      <input type="submit" class="btn btn-primary" value="Filter" name="Filter" id='filterOutage'>
+                                      <input type="submit" class="btn btn-info-alt" value="Filter" name="Filter" id='filterOutage'>
                                 </div>
                                 
                             </div>

@@ -1,5 +1,11 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script type="text/javascript">
+    function printDiv(divName) {
+         window.print();
+    }
+</script>
+
 <body class="skin-default-dark fixed-layout">
     <!--  <div class="preloader">
         <div class="loader">

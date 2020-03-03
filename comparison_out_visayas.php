@@ -128,7 +128,9 @@
                 }
 
                 var chart = new CanvasJS.Chart("lineOut", {
-
+                    title:{
+                      text: "Comparison of Outage with same plant Category (Visayas)"  
+                    },
                     axisX: {
                         valueFormatString: "DD MMM YYYY HH"
                     },
@@ -184,6 +186,10 @@
                    ]
                 });
                 chart.render();
+                document.getElementById("printChart").addEventListener("click",function(){
+                    chart.print();
+                });     
+                
 
                 function toogleDataSeries(e){
                     if (typeof(e.dataSeries.visible) === "undefined" || e.dataSeries.visible) {
@@ -204,9 +210,9 @@
         <div class="page-wrapper ">
             <div class="card oh">
                 <div class="card-body">
-                    <center>
+                    <!-- <center>
                         <h2>Comparison of Outage with same plant Category (Visayas)</h2>
-                    </center>
+                    </center> -->
                     <div class="p-t-20">
                         <div class="row">                                
                             <div class="col-lg-10">
@@ -218,11 +224,12 @@
                                 } else {
                                      echo "<h4>Data:<b> ". $current_year . ", Coal</b></h4>";
                                 } ?>
-                               <div id="lineOut" style="height: 400px; width: 100%;"></div>   
+                                <button class="btn btn-success-alt btn-sm" id="printChart">Print Chart</button>
+                                <div id="lineOut" style="height: 400px; width: 100%;"></div>   
                             </div>   
                             <div class="col-lg-2">
                                 <form method="POST">
-                                    <div style="overflow-y: scroll;overflow-x:hidden;height: 350px;">
+                                    <div style="overflow-y: scroll;overflow-x:hidden;height: 400px;">
                                         <div class="p-r-20">
                                             <table width="100%">
                                                 <tr>

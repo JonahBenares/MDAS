@@ -284,15 +284,80 @@ if(!empty($_POST)) {
 }
         </script>
 
-    <div class="p-t-10">
+
+
+    <style type="text/css">
+        .title{
+            display: none
+        }
+        .visArea{
+            width: 67%
+        }
+        .visPie{
+            width: 33%
+        }
+        .OutageArea{
+            height: 400px; 
+            width: 100%;
+        }
+        .piechartOutage{
+            height: 300px;
+            width: 100%;
+        }
+        .print{
+            display: block;
+        }
+        @media print{
+            .visArea{
+                width: 67%;
+                flex: 0 0 100%;
+                text-align: center;
+                align-items: center;
+                align-content: center;
+            }
+            .visPie{
+                width: 33%;
+                flex: 0 0 100%;
+                text-align: center;
+                align-items: center;
+                align-content: center;
+            }
+            .title{
+                display: block
+            }
+            .print{
+                display: none
+            }
+            .OutageArea{
+                height: 400px; 
+                width: 100%;
+            }
+            .piechartOutage{
+                height: 300px;
+                width: 100%;
+            }
+        }
+    </style>
+    <button class="btn btn-success-alt pull-right print" onclick="printDiv('printableArea')">Print</button>
+    <div class="p-t-10" id="printableArea">
+        <center>
+            <h2 class="m-t-20 title" >Outage Capacity by Outage Type </h2>
+            <p class="title">VISAYAS</p>
+        </center>
         <div class="row">
-            <div class="col-lg-8">
-                <div id="OutageArea" style="height: 400px; width: 100%;"></div>
+            <div class="visArea">
+                <div id="OutageArea" class="OutageArea"></div>
             </div>
-            <div class="col-lg-4">
+            <div class="visPie">
                 <div class="p-t-30">
-                    <div id="piechartOutage" style="height: 300px; width: 100%;"></div>
+                    <div id="piechartOutage" class="piechartOutage"></div>
                 </div>
             </div>
         </div>
     </div>
+    <hr>
+    <script type="text/javascript">
+        function printDiv(divName) {
+            window.print();                      
+        }
+    </script>
