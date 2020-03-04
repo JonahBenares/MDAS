@@ -134,6 +134,8 @@ include 'functions.php';
     table tr th, table tr td{
         border:0.001rem solid #cccccc;
     }
+
+
 .no-js #loader { display: none;  }
 .js #loader { display: block; position: absolute; left: 100px; top: 0; }
 .se-pre-con {
@@ -145,8 +147,6 @@ include 'functions.php';
     z-index: 9999;
     background: url(<?php echo base_url; ?>/assets/images/loader.gif) center no-repeat #fff;
 }
-
-
 </style>
 
 
@@ -325,7 +325,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 
                         $mw = get_rtd_value_luzon($conn, "mw", $date, $fetch['resource_id'], $fetch['delivery_hour']); 
                 ?> 
-                    <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw)) { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
+                    <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw) && $fetch['resource_id'] != '5TPC_G01') { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
                     <td align="center"> <?php echo get_rtd_value_luzon($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                     <td align="center"> <?php echo get_rtd_value_luzon($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                 <?php $range++; } ?>  
@@ -346,8 +346,8 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 <script src="<?php echo base_url; ?>/assets/dist/js/jquery.min.js"></script>
 <script src="<?php echo base_url; ?>/assets/dist/js/modernizr.js"></script>
 <script>
-    $(window).load(function() {
+    $(window).onload(function() {
         $(".se-pre-con").fadeOut("slow");;
     });
-</script>
+</script> 
 </html>
