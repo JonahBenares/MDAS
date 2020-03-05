@@ -219,6 +219,8 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
             <td rowspan="3" width="20%" align="center">
                 <a class="btn btn-info-alt btn-sm" onclick="mps_filter()"><span class="fa fa-filter"></span>Filter</a>
                 <a href="report/upload_rtd/" class="btn btn-warning-alt btn-sm"><span class="fa fa-upload"></span>Upload</a>
+                <!-- <a href="report/export_mps" class="btn btn-success-alt btn-sm"><span class="fa fa-export"></span>Export</a>  
+                 <a href="report/export_mps/<?php echo $from; ?>/<?php echo $to; ?>/<?php echo $interval; ?>/<?php echo $type_id; ?>/<?php echo $participant_id; ?>/<?php echo $resource_id; ?>" class="btn btn-success-alt btn-sm"><span class="fa fa-export"></span>Export</a> --> 
             </td>
         </tr>
         <tr>
@@ -328,7 +330,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 <script>
      function setData(data) {
        
-        var requestBinUrl = '<?php echo base_url; ?>/mps.php?';
+        var requestBinUrl = '<?php echo base_url; ?>/mps_luzon.php?';
         window.location.href = requestBinUrl+data;
     }
 </script>

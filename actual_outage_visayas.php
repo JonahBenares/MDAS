@@ -186,7 +186,14 @@ if(isset($_POST['save_summary'])){
                         <?php } ?>
                     </select>
                 </td>
-                <td width="15%"><input type="submit" class="btn btn-md btn-info-alt btn-sm" name="filter" value="Filter"></td>
+                <td width="15%">
+                        <input type="submit" class="btn btn-md btn-info-alt btn-sm" name="filter" value="Filter">
+                        <?php if(!isset($_POST['filter'])){ ?>
+                            <a href="report/export_actual_visayas" class="btn btn-md btn-warning-alt btn-sm">Export</a>
+                        <?php }else { ?>
+                            <a href="report/export_actual_visayas/<?php echo $_POST['year']; ?>/<?php echo $_POST['month']; ?>" class="btn btn-md btn-warning-alt btn-sm">Export</a>
+                        <?php } ?>
+                </td>
                 <td>
                     <span data-toggle="modal" data-target="#addOutage">
                         <a href="#" class="btn btn-info-alt btn-sm bor-radius pull-right" data-toggle="tooltip" data-placement="top" title="Add Outage" >
