@@ -270,7 +270,7 @@ class Report extends CI_Controller {
         }else {
             $curr_month = date('Y-m');
         }
-        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', "Actual Outages Visayas");
+        $objPHPExcel->setActiveSheetIndex(0)->setCellValue('A1', "Actual Outages Luzon");
         foreach(range('B','H') as $columnID){
             $objPHPExcel->getActiveSheet()->getColumnDimension($columnID)->setAutoSize(true);
         }
