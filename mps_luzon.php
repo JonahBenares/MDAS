@@ -147,8 +147,7 @@ include 'functions.php';
     z-index: 9999;
     background: url(<?php echo base_url; ?>/assets/images/loader.gif) center no-repeat #fff;
 }
-<<<<<<< HEAD
-=======
+
 .loader-st{
     width:200px;
     /*background:#000;*/
