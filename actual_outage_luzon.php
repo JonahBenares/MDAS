@@ -27,6 +27,18 @@
     $MAC = exec('getmac'); 
     $MAC = strtok($MAC, ' '); 
 
+if(empty($_REQUEST['year'])){
+    $year=date('Y');
+} else {
+    $year=$_REQUEST['year'];
+}
+
+if(empty($_REQUEST['month'])){
+    $month=date('m');
+} else {
+    $month=$_REQUEST['month'];
+}
+
 
 $get_type = mysqli_query($conn, "SELECT * FROM pp_type");
 $summary_id = get_summary_id($conn, 'outage_profile_luzon');
@@ -46,7 +58,8 @@ if(isset($_POST['add_outage'])){
 
       $insert_summary = mysqli_query($conn, "INSERT INTO outage_summary_luzon (summary_id, outage_type, remarks) VALUES ('$summary_id', '$outage_type', '$remarks')");
       if($insert_summary){
-        header("Refresh:0; url=actual_outage_luzon.php");
+       // header("Refresh:0; url=actual_outage_luzon.php");
+          echo "<script>window.location = '".base_url."actual_outage_luzon.php?year=".$year."&month=".$month."'</script>";
       }
 
     }
@@ -79,20 +92,18 @@ if(isset($_POST['save_summary'])){
 
      }
 
-       header("Refresh:0; url=actual_outage_luzon.php");
+       echo "<script>window.location = '".base_url."actual_outage_luzon.php?year=".$year."&month=".$month."'</script>";
 
 }
 
-  if(!isset($_POST['filter'])){
-    $month = date('Y-m');  
-    $curr_month = date('Y-m');  
-    $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
-  } else {
+if(isset($_POST['filter'])){
+    echo "<script>window.location = '".base_url."actual_outage_luzon.php?year=".$year."&month=".$month."'</script>";
+  } 
 
-    $month = $_POST['year']."-".$_POST['month'];  
-    $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
-  }
-    //echo "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id";
+ $curr_month=$year."-".$month;
+    $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
+
+ 
 ?>
 <body>
     <div class="se-pre-con"></div>

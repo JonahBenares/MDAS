@@ -1,11 +1,11 @@
-<script src="http://localhost/MDAS/assets/js/jquery.min.js"></script>
 <?php 
 include 'conn.php';
-
+include 'functions.php';
 $curr_year = date('Y'); 
 
 $get_type = mysqli_query($conn, "SELECT type_id, type_name FROM pp_type ORDER BY type_name ASC");
 ?>
+<script src="<?php echo base_url; ?>assets/js/jquery.min.js"></script>
 <script>
 
 function showValues(){
