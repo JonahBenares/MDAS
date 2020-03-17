@@ -413,10 +413,11 @@ if(empty($_GET)){
         $query .=" AND resource_id = '$resource'";
         $filter_res = $_GET['resource_id'];
     }
+    
+$rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_visayas WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
 }
 
 
-$rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_visayas WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
 
 
 $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
@@ -486,6 +487,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
         </tr>   
     </table>
     <div id="scrolling_table_2" class="scrolly_table scrolling_table_2 gvMain1" >
+    <?php if(!empty($_GET)){ ?>
         <table class="table" style="border:1px solid #000">
             <tr>
                 <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Delivery <br>_Hour</center></th>
@@ -554,6 +556,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
             </tr>
             <?php endwhile; ?> 
         </table>
+    <?php } ?>
     </div>
     <script type="text/javascript" src="<?php echo base_url; ?>/grid1.min.js" ></script>
     

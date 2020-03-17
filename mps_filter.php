@@ -1,12 +1,13 @@
 <!-- <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script> -->
-<script src="http://localhost/MDAS/assets/js/jquery.min.js"></script>
+
 <?php 
 include 'conn.php';
-
+include 'functions.php';
 $curr_year = date('Y'); 
 
 $get_type = mysqli_query($conn, "SELECT type_id, type_name FROM pp_type ORDER BY type_name ASC");
 ?>
+<script src="<?php echo base_url; ?>assets/js/jquery.min.js"></script>
 <script>
 
 function showValues(){
@@ -16,7 +17,7 @@ function showValues(){
 }
 </script>
 
-<link rel="stylesheet" type="text/css" href="http://localhost/MDAS/assets/dist/css/style.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>assets/dist/css/style.css">
 <div class="container">
     <div class="modal-content m-t-10">
         <div class="modal-header">

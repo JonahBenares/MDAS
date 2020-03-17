@@ -1,6 +1,7 @@
 <?php 
 include 'conn.php';
 include 'functions.php';
+
 $curr_year = date('Y'); 
 
 $get_type = mysqli_query($conn, "SELECT type_id, type_name FROM pp_type ORDER BY type_name ASC");
@@ -15,7 +16,7 @@ function showValues(){
 }
 </script>
 
-<link rel="stylesheet" type="text/css" href="assets/dist/css/style.css">
+<link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>assets/dist/css/style.css">
 <div class="container">
     <div class="modal-content m-t-10">
         <div class="modal-header">

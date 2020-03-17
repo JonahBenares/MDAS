@@ -415,10 +415,11 @@ if(empty($_GET)){
         $query .=" AND resource_id = '$resource'";
         $filter_res = $_GET['resource_id'];
     }
+    $rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_luzon WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
 }
 
 
-$rtd_q = mysqli_query($conn,"SELECT delivery_date,delivery_hour, type, type_id, participant_id,resource_id FROM mps_luzon WHERE delivery_date BETWEEN '$from' AND '$to' $query GROUP BY delivery_hour,resource_id ORDER BY resource_id,delivery_hour ASC");
+
 
 
 $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
@@ -426,12 +427,12 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 <body>
 <div class="loader-st animated fadeInDown">
     <div class="load-3">
-        <!-- <p><b>Loading pa ni Haaaa</b></p> -->
+       
         <div class="line"></div>
         <div class="line"></div>
         <div class="line"></div>
     </div>
-</div>
+</div> 
     <table class="table table-bordered" width="100%">
         <tr>
             <td width="1%" rowspan="4" colspan="5">         
@@ -454,8 +455,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
             <td rowspan="3" width="20%" align="center">
                 <a class="btn btn-info-alt btn-sm" onclick="mps_filter()"><span class="fa fa-filter"></span>Filter</a>
                 <a href="report/upload_rtd/" class="btn btn-warning-alt btn-sm"><span class="fa fa-upload"></span>Upload</a>
-                <!-- <a href="report/export_mps" class="btn btn-success-alt btn-sm"><span class="fa fa-export"></span>Export</a>  
-                 <a href="report/export_mps/<?php echo $from; ?>/<?php echo $to; ?>/<?php echo $interval; ?>/<?php echo $type_id; ?>/<?php echo $participant_id; ?>/<?php echo $resource_id; ?>" class="btn btn-success-alt btn-sm"><span class="fa fa-export"></span>Export</a> --> 
+              
             </td>
         </tr>
         <tr>
@@ -490,6 +490,8 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
         </tr>   
     </table>
     <div id="scrolling_table_2" class="scrolly_table scrolling_table_2 gvMain1" >
+    <?php  if(!empty($_GET)) { 
+        ?>
         <table class="table" style="border:1px solid #000">
             <tr>
                 <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Delivery <br>_Hour</center></th>
@@ -558,6 +560,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
             </tr>
             <?php endwhile; ?> 
         </table>
+        <?php } ?>
     </div>
     <script type="text/javascript" src="<?php echo base_url; ?>/grid1.min.js" ></script>
     
@@ -571,7 +574,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
 </script>
 <script src="<?php echo base_url; ?>/assets/dist/js/jquery.min.js"></script>
 <script src="<?php echo base_url; ?>/assets/dist/js/modernizr.js"></script>
-<script>
+ <script>
 
     $(window).load(function() {
         $(".loader-st").fadeOut("slow");;
