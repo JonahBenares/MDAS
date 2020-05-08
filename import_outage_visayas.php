@@ -8,7 +8,7 @@ $summary_id = get_summary_id($conn,'outage_profile_visayas');
 $previousdate = '';
 $previousresource = '';
 $previoushour = '';
-$mps_v = mysqli_query($conn, "SELECT * FROM mps_visayas WHERE (type_id = '1' OR type_id = '6') AND mw = '0' ORDER BY `resource_id`,delivery_date, delivery_hour ASC");
+$mps_v = mysqli_query($conn, "SELECT * FROM mps_visayas WHERE (type_id = '1' OR type_id = '3' OR type_id = '6') AND mw = '0' ORDER BY `resource_id`,delivery_date, delivery_hour ASC");
 while($fetch_mpsv = mysqli_fetch_array($mps_v)){
 	//$min_hour = get_min_hour($conn, $fetch_mpsv['delivery_date'], $fetch_mpsv['resource_id']);
 	
