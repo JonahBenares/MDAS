@@ -739,6 +739,15 @@ class Masterfile extends CI_Controller {
             'status'=>$status,
         );
         if($this->super_model->update_where("powerplants", $data, "powerplant_id", $powerplant_id)){
+            foreach($this->super_model->select_row_where("pp_resources","powerplant_id",$powerplant_id) AS $res){
+                $resources=$res->resource_id;
+            }
+            $dataup = array(
+                'type_id'=>$type
+            );
+            $this->super_model->update_custom_where("outage_profile_luzon", $dataup, "resource_id='$resources'");
+            $this->super_model->update_custom_where("outage_profile_visayas", $dataup, "resource_id='$resources'");
+
             redirect(base_url().'masterfile/add_powerplant_second/'.$powerplant_id.'/update');
         }
     }
