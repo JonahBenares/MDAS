@@ -169,4 +169,28 @@ function get_total_perday($conn, $date, $location){
     return number_format($ttl);
 }
 
+
+
+  function get_min_day_visayas($conn, $resource_id, $month){
+    $get = mysqli_query($conn, "SELECT outage_date FROM outage_profile_visayas WHERE outage_date LIKE '$month%' AND resource_id = '$resource_id' ORDER BY outage_date ASC LIMIT 1");
+    $fetch = mysqli_fetch_assoc($get);
+    return $fetch['outage_date'];
+  }
+
+
+function get_max_day_visayas($conn, $resource_id, $month){
+    $get = mysqli_query($conn, "SELECT outage_date FROM outage_profile_visayas WHERE outage_date LIKE '$month%' AND resource_id = '$resource_id' ORDER BY outage_date DESC LIMIT 1");
+    $fetch = mysqli_fetch_assoc($get);
+    return $fetch['outage_date'];
+  }
+
+function count_day_visayas($conn, $resource_id, $month){
+    //SELECT COUNT(DISTINCT outage_date) AS count FROM outage_profile_visayas WHERE outage_date LIKE '2020-01%' AND resource_id = '5CEDC_U01' 
+    $get_count = mysqli_query($conn, "SELECT COUNT(DISTINCT outage_date) AS ctd FROM outage_profile_visayas WHERE outage_date LIKE '$month%' AND resource_id = '$resource_id'");
+    //echo  "SELECT COUNT(DISTINCT outage_date) AS ctd FROM outage_profile_visayas WHERE outage_date LIKE '$month%' AND resource_id = '$resource_id'<br>";
+    $fetch_count = mysqli_fetch_assoc($get_count);
+    return $fetch_count['ctd'];
+  }
+
+
 ?>

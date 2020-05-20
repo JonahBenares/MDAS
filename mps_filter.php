@@ -6,14 +6,24 @@ include 'functions.php';
 $curr_year = date('Y'); 
 
 $get_type = mysqli_query($conn, "SELECT type_id, type_name FROM pp_type ORDER BY type_name ASC");
+
+$get_participant = mysqli_query($conn, "SELECT DISTINCT participant_id FROM mps_visayas ORDER BY participant_id ASC");
+
 ?>
 <script src="<?php echo base_url; ?>assets/js/jquery.min.js"></script>
 <script>
 
 function showValues(){
-     var str = $( "form" ).serialize();
-     window.opener.setData(str);
-     window.close();
+     var from = document.getElementById("from").value;
+     var to = document.getElementById("to").value;
+
+     if(from=='' && to==''){
+        alert('Please filter range of dates.');
+     } else {
+         var str = $( "form" ).serialize();
+         window.opener.setData(str);
+         window.close();
+    }
 }
 </script>
 
@@ -87,7 +97,14 @@ function showValues(){
                     </select>
                 </div> -->   
                 <div class="form-group">
-                    <input type='text' name='participant_id' id='participant_id' placeholder="Participant ID" class="form-control">
+                  
+                     <select class="form-control" name='participant_id' id='participant_id'>
+                     <option value='' selected="">Select Participant</option>
+                     <?php
+                        while($fetch_part = mysqli_fetch_array($get_participant)){ ?>
+                            <option value="<?php echo $fetch_part['participant_id']; ?>"><?php echo $fetch_part['participant_id']; ?></option>
+                        <?php } ?>
+                        </select>
                 </div>   
                 <div class="form-group">
                     <input type='text' name='resource_id' id='resource_id' placeholder="Resource ID" class="form-control">

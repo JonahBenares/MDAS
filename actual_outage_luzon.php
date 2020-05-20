@@ -101,8 +101,8 @@ if(isset($_POST['filter'])){
   } 
 
  $curr_month=$year."-".$month;
-    $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
-
+   // $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
+    $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_luzon WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date DESC");
  
 ?>
 <body>
@@ -160,7 +160,7 @@ if(isset($_POST['filter'])){
         </div>
     </div>
 
-    <div class="container m-t-80 p-t-20" style="background-color: #fff;max-width: 1200px;">
+    <div class="container m-t-80 p-t-20" style="background-color: #fff;max-width: 1200px; padding-bottom:30px">
          <center>
             <h3 class="m-0"><b>Actual Outages</b></h3>
             <p class="m-0" style="letter-spacing: 10px">LUZON</p>

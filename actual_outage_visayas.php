@@ -7,8 +7,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Market Prices & Schedule</title>
-    <link href="<?php echo base_url; ?>/assets/dist/css/web.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>/assets/dist/css/style.css">
+    <link href="<?php echo base_url; ?>assets/dist/css/web.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="<?php echo base_url; ?>assets/dist/css/style.css">
 <style>
     .no-js #loader { display: none;  }
 .js #loader { display: block; position: absolute; left: 100px; top: 0; }
@@ -108,7 +108,8 @@ if(isset($_POST['filter'])){
     echo "<script>window.location = '".base_url."actual_outage_visayas.php?year=".$year."&month=".$month."'</script>";
   } 
  $curr_month=$year."-".$month;
-    $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
+    //$get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date, summary_id ASC");
+     $get_outages = mysqli_query($conn, "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id ORDER BY outage_date DESC, summary_id ASC");
 
     //echo "SELECT * FROM outage_profile_visayas WHERE outage_date LIKE '$curr_month%' GROUP BY summary_id";
 ?>
@@ -167,7 +168,7 @@ if(isset($_POST['filter'])){
         </div>
     </div>
 
-    <div class="container m-t-80 p-t-20" style="background-color: #fff;max-width: 1200px;">
+    <div class="container m-t-80 p-t-20" style="background-color: #fff;max-width: 1200px; padding-bottom:0px">
          <center>
             <h3 class="m-0"><b>Actual Outages</b></h3>
             <p class="m-0" style="letter-spacing: 10px">VISAYAS</p>
@@ -240,9 +241,9 @@ if(isset($_POST['filter'])){
                         
                         while($fetch_outage = mysqli_fetch_array($get_outages)){
 
-                        $type = get_column($conn, "type_name", "pp_type", "type_id", $fetch_outage['type_id']);
-                        $outage_type = get_column($conn, "outage_type", "outage_summary_visayas", "summary_id", $fetch_outage['summary_id']);
-                        $remarks = get_column($conn, "remarks", "outage_summary_visayas", "summary_id", $fetch_outage['summary_id']);
+                            $type = get_column($conn, "type_name", "pp_type", "type_id", $fetch_outage['type_id']);
+                            $outage_type = get_column($conn, "outage_type", "outage_summary_visayas", "summary_id", $fetch_outage['summary_id']);
+                            $remarks = get_column($conn, "remarks", "outage_summary_visayas", "summary_id", $fetch_outage['summary_id']);
 
                         ?>
 
@@ -254,7 +255,7 @@ if(isset($_POST['filter'])){
                             <td class="p-0"><input type="text" class="form-control font-12 al-cen" name="capacity<?php echo $a; ?>" value="<?php echo $fetch_outage['capacity_dependable']; ?>" style="min-height: 30px; padding: 0px 10px"></td>
                             <td class="p-0">
                                 <select class="form-control font-12" name='outage_type<?php echo $a; ?>' style="min-height: 30px; padding: 0px 10px">
-                                   <option value=''>Choose Outage Type</option>
+                                   <option value=''>Choose Outage Type </option>
                                    <option value='1' <?php echo (($outage_type == '1') ? ' selected' : ''); ?>>Planned</option>
                                    <option value='2' <?php echo (($outage_type == '2') ? ' selected' : ''); ?>>Unplanned</option>
                                 </select>
@@ -285,9 +286,9 @@ if(isset($_POST['filter'])){
     </div>
 </body>
 </html>
-<script src="<?php echo base_url; ?>/assets/dist/js/jquery.min.js"></script>
-<script src="<?php echo base_url; ?>/assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="<?php echo base_url; ?>/assets/dist/js/modernizr.js"></script>
+<script src="<?php echo base_url; ?>assets/dist/js/jquery.min.js"></script>
+<script src="<?php echo base_url; ?>assets/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="<?php echo base_url; ?>assets/dist/js/modernizr.js"></script>
 <script>
     $(window).load(function() {
         $(".se-pre-con").fadeOut("slow");;
