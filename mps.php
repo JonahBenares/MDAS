@@ -496,14 +496,14 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
                 <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Participant_ID</center></th>
                 <th style="background-color:white" class="fixed freeze" rowspan="2"><center>Resource_ID</center></th>
                 <?php $range = date("d",strtotime($from)); for($x=1;$x<=$days;$x++){ ?>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="3"><center><?php echo (!empty($_GET)) ? $range : $x; ?></center></th>
+                <th style="background-color:white;border-right:2px solid black" class="fixed freeze_vertical" colspan="3"><center><?php echo (!empty($_GET)) ? $range : $x; ?></center></th>
                 <?php $range++; } ?>                
             </tr>
             <tr>
                 <?php for($x=1;$x<=$days;$x++){ ?> 
                 <th style="background-color:white" class="fixed freeze_vertical" colspan="">MW</th>
                 <th style="background-color:white" class="fixed freeze_vertical" colspan="">Price</th>
-                <th style="background-color:white" class="fixed freeze_vertical" colspan="">Initial</th>
+                <th style="background-color:white;border-right:2px solid black" class="fixed freeze_vertical" colspan="">Initial</th>
             <?php } ?> 
             </tr>
             <?php while($fetch = mysqli_fetch_array($rtd_q)):;?>
@@ -551,7 +551,7 @@ $pptype = mysqli_query($conn, "SELECT type_name, legend_color FROM pp_type" );
                 ?> 
                     <td align="center" <?php if(($fetch['type_id'] == 1 || $fetch['type_id'] == 3) && $mw == 0 && !empty($mw) && $fetch['resource_id'] != '5TPC_G01') { echo "style='color:red'"; } ?>><?php echo $mw; ?></td>
                     <td align="center"> <?php echo get_rtd_value_visayas($conn,"price", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
-                    <td align="center"> <?php echo get_rtd_value_visayas($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
+                    <td align="center" style="border-right:2px solid black"> <?php echo get_rtd_value_visayas($conn,"initial", $date, $fetch['resource_id'], $fetch['delivery_hour']); ?></td>
                 <?php $range++; } ?>  
             </tr>
             <?php endwhile; ?> 
